@@ -40,6 +40,36 @@ class SupplierController extends Controller
         //
     }
 
+    public function bin()
+    {
+        $supplier= Suppliers::onlyTrashed()->get();
+        return view('administrator.supplier.recyclebin')->with([
+            'supplier' => $supplier,
+        ]);
+    }
+
+    public function restore($supplier_id)
+    {
+        Suppliers::withTrashed()
+        ->where('supplier_id', $supplier_id)
+        ->restore();
+        $categ= $this->model->show($supplier_id);
+        $supplier_name = $categ->name;
+        $email = $categ->email;
+        User::withTrashed()
+        ->where('email', $email)
+        ->restore();
+        $log = new Activitylog([
+            "operations" => "Restored  ". " ".$email. " " . " To The Supplier List",
+            "user_id" => Auth::user()->user_id,
+        ]);
+        $log->save();
+        return redirect()->back()->with([
+            'success' => " You Have Restored". " ".$supplier_name. " " ." Details Successfully",
+            
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

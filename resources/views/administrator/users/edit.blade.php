@@ -15,6 +15,7 @@
                     <li class="breadcrumb-item">
                         <a href="{{route('user.create')}}">Add User</a>
                     </li>
+                    <li class="breadcrumb-item"><a href="{{route('user.restore')}}">Restore Deleted Users</a></li>
                     <li class="breadcrumb-item active" aria-current="page">List of Saved Users </li>
                 </ol>
             </div>

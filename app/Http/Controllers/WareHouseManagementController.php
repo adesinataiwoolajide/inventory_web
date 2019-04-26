@@ -32,6 +32,33 @@ class WareHouseManagementController extends Controller
         ]);
     }
 
+    public function bin()
+    {
+        $warehouse= WareHouseManagement::onlyTrashed()->get();
+        return view('administrator.warehouse.recyclebin')->with([
+            'warehouse' => $warehouse,
+        ]);
+    }
+
+    public function restore($ware_house_id)
+    {
+        WareHouseManagement::withTrashed()
+        ->where('ware_house_id', $ware_house_id)
+        ->restore();
+        $categ= $this->model->show($ware_house_id);
+        $name = $categ->name;
+        
+        $log = new Activitylog([
+            "operations" => "Restored  ". " ".$name. " " . " To The Ware House List List",
+            "user_id" => Auth::user()->user_id,
+        ]);
+        $log->save();
+        return redirect()->back()->with([
+            'success' => " You Have Restored". " ".$name. " " ." Ware House Successfully",
+            
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -9,7 +9,8 @@
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{route('employee.edit', $employ->employee_id)}}">Edit  Employee</a></li>
 				    	<li class="breadcrumb-item"><a href="{{route('employee.create')}}">Add  Employee</a></li>
-			            <li class="breadcrumb-item active" aria-current="page">Saved Employees</li>
+                        <li class="breadcrumb-item"><a href="{{route('employee.restore')}}">Restore Deleted Employees</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Saved Employees</li>
 			         </ol>
 			   	</div>
 			</div>

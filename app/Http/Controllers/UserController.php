@@ -34,6 +34,34 @@ class UserController extends Controller
         ]);
     }
 
+    public function bin()
+    {
+        $user= User::onlyTrashed()->get();
+        return view('administrator.users.recyclebin')->with([
+            'user' => $user,
+        ]);
+    }
+
+    public function restore($user_id)
+    {
+        User::withTrashed()
+        ->where('user_id', $user_id)
+        ->restore();
+        $categ= $this->model->show($user_id);
+        $name = $categ->name;
+        $email = $categ->email;
+       
+        $log = new Activitylog([
+            "operations" => "Restored  ". " ".$email. " " . " To The User List",
+            "user_id" => Auth::user()->user_id,
+        ]);
+        $log->save();
+        return redirect()->back()->with([
+            'success' => " You Have Restored". " ".$name. " " ." Details Successfully",
+            
+        ]);
+    }
+
 
     /**
      * Show the form for creating a new resource.

@@ -34,9 +34,30 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function bin()
     {
-        //
+        $category= Categories::onlyTrashed()->get();
+        return view('administrator.categories.recyclebin')->with([
+            'category' => $category,
+        ]);
+    }
+
+    public function restore($category_id)
+    {
+        Categories::withTrashed()
+        ->where('category_id', $category_id)
+        ->restore();
+        $categ= $this->model->show($category_id);
+        $category_name = $categ->category_name;
+        $log = new Activitylog([
+            "operations" => "Restored  ". " ".$category_name. " " . " To The Category List",
+            "user_id" => Auth::user()->user_id,
+        ]);
+        $log->save();
+        return redirect()->back()->with([
+            'success' => " You Have Restored". " ".$category_name. " " ." Details Successfully",
+            // "category" => $category,
+        ]);
     }
 
     /**

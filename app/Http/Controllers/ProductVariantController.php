@@ -41,6 +41,32 @@ class ProductVariantController extends Controller
         //
     }
 
+    public function bin()
+    {
+        $variant= ProductVariants::onlyTrashed()->get();
+        return view('administrator.variants.recyclebin')->with([
+            'variant' => $variant,
+        ]);
+    }
+
+    public function restore($variant_id)
+    {
+        ProductVariants::withTrashed()
+        ->where('variant_id', $variant_id)
+        ->restore();
+        $categ= $this->model->show($variant_id);
+        $variant_name = $categ->variant_name;
+        $log = new Activitylog([
+            "operations" => "Restored  ". " ".$variant_name. " " . " To The Variant List",
+            "user_id" => Auth::user()->user_id,
+        ]);
+        $log->save();
+        return redirect()->back()->with([
+            'success' => " You Have Restored". " ".$variant_name. " " ." Variant Successfully",
+            // "category" => $category,
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

@@ -7,7 +7,8 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
 				    	<li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-				    	<li class="breadcrumb-item"><a href="{{route('category.create')}}">Add  Category</a></li>
+						<li class="breadcrumb-item"><a href="{{route('category.create')}}">Add  Category</a></li>
+						<li class="breadcrumb-item"><a href="{{route('category.restore')}}">Restore Deleted Categories</a></li>
 			            <li class="breadcrumb-item active" aria-current="page">Save Product Categories</li>
 			         </ol>
 			   	</div>

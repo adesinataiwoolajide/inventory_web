@@ -7,8 +7,9 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
 				    	<li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-				    	<li class="breadcrumb-item"><a href="{{route('variant.create')}}">Add  Variant</a></li>
-			            <li class="breadcrumb-item active" aria-current="page">Save Product Variants</li>
+                        <li class="breadcrumb-item"><a href="{{route('variant.create')}}">Add Variant</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('variant.restore')}}">Restore Deleted Variants</a></li>
+			            <li class="breadcrumb-item active" aria-current="page">Saved Product Variants</li>
 			         </ol>
 			   	</div>
 			</div>

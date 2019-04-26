@@ -45,10 +45,22 @@ class AdministratorController extends Controller
 
         // ]);
         auth()->user()->assignRole(['Administrator']);
+        Permission::create([
+            'name'=>'category-restore',
+            'guard_name' => 'web'
+        ]);
+        // Permission::create([
+        //     'name'=>'category-undelete',
+        //     'guard_name' => 'web'
+        // ]);
         
         // auth()->user()->hasRole([
         //     'Administrator', 'Admin']
         //     )->givePermissionTo([
+        //      'category-restore', 'category-restore', 'product-restore', 'variant-restore'
+        //      'distributor-restore', 'supplier-restore', 'outlet-restore', 'warehouse-restore'
+        //      'employee-restore', 'user-restore', 'salary-restore', 'account-restore'
+       
         //     'product-edit','product-create', 'product-delete', 'product-update',
         //     'category-edit', 'category-delete', 'category-update', 'category-create',
         //     'variant-create', 'variant-delete', 'variant-update', 'variant-edit',

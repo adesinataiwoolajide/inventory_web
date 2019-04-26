@@ -8,7 +8,8 @@
 				    <ol class="breadcrumb">
 				    	<li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
 				    	<li class="breadcrumb-item"><a href="{{route('warehouse.create')}}">Add  Ware House</a></li>
-			            <li class="breadcrumb-item active" aria-current="page">Saved  Warehouses</li>
+                        <li class="breadcrumb-item"><a href="{{route('warehouse.restore')}}">Restore Deleted Ware Houses</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Saved  Warehouses</li>
 			         </ol>
 			   	</div>
 			</div>

@@ -39,6 +39,32 @@ class OutletController extends Controller
         //
     }
 
+    public function bin()
+    {
+        $outlet= Outlets::onlyTrashed()->get();
+        return view('administrator.outlets.recyclebin')->with([
+            'outlet' => $outlet,
+        ]);
+    }
+
+    public function restore($outlet_id)
+    {
+        Outlets::withTrashed()
+        ->where('outlet_id', $outlet_id)
+        ->restore();
+        $categ= $this->model->show($outlet_id);
+        $outlet_name = $categ->outlet_name;
+        $log = new Activitylog([
+            "operations" => "Restored  ". " ".$outlet_name. " " . " To The Outlet List",
+            "user_id" => Auth::user()->user_id,
+        ]);
+        $log->save();
+        return redirect()->back()->with([
+            'success' => " You Have Restored". " ".$outlet_name. " " ." Outlet Successfully",
+            // "outlet" => $outlet,
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

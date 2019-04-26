@@ -7,8 +7,9 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('warehouse.edit', $ware->ware_house_id)}}">Add Ware House</a></li>
-				    	<li class="breadcrumb-item"><a href="{{route('warehouse.create')}}">Add  Warehouse</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('warehouse.edit', $ware->ware_house_id)}}">Edit Ware House</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('warehouse.create')}}">Add  Warehouse</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('warehouse.restore')}}">Restore Deleted Ware Houses</a></li>
 			            <li class="breadcrumb-item active" aria-current="page">Saved  Warehouses</li>
 			         </ol>
 			   	</div>

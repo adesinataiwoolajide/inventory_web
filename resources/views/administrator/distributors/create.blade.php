@@ -8,7 +8,8 @@
 				    <ol class="breadcrumb">
 				    	<li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
 				    	<li class="breadcrumb-item"><a href="{{route('distributor.create')}}">Add Distributor</a></li>
-			            <li class="breadcrumb-item active" aria-current="page">Save Product Distributors</li>
+                        <li class="breadcrumb-item"><a href="{{route('distributor.restore')}}">Restore Deleted Distributors</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Saved Product Distributors</li>
 			         </ol>
 			   	</div>
 			</div>
@@ -18,7 +19,7 @@
 		    		@include('partials._message')
 		          	<div class="card">
                         <div class="card-header"><i class="fa fa-table"></i> Please Fill The Below Form To Add 
-                            New Product Distributor Details</div>
+                            New Distributor Details</div>
 	            		<div class="card-body">
 	            			<form action="{{route('distributor.save')}}" method="POST" enctype="multipart/form-data">
 	            				{{ csrf_field() }}

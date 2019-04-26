@@ -39,6 +39,36 @@ class DistributorController extends Controller
         //
     }
 
+    public function bin()
+    {
+        $distributor= Distributors::onlyTrashed()->get();
+        return view('administrator.distributors.recyclebin')->with([
+            'distributor' => $distributor,
+        ]);
+    }
+
+    public function restore($distributor_id)
+    {
+        Distributors::withTrashed()
+        ->where('distributor_id', $distributor_id)
+        ->restore();
+        $categ= $this->model->show($distributor_id);
+        $distributor_name = $categ->name;
+        $email = $categ->email;
+        User::withTrashed()
+        ->where('email', $email)
+        ->restore();
+        $log = new Activitylog([
+            "operations" => "Restored  ". " ".$email. " " . " To The Distributor List",
+            "user_id" => Auth::user()->user_id,
+        ]);
+        $log->save();
+        return redirect()->back()->with([
+            'success' => " You Have Restored". " ".$distributor_name. " " ." Details Successfully",
+            
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -233,16 +263,16 @@ class DistributorController extends Controller
             ])->first();
             $user_id = $user->user_id;
             
-            $details= $distributor->distributor_name;  
+            $details= $distributor->name;  
             $log = new Activitylog([
-                "operations" => "Deleted ". " ". $details->name. " ". " From The Distributors List",
+                "operations" => "Deleted ". " ". $details. " ". " From The Distributors List",
                 "user_id" => Auth::user()->user_id,
             ]);
             if (($distributor->delete($distributor_id)) AND ($distributor->trashed())AND($user->delete()) 
                 AND ($user->trashed())) {
                 $user->removeRole("Distributor");
                 return redirect()->back()->with([
-                    'success' => "You Have Deleted ". " ". $details->name. " ". "From The Distributor Details Successfully",
+                    'success' => "You Have Deleted ". " ". $details. " ". "From The Distributor Details Successfully",
                 ]);
             }
         } else{

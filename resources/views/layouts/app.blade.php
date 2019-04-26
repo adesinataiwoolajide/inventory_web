@@ -109,7 +109,13 @@
 
     <script>
       function confirmToEdit(){
-          return confirm("Click okay to Edit and Cancel to Stop");
+          return confirm("Click Okay to Edit and Cancel to Stop");
+      }
+    </script>
+
+    <script>
+      function confirmToRestore(){
+          return confirm("Click Okay to Restore The Deleted Data and Cancel to Stop");
       }
     </script>
     

@@ -8,7 +8,8 @@
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{route('supplier.edit', $sup->supplier_id)}}"> Edit Supplier</a></li>
-				    	<li class="breadcrumb-item"><a href="{{route('supplier.create')}}">Add  Supplier</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('supplier.create')}}">Add Supplier</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('supplier.restore')}}">Restore Deleted Suppliers</a></li>
 			            <li class="breadcrumb-item active" aria-current="page">Saved Product Suppliers</li>
 			         </ol>
 			   	</div>

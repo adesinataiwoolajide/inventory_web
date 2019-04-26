@@ -41,6 +41,36 @@ class EmployeeController extends Controller
         //
     }
 
+    public function bin()
+    {
+        $employee= Employee::onlyTrashed()->get();
+        return view('administrator.employee.recyclebin')->with([
+            'employee' => $employee,
+        ]);
+    }
+
+    public function restore($employee_id)
+    {
+        Employee::withTrashed()
+        ->where('employee_id', $employee_id)
+        ->restore();
+        $categ= $this->model->show($employee_id);
+        $employee_name = $categ->full_name;
+        $email = $categ->email;
+        User::withTrashed()
+        ->where('email', $email)
+        ->restore();
+        $log = new Activitylog([
+            "operations" => "Restored  ". " ".$email. " " . " To The employee List",
+            "user_id" => Auth::user()->user_id,
+        ]);
+        $log->save();
+        return redirect()->back()->with([
+            'success' => " You Have Restored". " ".$employee_name. " " ." Details Successfully",
+            
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

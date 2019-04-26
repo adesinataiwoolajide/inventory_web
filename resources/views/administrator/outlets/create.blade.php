@@ -7,9 +7,10 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
 				    	<li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-						<li class="breadcrumb-item"><a href="{{route('outlet.create')}}">Add  outlet</a></li>
+						<li class="breadcrumb-item"><a href="{{route('outlet.create')}}">Add Outlet</a></li>
+						<li class="breadcrumb-item"><a href="{{route('outlet.restore')}}">Restore Deleted Outlets</a></li>
 						<li class="breadcrumb-item"><a href="{{route('assign.outlet.create')}}">Assign An Outlet</a></li>
-			            <li class="breadcrumb-item active" aria-current="page">Save Outlets</li>
+			            <li class="breadcrumb-item active" aria-current="page">Saved Outlets</li>
 			         </ol>
 			   	</div>
 			</div>
