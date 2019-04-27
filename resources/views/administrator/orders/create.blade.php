@@ -9,6 +9,7 @@
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
                         <li class="breadcrumb-item"><a href="{{route('order.index')}}">View Orders</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('order.invoice')}}">Invoice</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Adding Distributor Order</li>
                         
 			         </ol>
@@ -63,6 +64,8 @@
                                                     <tr>
                                                         <td>{{$number}}</td>
                                                         <td>{{$inventories->product_name}}</td> 
+                                                        <input type="hidden" name="product_name<?php echo $number ?>"
+                                                            value="{{$inventories->product_name}}">
                                                         
                                                         
                                                         <td>
@@ -90,16 +93,16 @@
                                                             $current = $inventories->quantity;
                                                             if($current < 1){ ?>
                                                                 <p style="color:red">Out of Stock</p><?php
-                                                            }else{
-                                                                print '<select class ="form-control form-control-rounded" name ="quantity<?php echo $number ?>">';
-                                                                print '<option value="">Qty  </option>';
+                                                            }else{ ?>
+                                                                <select class ="form-control form-control-rounded" name ="quantity<?php echo $number; ?>">
+                                                                    <option value="">Qty  </option>
 
-                                                                print '<option value=""> </option>';
-                                                                foreach(range($early, $current) as $i){
-                                                                    print'<option value=" '.$i.'"'.($i === $current ? $early : '').'>'.$i.'</option>';
-                                                                }
-                                                                print '</select>'; ?>
-                                                                @if ($errors->has('distributor_id')) 
+                                                                    <option value=""> </option><?php
+                                                                    foreach(range($early, $current) as $i){
+                                                                        print'<option value=" '.$i.'"'.($i === $current ? $early : '').'>'.$i.'</option>';
+                                                                    } ?>
+                                                                </select>
+                                                                @if ($errors->has('quantity')) 
                                                                     <div class="alert alert-danger alert-dismissible" role="alert">
                                                                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                                                                         <div class="alert-icon contrast-alert">
@@ -109,6 +112,7 @@
                                                                             <span><strong>Error!</strong> {{ $errors->first('quantity') }} !</span>
                                                                         </div>
                                                                     </div>
+                                                                    
                                                                 @endif  <?php
                                                             } ?>
                                                             
@@ -121,10 +125,12 @@
                                                                 value="1">
                                                                 Add Order</p><?php
                                                             } ?>
-                                                        </td>  
+                                                        </td> 
+                                                        <input type="hidden" name="stock_id<?php echo $number ?>" value="{{$inventories->stock_id}}">
+                                                        <input type="hidden" name="unit_amount<?php echo $number ?>" value="1000"> 
+                                                        
                                                     </tr>
-                                                    <input type="hidden" name="stock_id<?php echo $number; ?>" value="{{$inventories->stock_id}}">
-                                                    <input type="hidden" name="unit_amount<?php echo $number; ?>" value="1000">
+                                                    
                                                    <?php
                                                     $number++; ?>
                                                 @endforeach
@@ -158,7 +164,7 @@
                                             @endif  
                                         </div>
                                         <div class="col-sm-6" align="center">
-                                            <input type="text" name="show" value="<?php echo $number; ?>">
+                                            <input type="hidden" name="show" value="<?php echo $number; ?>">
                                             <button type="submit" class="btn btn-success btn-lg btn-block">
                                                 ADD THE ORDER 
                                             </button>

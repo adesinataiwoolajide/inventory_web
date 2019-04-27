@@ -35,21 +35,13 @@ class AdministratorController extends Controller
         $sales = Sales::all();
         $warehouse = WareHouseManagement::all();
 
-        //auth()->user()->assignRole(['Administrator']);
+       // auth()->user()->assignRole(['Administrator']);
         
         // Permission::create([
-        //     'name'=>'account-restore',
+        //     'name'=>'print-invoice',
         //     'guard_name' => 'web'
         // ]);
         
-        
-
-        // auth()->user()->hasRole(['Admin'])->revokePermissionTo([
-        //     'warehouse-create', 'warehouse-edit', 'warehouse-delete', 'warehouse-update',
-        // ]);
-
-
-       
 
         $roleAccount = Role::where([
             'name' => 'Accountant',
@@ -77,40 +69,41 @@ class AdministratorController extends Controller
         $roleAccount->givePermissionTo([
             'salary-create',  'salary-update', 'salary-edit',
             'account-create',  'account-update', 'account-edit',
-            'order-create',  'order-edit', 'order-delete',
+            'order-create',  'order-edit', 'order-update', 'order-invoice'
             //'payment-create', 'account-update', 'account-edit', 
         ]);
-        
-        $roleAdmin->givePermissionTo([
-            'category-restore',  'product-restore', 'variant-restore',
-            'distributor-restore', 'supplier-restore', 'outlet-restore', 'warehouse-restore',
-            'employee-restore', 'user-restore', 'salary-restore', 'account-restore',
+        //auth()->user()->givePermissionTo('print-invoice');
+        // $roleAdmin->givePermissionTo([
+        //     'category-restore',  'product-restore', 'variant-restore',
+        //     'distributor-restore', 'supplier-restore', 'outlet-restore', 'warehouse-restore',
+        //     'employee-restore', 'user-restore', 'salary-restore', 'account-restore',
 
-            'product-edit','product-create', 'product-delete', 'product-update',
-            'category-edit', 'category-delete', 'category-update', 'category-create',
-            'variant-create', 'variant-delete', 'variant-update', 'variant-edit',
-            'distributor-create', 'distributor-edit', 'distributor-update', 'distributor-delete',
-            'supplier-create', 'supplier-edit', 'supplier-update', 'supplier-delete',
-            'outlet-create', 'outlet-edit', 'outlet-update', 'outlet-delete',
-            'warehouse-create', 'warehouse-edit', 'warehouse-delete', 'warehouse-update',
-            'employee-create', 'employee-delete', 'employee-update', 'employee-edit',
-            'user-create', 'user-delete', 'user-update', 'user-edit',
-            'salary-create', 'salary-delete', 'salary-update', 'salary-edit',
-            'account-create', 'account-delete', 'account-update', 'account-edit',
-            'order-create', 'order-update', 'order-edit', 'order-delete'
-            //'payment-create', 'account-update', 'account-edit', 
-        ]);
+        //     'product-edit','product-create', 'product-delete', 'product-update',
+        //     'category-edit', 'category-delete', 'category-update', 'category-create',
+        //     'variant-create', 'variant-delete', 'variant-update', 'variant-edit',
+        //     'distributor-create', 'distributor-edit', 'distributor-update', 'distributor-delete',
+        //     'supplier-create', 'supplier-edit', 'supplier-update', 'supplier-delete',
+        //     'outlet-create', 'outlet-edit', 'outlet-update', 'outlet-delete',
+        //     'warehouse-create', 'warehouse-edit', 'warehouse-delete', 'warehouse-update',
+        //     'employee-create', 'employee-delete', 'employee-update', 'employee-edit',
+        //     'user-create', 'user-delete', 'user-update', 'user-edit',
+        //     'salary-create', 'salary-delete', 'salary-update', 'salary-edit',
+        //     'account-create', 'account-delete', 'account-update', 'account-edit',
+        //     'order-create', 'order-update', 'order-edit', 'order-delete', 'order-invoice', 
+        //     //'payment-create', 'account-update', 'account-edit', 
+                // ' print-invoice'
+        // ]);
 
-        $remove = Role::where([
-            'name' => 'Admin',
-        ])->first();
+        // $remove = Role::where([
+        //     'name' => 'Admin',
+        // ])->first();
 
-       $remove->revokePermissionTo([
-            'warehouse-create', 'warehouse-edit', 'warehouse-delete', 'warehouse-update',
-            'category-restore',  'product-restore', 'variant-restore',
-            'distributor-restore', 'supplier-restore', 'outlet-restore', 'warehouse-restore',
-            'employee-restore', 'user-restore', 'salary-restore', 'account-restore',
-        ]);
+        // $remove->revokePermissionTo([
+        //     'warehouse-create', 'warehouse-edit', 'warehouse-delete', 'warehouse-update',
+        //     'category-restore',  'product-restore', 'variant-restore',
+        //     'distributor-restore', 'supplier-restore', 'outlet-restore', 'warehouse-restore',
+        //     'employee-restore', 'user-restore', 'salary-restore', 'account-restore',
+        // ]);
 
 
         return view("administrator.dashboard")->with([

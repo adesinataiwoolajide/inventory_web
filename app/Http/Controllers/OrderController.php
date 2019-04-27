@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\{Order, Distributors, Products, ProductVariants, Categories, User, 
+use App\{Order,OrderDetails, Distributors, Products, ProductVariants, Categories, User, 
     Activitylog, Suppliers, WareHouseManagement, InventoryStock};
 use App\Repositories\OrderRepository;
 use DB;
@@ -81,65 +81,81 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         if(auth()->user()->hasPermissionTo('order-create')){
-            $this->validate($request, [
-                'stock_id' =>'required|min:1|max:255',
-                'quantity' =>'required|min:1|max:255',
-                'unit_amount' =>'required|min:1|max:255',
-                'distributor_id' =>'required|min:1|max:50',
-                
-            ]);
+            if($request->input("show")){
+            
+                $y = $request->input("show");
+                function generateRandomHash($length)
+                {
+                    return strtoupper(substr(md5(uniqid(rand())), 0, (-32 + $length)));
+                }	
+                $transaction_number = strtoupper(generateRandomHash(12));
+                for($i = 1; $i <= $y; $i++){
 
-            $y = $request->input("show");
-            function generateRandomHash($length)
-			{
-				return strtoupper(substr(md5(uniqid(rand())), 0, (-32 + $length)));
-			}	
-			$transaction_id = strtoupper(generateRandomHash(10));
-            for($i = 1; $i <= $y; $i++){
-                $add_order = $request->input("add_order$i");
-                if($add_order == 1){
-                    $data = ([
-                        "order" => new Order,
-                        "stock_id" => $request->input("stock_id$i"),
-                        "quantity" => $request->input("quantity$i"),
-                        "unit_amount" => $request->input("unit_amount$i"),
-                        "distributor_id" => $request->input("distributor_id$i"),
-                        "transaction_id" => $transaction_id,
-                        "total_amount" => $request->input("quantity") * $request->input("unit_amount"),   
-                    ]);
-
-                    $dist = Distributors::where([
-                        "distributor_id" => $request->input('distributor_id'), 
-                    ])->first();
-                    $distributor_name = $dist->name;
-
-                    $che = InventoryStock::where([
-                        "stock_id" => $request->input("stock_id"),
-                    ])->first();
+                    $add_order = $request->input("add_order$i");
+                    if($add_order == 1) {
+                        $product_name = $request->input("product_name$i");
+                        $price = Products::where([
+                            "product_name" => $request->input("product_name$i"), 
+                        ])->max('amount');
                     
-                    $prev_quantity = $che->quantity;
-                    echo $new_quantity = $prev_quantity - $request->input('quantity');
-                    
-                    DB::table('inventory_stocks')->where([
-                        "stock_id" => $request->input("stock_id"),
-                    ])->update([ 
-                        'quantity' => $new_quantity
-                    ]);
+                        $data = ([
+                            "order" => new Order,
+                            "stock_id" => $request->input("stock_id$i"),
+                            "quantity" => $request->input("quantity$i"),
+                            "unit_amount" => $request->input("unit_amount$i"),
+                            "distributor_id" => $request->input("distributor_id"),
+                            "transaction_number" => $transaction_number,
+                            "total_amount" => $request->input("quantity$i") * 
+                            $price,   
+                        ]);
+                        
+                        $dist = Distributors::where([
+                            "distributor_id" => $request->input("distributor_id"), 
+                        ])->first();
+                        $distributor_name = $dist->name;
+                        $che = InventoryStock::where([
+                            "stock_id" => $request->input("stock_id$i"),
+                        ])->first();
+                        
+                        $prev_quantity = $che->quantity;
+                        $new_quantity = $prev_quantity - $request->input("quantity$i");
+                        
+                        DB::table('inventory_stocks')->where([
+                            "stock_id" => $request->input("stock_id$i"),
+                        ])->update([ 
+                            'quantity' => $new_quantity
+                        ]); 
 
-                    $log = new Activitylog([
-                        "operations" => "Added Order". " "  .$transaction_id. " ".
-                         " For Distributor". " ". $distributor_name,
-                        "user_id" => Auth::user()->user_id,
-                    ]);  
+                        $log = new Activitylog([
+                            "operations" => "Added Order". " "  .$transaction_number. " ".
+                            " For Distributor". " ". $distributor_name,
+                            "user_id" => Auth::user()->user_id,
+                        ]);  
+                        if($log->save() AND ($this->model->create($data))){
+                        
+                        }else{
+                            return redirect()->back()->with([
+                                'error' => "Network Failure, Please Try Again Later",
+                            ]);
+                        }
+                       
+                    }
                     
-                }   
+                }
+                OrderDetails::create([
+                    'transaction_number' => $transaction_number,
+                    'distributor_id' => $request->input("distributor_id"),
+                ]);
+                return redirect()->route("order.invoice")->
+                with([
+                    "success" => "You Have Added Order Successfully",
+                    "transaction_number" => $transaction_number,
+                ]);
+            }else{
+                return redirect()->back()->with([
+                    'error' => "Please FIll The Below Form  To Create An Order",
+                ]);
             }
-            dd($data);
-            if($log->save() AND ($this->model->create($data))){
-                return redirect()->route("order.create")->with("success", "You HaveAdded Order". " "  .$transaction_id. " ".
-                " For Distributor". " ". $distributor_name. " ".  "Successfully");
-            }
-
         } else{
             return redirect()->back()->with([
                 'error' => "You Dont have Access To Create An Order",
@@ -153,9 +169,60 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function invoice()
     {
-        //
+        if(auth()->user()->hasPermissionTo('order-invoice')){
+
+            $invoice =  OrderDetails::orderBy('details_id', 'desc')->get();
+             //$transaction_number = $invoice->transaction_number;
+            // $trans = DB::table('orders')
+            // ->where(['transaction_number'  => $transaction_number])
+            // ->sum('total_amount')->first();
+            
+            return view('administrator.orders.invoice')
+                ->with([
+                
+                "invoice" => $invoice,
+
+            ]);
+        } else{
+            return  redirect()->route("order.create")->with([
+                'error' => "You Dont have Access To Generate An Invoice",
+            ]);
+        }
+    }
+
+    public function printinvoice($transaction_number)
+    {
+        if(auth()->user()->hasPermissionTo('print-invoice')){
+
+            $viewOrder = Order::where([
+                "transaction_number"=> $transaction_number
+            ])->get();
+            $category= Categories::all();
+            $variant = ProductVariants::all();
+            $product =  Products::all();
+            $warehouse =  WareHouseManagement::all();
+            $supplier =  Suppliers::all();
+            $inventory =  InventoryStock::all();
+            $distributor =  Distributors::all();
+            return view('administrator.orders.order_invoice')
+                ->with([
+                
+                "vieOrder" => $viewOrder,
+                "category" => $category,
+                "variant" => $variant,
+                "product" => $product,
+                "warehouse"=> $warehouse,
+                "supplier" => $supplier,
+                "inventory" =>$inventory,
+                "distributor" => $distributor,
+            ]);
+        } else{
+            return  redirect()->route("order.create")->with([
+                'error' => "You Dont have Access To Generate An Invoice",
+            ]);
+        }
     }
 
     /**

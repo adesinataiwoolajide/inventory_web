@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/login', function () {
+Route::get('/', function () {
     return view('auth.login')->with('error', 'Please Login with Your Details');
 });
 
@@ -114,6 +114,9 @@ Route::group(["prefix" => "administrator", "middleware" => "verified"], function
     Route::group(["prefix" => "orders"], function(){
         Route::get("/index", "OrderController@index")->name("order.index");
         Route::get("/create", "OrderController@create")->name("order.create");
+        Route::get("/order_invoice", "OrderController@invoice")->name("order.invoice");
+        Route::get("/print_invoice/{transaction_number}", "OrderController@printinvoice")->
+         name("print.invoice"); 
         Route::post("/save", "OrderController@store")->name("order.save");
         Route::get("/edit/{order_id}", "OrderController@edit")->name("order.edit");   
         Route::get("/delete/{order_id}", "OrderController@destroy")->name("order.delete");

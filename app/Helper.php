@@ -41,6 +41,8 @@
         ])->get();
     }
 
+    
+
     function OutletDetails($outlet_id){
         return \DB::table('outlets')->where([
             "outlet_id" => $outlet_id
