@@ -23,19 +23,19 @@
 			            	</div>
 
 			            @else
-			            	<div class="card-header"><i class="fa fa-table"></i> List of Saved inventories</div>
+                            <div class="card-header"><i class="fa fa-table"></i> 
+                                List of Saved inventories
+                            </div>
 		            		<div class="card-body">
 		              			<div class="table-responsive">
                                     <table id="default-datatable" class="table table-bordered">
 		              					<thead>
 						                    <tr>
-                                                <<th>S/N</th>
+                                                <th>S/N</th>
                                                 <th>Name</th>
                                                 <th>Qty </th>
-                                                
                                                 <th>Category</th>
                                                 <th>Variants </th>
-                                                
                                                 <th>Supplier </th>
                                                 <th>Ware House </th>
 						                    </tr>
@@ -43,13 +43,11 @@
 
 						                <tfoot>
 						                    <tr>
-                                                <<th>S/N</th>
+                                                <th>S/N</th>
                                                 <th>Name</th>
                                                 <th>Qty </th>
-                                                
                                                 <th>Category</th>
                                                 <th>Variants </th>
-                                                
                                                 <th>Supplier </th>
                                                 <th>Ware House </th>
 						                    </tr>
@@ -58,21 +56,21 @@
 						                	<?php $number =1; ?>
 						                	@foreach($inventory as $inventories)
 							                    <tr>
-							                        <td>{{$number}}
-                                                       
-							                        </td>
+							                        <td>{{$number}}</td>
                                                     <td>{{$inventories->product_name}}</td> 
-                                                    <td><?php echo number_format($inventories->quantity) ?></td> 
+                                                    <td><?php echo number_format($inventories->quantity) ?>
+                                                    </td> 
                                                     
                                                     <td>
                                                         @foreach(ProductCategory($inventories->category_id) as 
-                                                        $categories)
+                                                            $categories)
                                                             {{$categories->category_name}}
                                                         @endforeach
                                                     </td>
+                                                    <td>
                                                         @foreach(ProductVariants($inventories->variant_id) 
-                                                        as $vari)
-                                                            {{$vari->variant_name}}
+                                                            as $vari)
+                                                            {{$vari->variant_name. " ". $vari->variant_size}}
                                                         @endforeach
                                                     </td> 
                                                     

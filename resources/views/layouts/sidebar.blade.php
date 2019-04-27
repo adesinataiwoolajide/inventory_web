@@ -111,20 +111,52 @@
                         <a href="{{route('product.create')}}" class="waves-effect">
                             <i class="zmdi zmdi-card-travel"></i>
                             <span>Products</span>
-                            <i class="fa fa-angle-left pull-right"></i>
+                            <small class="badge float-right badge-light">
+                                <i class="zmdi zmdi-long-arrow-right"></i>
+                            </small>
+                        </a>
+                        
+                    </li>
+                    <li>
+                        <a href="{{route('inventory.index')}}" class="waves-effect">
+                            <i class="zmdi zmdi-card-travel"></i>
+                            <span>Inventory</span>
+                            <small class="badge float-right badge-light">
+                                <i class="zmdi zmdi-long-arrow-right"></i>
+                            </small>
+                        </a>
+                        
+                    </li>
+
+                    <li>
+                        <a href="{{route('order.create')}}" class="waves-effect">
+                            <i class="zmdi zmdi-card-travel"></i>
+                            <span>Order</span>
+                            <small class="badge float-right badge-light">
+                                <i class="zmdi zmdi-long-arrow-right"></i>
+                            </small>
                         </a>
                         
                     </li>
                     <li>
                         <a href="{{route('product.create')}}" class="waves-effect">
                             <i class="zmdi zmdi-card-travel"></i>
-                            <span>Inventory</span>
-                            <i class="fa fa-angle-left pull-right"></i>
+                            <span>Sales</span>
+                            <small class="badge float-right badge-light">
+                                <i class="zmdi zmdi-long-arrow-right"></i>
+                            </small>
                         </a>
-                        <ul class="sidebar-submenu">
-                            <li><a href="{{route('category.create')}}"><i class="zmdi zmdi-long-arrow-right"></i> Categories</a></li>
-                            
-                        </ul>
+                        
+                    </li>
+                    <li>
+                        <a href="{{route('product.create')}}" class="waves-effect">
+                            <i class="zmdi zmdi-card-travel"></i>
+                            <span>Payments</span>
+                            <small class="badge float-right badge-light">
+                                <i class="zmdi zmdi-long-arrow-right"></i>
+                            </small>
+                        </a>
+                        
                     </li>
         
                     <li>

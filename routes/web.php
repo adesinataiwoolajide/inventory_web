@@ -111,12 +111,13 @@ Route::group(["prefix" => "administrator", "middleware" => "verified"], function
         Route::get("/restore/{strock_id}", "InventoryStockController@restore")->name("inventory.undelete");  
     });
 
-    Route::group(["prefix" => "roles"], function(){
-        Route::get("/create", "RoleController@index")->name("role.create");
-        Route::post("/save", "RoleController@store")->name("role.save");
-        Route::get("/edit/{user_id}", "RoleController@edit")->name("role.edit");   
-        Route::get("/delete/{role_id}", "RoleController@destroy")->name("role.delete");
-        Route::post("/update/{role_id}", "RoleController@update")->name("role.update");   
+    Route::group(["prefix" => "orders"], function(){
+        Route::get("/index", "OrderController@index")->name("order.index");
+        Route::get("/create", "OrderController@create")->name("order.create");
+        Route::post("/save", "OrderController@store")->name("order.save");
+        Route::get("/edit/{order_id}", "OrderController@edit")->name("order.edit");   
+        Route::get("/delete/{order_id}", "OrderController@destroy")->name("order.delete");
+        Route::post("/update/{order_id}", "OrderController@update")->name("order.update");   
     });
 
     Route::group(["prefix" => "users"], function(){

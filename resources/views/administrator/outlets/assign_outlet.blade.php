@@ -55,7 +55,7 @@
                                             @endforeach
                                         <select>
                                         <span style="color: red">** This Field is Required **</span>
-                                            @if ($errors->has('distributor_id'))
+                                        @if ($errors->has('distributor_id'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                                                 <div class="alert-icon contrast-alert">
