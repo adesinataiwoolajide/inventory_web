@@ -2,7 +2,7 @@
         <div id="sidebar-wrapper" class="bg-theme bg-theme4" data-simplebar="" data-simplebar-auto-hide="true">
             <div class="brand-logo">
                 <a href="{{route('administrator.dashboard')}}">
-                    <h5 class="logo-text">Inventory Applications</h5>
+                    <h5 class="logo-text">Inventory Application</h5>
                 </a>
             </div>
             <div class="user-details">
@@ -19,7 +19,7 @@
                         <li><a href=""><i class="icon-user"></i>  My Profile</a></li>
                         <li><a href="{{ route('admin.logout') }}"><i class="icon-power"></i> Logout</a></li>
                     </ul>
-                    </div>
+                </div>
             </div>
             <ul class="sidebar-menu do-nicescrol">
                 <li class="sidebar-header">MAIN NAVIGATION</li>
@@ -129,7 +129,7 @@
                     </li>
 
                     <li>
-                        <a href="{{route('order.create')}}" class="waves-effect">
+                        <a href="{{route('order.invoice')}}" class="waves-effect">
                             <i class="zmdi zmdi-card-travel"></i>
                             <span>Order</span>
                             <small class="badge float-right badge-light">
@@ -181,7 +181,7 @@
                          </a>
                     </li>
                     
-                    <h4 align="center"><p >INVENTORY APPLICATIONS</p></h4>
+                    <h4 align="center"><p >INVENTORY APPLICATION</p></h4>
                   </ul>
              
                   <ul class="navbar-nav align-items-center right-nav-link">

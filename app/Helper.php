@@ -30,7 +30,7 @@
     }
 
     function ProductStock($stock_id){
-        return \DB::table('inventory_stock')->where([
+        return \DB::table('inventory_stocks')->where([
             "stock_id" => $stock_id
         ])->get();
     }
@@ -38,6 +38,12 @@
     function ProductOrders($order_id){
         return \DB::table('orders')->where([
             "order_id" => $order_id
+        ])->get();
+    }
+
+    function ProductTransOrders($transaction_number){
+        return \DB::table('orders')->where([
+            "transaction_number" => $transaction_number
         ])->get();
     }
 

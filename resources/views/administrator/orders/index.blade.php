@@ -9,7 +9,6 @@
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{route('order.invoice')}}">Order Invoice</a></li>
                         <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
-                        {{-- <li class="breadcrumb-item"><a href="{{route('order.index')}}">View Orders</a></li> --}}
                         <li class="breadcrumb-item active" aria-current="page">List of Order Invoice</li>
                         
 			         </ol>
@@ -39,7 +38,6 @@
                                                 <th>S/N</th>
                                                 <th>Transaction Id</th>{{-- <th>Total</th> --}}
                                                 <th>Distributor </th>
-                                                <th> Invoice </th>
                                                 <th>TIme Added</th>
                                                 <th>Action </th>
                                             </tr>
@@ -76,7 +74,7 @@
                                                     </td>
                                                     <td>
                                                         <a href="{{route('print.invoice', $orders->transaction_number)}}" class="btn btn-success">
-                                                            <i class="fa fa-book"></i> See Invoice
+                                                            <i class="fa fa-pdf"></i> See Invoice
                                                         </a>
                                                     </td>
                                                     

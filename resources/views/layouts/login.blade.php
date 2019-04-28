@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -11,7 +10,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Inventory App|Login</title>
+<title>Inventory Application | {{$ink}}</title>
 
     <!-- Scripts -->
    <!--  <script src="{{ asset('js/app.js') }}" defer></script> -->

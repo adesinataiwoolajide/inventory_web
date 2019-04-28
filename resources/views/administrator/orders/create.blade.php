@@ -8,7 +8,7 @@
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('order.index')}}">View Orders</a></li>
+                        {{-- <li class="breadcrumb-item"><a href="{{route('order.index')}}">View Orders</a></li> --}}
                         <li class="breadcrumb-item"><a href="{{route('order.invoice')}}">Invoice</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Adding Distributor Order</li>
                         

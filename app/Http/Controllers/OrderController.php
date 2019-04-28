@@ -23,24 +23,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $category= Categories::all();
-        $variant = ProductVariants::all();
-        $product =  Products::all();
-        $warehouse =  WareHouseManagement::all();
-        $supplier =  Suppliers::all();
-        $inventory =  InventoryStock::all();
-        $distributor =  Distributors::all();
-        $order= $this->model->all();
+        
+        $invoice =  OrderDetails::orderBy('details_id', 'desc')->get();
         return view('administrator.orders.index')
             ->with([
-            "category" => $category,
-            "variant" => $variant,
-            "product" => $product,
-            "warehouse"=> $warehouse,
-            "supplier" => $supplier,
-            "inventory" =>$inventory,
-            "order" => $order,
-            "distributor" => $distributor,
+            
+            "invoice" => $invoice,
         ]);
     }
 
@@ -89,6 +77,7 @@ class OrderController extends Controller
                     return strtoupper(substr(md5(uniqid(rand())), 0, (-32 + $length)));
                 }	
                 $transaction_number = strtoupper(generateRandomHash(12));
+                $invoice_number = strtoupper(generateRandomHash(6));
                 for($i = 1; $i <= $y; $i++){
 
                     $add_order = $request->input("add_order$i");
@@ -145,11 +134,11 @@ class OrderController extends Controller
                 OrderDetails::create([
                     'transaction_number' => $transaction_number,
                     'distributor_id' => $request->input("distributor_id"),
+                    'invoice_number' => $invoice_number,
                 ]);
                 return redirect()->route("order.invoice")->
                 with([
-                    "success" => "You Have Added Order Successfully",
-                    "transaction_number" => $transaction_number,
+                    "success" => "You Have Added Order Successfully, The Order Invoice Number is". " ". $invoice_number,
                 ]);
             }else{
                 return redirect()->back()->with([
@@ -174,10 +163,7 @@ class OrderController extends Controller
         if(auth()->user()->hasPermissionTo('order-invoice')){
 
             $invoice =  OrderDetails::orderBy('details_id', 'desc')->get();
-             //$transaction_number = $invoice->transaction_number;
-            // $trans = DB::table('orders')
-            // ->where(['transaction_number'  => $transaction_number])
-            // ->sum('total_amount')->first();
+            
             
             return view('administrator.orders.invoice')
                 ->with([
@@ -199,6 +185,9 @@ class OrderController extends Controller
             $viewOrder = Order::where([
                 "transaction_number"=> $transaction_number
             ])->get();
+            $orderDetails = OrderDetails::where([
+                "transaction_number"=> $transaction_number
+            ])->first();
             $category= Categories::all();
             $variant = ProductVariants::all();
             $product =  Products::all();
@@ -206,10 +195,20 @@ class OrderController extends Controller
             $supplier =  Suppliers::all();
             $inventory =  InventoryStock::all();
             $distributor =  Distributors::all();
+            $price = Order::where([
+                "transaction_number" => $transaction_number, 
+            ])->sum('total_amount');
+            $dist = DB::table('orders')->distinct()->first(['distributor_id']);
+            $distributor_id = $dist->distributor_id;
+            $buyers = Distributors::where([
+                "distributor_id" => $distributor_id, 
+            ])->get();
             return view('administrator.orders.order_invoice')
                 ->with([
-                
-                "vieOrder" => $viewOrder,
+                "dist"=> $dist,
+                "price"=> $price,
+                "buyers" => $buyers,
+                "viewOrder" => $viewOrder,
                 "category" => $category,
                 "variant" => $variant,
                 "product" => $product,
@@ -217,6 +216,54 @@ class OrderController extends Controller
                 "supplier" => $supplier,
                 "inventory" =>$inventory,
                 "distributor" => $distributor,
+                "orderDetails" => $orderDetails,
+            ]);
+        } else{
+            return  redirect()->route("order.create")->with([
+                'error' => "You Dont have Access To Generate An Invoice",
+            ]);
+        }
+    }
+
+    public function generateprintinvoice($transaction_number)
+    {
+        if(auth()->user()->hasPermissionTo('print-invoice')){
+
+            $viewOrder = Order::where([
+                "transaction_number"=> $transaction_number
+            ])->get();
+            $orderDetails = OrderDetails::where([
+                "transaction_number"=> $transaction_number
+            ])->first();
+            $category= Categories::all();
+            $variant = ProductVariants::all();
+            $product =  Products::all();
+            $warehouse =  WareHouseManagement::all();
+            $supplier =  Suppliers::all();
+            $inventory =  InventoryStock::all();
+            $distributor =  Distributors::all();
+            $price = Order::where([
+                "transaction_number" => $transaction_number, 
+            ])->sum('total_amount');
+            $dist = DB::table('orders')->distinct()->first(['distributor_id']);
+            $distributor_id = $dist->distributor_id;
+            $buyers = Distributors::where([
+                "distributor_id" => $distributor_id, 
+            ])->get();
+            return view('administrator.orders.print_invoice')
+                ->with([
+                "dist"=> $dist,
+                "price"=> $price,
+                "buyers" => $buyers,
+                "viewOrder" => $viewOrder,
+                "category" => $category,
+                "variant" => $variant,
+                "product" => $product,
+                "warehouse"=> $warehouse,
+                "supplier" => $supplier,
+                "inventory" =>$inventory,
+                "distributor" => $distributor,
+                "orderDetails" => $orderDetails,
             ]);
         } else{
             return  redirect()->route("order.create")->with([

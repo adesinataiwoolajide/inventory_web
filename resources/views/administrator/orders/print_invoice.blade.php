@@ -1,40 +1,30 @@
-@extends("layouts.app")
-    @section("content")
-    <div class="clearfix"></div>
-    <div class="content-wrapper">
-   		<div class="container-fluid">
-   			<div class="row pt-2 pb-2">
-		        <div class="col-sm-9">
-				    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('print.invoice',$orderDetails->transaction_number)}}">Print Invoice</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
-                        {{-- <li class="breadcrumb-item"><a href="{{route('order.index')}}">View Orders</a></li>
-                        --}}
-                        <li class="breadcrumb-item active" aria-current="page">Printing Order Invoice</li>
-                        
-			         </ol>
-			   	</div>
-            </div>
-            <div class="card">
+<?php $ink = "Print Invoice"; ?>
+@extends('layouts.login')
+
+@section('content')
+
+    <div class="content-wrapper" style="margin-left:-1px; margin-top:-90px">
+        <div class="container-fluid" style="">
+            
+            <div class="card" align="center">
                 <div class="card-body">
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
-                            <img src="{{asset('styling/assets/inventory.jpg')}}" 
-                            style="height: 100px;" alt="logo icon">
-                            <h3>
-                                Company Name
-                                
-                            </h3>
-                            <h5>
-                                Address: <br>
-                                State: <br>
-                                Phone Number: <br>
-                                Email:  <br>
-                                website: <br>
-                            </h5>
+                        <img src="{{asset('styling/assets/inventory.jpg')}}" 
+                        style="height: 100px;" alt="logo icon">
+                        <h3>
+                            Company Name
+                            
+                        </h3>
+                        <h5>
+                            Address: <br>
+                            State: <br>
+                            Phone Number: <br>
+                            Email:  <br>
+                            website: <br>
+                        </h5>
                     </section>
-      
+    
                     <!-- Main content -->
                     <section class="invoice"><?php
                         $num =1;
@@ -43,7 +33,7 @@
                             <!-- title row -->
                             <div class="row mt-3">
                                 <div class="col-lg-6">
-                                    <h4><i class="fa fa-globe"></i> Company Name</h4>
+                                    <h4><i class="fa fa-books"></i>Customer Order Invoice</h4>
                                 </div>
                                 <div class="col-lg-6">
                                     <h5 class="float-sm-right">Date: <?php echo date('d/m/y') ?></h5>
@@ -66,7 +56,7 @@
                                     Distributor Address
                                     @foreach($buyers as $see)
                                         
-                                       
+                                    
                                         <address>
                                     
                                             <strong>{{$see->name}}</strong><br>
@@ -158,12 +148,12 @@
                             <hr>
                             <div class="row no-print">
                                 <div class="col-lg-3">
-                                <a href="{{route('print.the.invoice',$orderDetails->transaction_number)}}" target="_blank" 
+                                <a href="javascript:window.print();" target="" 
                                     class="btn btn-dark m-1"><i class="fa fa-print"></i> Print</a>
                                 </div>
                                 <div class="col-lg-9">
                                     <div class="float-sm-right">
-                                        <button class="btn btn-success m-1"><i class="fa fa-credit-card"></i> Submit Payment</button>
+                                        {{-- <button class="btn btn-success m-1"><i class="fa fa-credit-card"></i> Submit Payment</button> --}}
                                         <button class="btn btn-primary m-1"><i class="fa fa-download"></i> Generate PDF</button>
                                     </div>
                                 </div>
@@ -171,8 +161,8 @@
                     </section><!-- /.content -->
                 </div>
             </div>
-	     </div>
-	</div>
+        </div>
+    </div>
     <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-    <!--End Back To Top Button-->
+    
 @endsection

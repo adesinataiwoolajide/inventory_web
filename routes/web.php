@@ -115,8 +115,11 @@ Route::group(["prefix" => "administrator", "middleware" => "verified"], function
         Route::get("/index", "OrderController@index")->name("order.index");
         Route::get("/create", "OrderController@create")->name("order.create");
         Route::get("/order_invoice", "OrderController@invoice")->name("order.invoice");
-        Route::get("/print_invoice/{transaction_number}", "OrderController@printinvoice")->
-         name("print.invoice"); 
+        Route::get("/invoice_details/{transaction_number}", "OrderController@printinvoice")->
+         name("print.invoice");
+         Route::get("/print_invoice/{transaction_number}", "OrderController@generateprintinvoice")->
+         name("print.the.invoice"); 
+         
         Route::post("/save", "OrderController@store")->name("order.save");
         Route::get("/edit/{order_id}", "OrderController@edit")->name("order.edit");   
         Route::get("/delete/{order_id}", "OrderController@destroy")->name("order.delete");
