@@ -8,7 +8,10 @@
 				    <ol class="breadcrumb">
 				    	<li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
 						<li class="breadcrumb-item"><a href="{{route('category.create')}}">Add  Category</a></li>
-						<li class="breadcrumb-item"><a href="{{route('category.restore')}}">Restore Deleted Categories</a></li>
+						@if(auth()->user()->hasRole('Administrator') OR auth()->user()->hasRole('Admin'))
+							<li class="breadcrumb-item"><a href="{{route('category.restore')}}">
+							Restore Deleted Categories</a></li>
+						@endif
 			            <li class="breadcrumb-item active" aria-current="page">Save Product Categories</li>
 			         </ol>
 			   	</div>
@@ -81,9 +84,19 @@
 						                	<?php $number =1; ?>
 						                	@foreach($category as $categories)
 							                    <tr>
-							                        <td>{{$number}}
-							                        	<a href="{{route('category.delete', $categories->category_id)}}" onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
-							                        	<a href="{{route('category.edit', $categories->category_id)}}" onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i></a>
+													<td>{{$number}}
+														@can('category-delete')
+															<a href="{{route('category.delete', $categories->category_id)}}" 
+																onclick="return(confirmToDelete());" class="btn btn-danger">
+																<i class="fa fa-trash-o"></i>
+															</a>
+														@endcan
+														@can('category-edit')
+															<a href="{{route('category.edit', $categories->category_id)}}" 
+																onclick="return(confirmToEdit());" class="btn btn-success">
+																<i class="fa fa-pencil"></i>
+															</a>
+														@endcan
 							                        </td>
 							                        <td>{{$categories->category_name}}</td>
 							                        

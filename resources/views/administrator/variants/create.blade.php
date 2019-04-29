@@ -158,9 +158,8 @@
 							                        <td>{{$variants->variant_name}}</td>
                                                     <td>{{$variants->variant_size}}</td>
                                                     <td>
-                                                        @foreach(ProductCategory($variants->category_id) as $categories)
-                                                            {{$categories->category_name}}
-                                                        @endforeach
+                                                        {{$variants->category->category_name}}
+                                                        
                                                     </td>
 							                    </tr><?php
 							                    $number++; ?>

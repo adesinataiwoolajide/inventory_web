@@ -44,20 +44,26 @@ class CategoryController extends Controller
 
     public function restore($category_id)
     {
-        Categories::withTrashed()
-        ->where('category_id', $category_id)
-        ->restore();
-        $categ= $this->model->show($category_id);
-        $category_name = $categ->category_name;
-        $log = new Activitylog([
-            "operations" => "Restored  ". " ".$category_name. " " . " To The Category List",
-            "user_id" => Auth::user()->user_id,
-        ]);
-        $log->save();
-        return redirect()->back()->with([
-            'success' => " You Have Restored". " ".$category_name. " " ." Details Successfully",
-            // "category" => $category,
-        ]);
+        if(auth()->user()->hasPermissionTo('category-restore')){
+            Categories::withTrashed()
+            ->where('category_id', $category_id)
+            ->restore();
+            $categ= $this->model->show($category_id);
+            $category_name = $categ->category_name;
+            $log = new Activitylog([
+                "operations" => "Restored  ". " ".$category_name. " " . " To The Category List",
+                "user_id" => Auth::user()->user_id,
+            ]);
+            $log->save();
+            return redirect()->back()->with([
+                'success' => " You Have Restored". " ".$category_name. " " ." Details Successfully",
+                // "category" => $category,
+            ]);
+        } else{
+            return redirect()->back()->with([
+                'error' => "You Dont have Access To Restore A Product Category",
+            ]);
+        }
     }
 
     /**

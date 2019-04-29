@@ -82,9 +82,9 @@
                                     <div class="col-sm-4">
                                         <label>Category Name</label>
                                         <select class="form-control form-control-rounded" name="category_id" required>
-                                            @foreach(ProductCategory($var->category_id) as $cat)
-                                                <option value="{{$cat->category_id}}"> {{$cat->category_name}} </option> 
-                                            @endforeach
+                                            
+                                            <option value="{{$var->category->category_id}}"> {{$var->category->category_name}} </option> 
+                                           
                                             
                                             <option value=""> </option>
                                             @foreach($category as $categories)
@@ -162,9 +162,7 @@
 							                        <td>{{$variants->variant_name}}</td>
                                                     <td>{{$variants->variant_size}}</td>
                                                     <td>
-                                                        @foreach(ProductCategory($variants->category_id) as $categories)
-                                                            {{$categories->category_name}}
-                                                        @endforeach
+                                                       {{$variants->category->category_name}}
                                                     </td>
 							                    </tr><?php
 							                    $number++; ?>

@@ -24,9 +24,12 @@ class OrderController extends Controller
     public function index()
     {
         
-        $invoice =  OrderDetails::orderBy('details_id', 'desc')->get();
-        return view('administrator.orders.index')
-            ->with([
+        
+        $inv = WareHouseManagement::find(auth()->user()->user_id);
+        $invoice =  OrderDetails::where([
+            'ware_house_id'=> $inv->ware_house_id]
+        )->get();
+        return view('administrator.orders.index')->with([
             
             "invoice" => $invoice,
         ]);
@@ -96,7 +99,10 @@ class OrderController extends Controller
                             "transaction_number" => $transaction_number,
                             "total_amount" => $request->input("quantity$i") * 
                             $price,   
+
                         ]);
+
+                        
                         
                         $dist = Distributors::where([
                             "distributor_id" => $request->input("distributor_id"), 
@@ -131,10 +137,12 @@ class OrderController extends Controller
                     }
                     
                 }
+                $dell = WareHouseManagement::find(auth()->user()->user_id);
                 OrderDetails::create([
                     'transaction_number' => $transaction_number,
                     'distributor_id' => $request->input("distributor_id"),
                     'invoice_number' => $invoice_number,
+                    "ware_house_id" => $dell->ware_house_id,
                 ]);
                 return redirect()->route("order.invoice")->
                 with([
@@ -162,8 +170,14 @@ class OrderController extends Controller
     {
         if(auth()->user()->hasPermissionTo('order-invoice')){
 
-            $invoice =  OrderDetails::orderBy('details_id', 'desc')->get();
-            
+            $inv = WareHouseManagement::find(auth()->user()->user_id);
+            $invoice =  OrderDetails::where([
+                'ware_house_id'=> $inv->ware_house_id]
+            )->get();
+            return view('administrator.orders.invoice')->with([
+                
+                "invoice" => $invoice,
+            ]);
             
             return view('administrator.orders.invoice')
                 ->with([

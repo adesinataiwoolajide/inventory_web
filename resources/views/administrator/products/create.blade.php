@@ -8,7 +8,9 @@
 				    <ol class="breadcrumb">
 				    	<li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{route('product.create')}}">Add Product</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('product.restore')}}">Restore Deleted Products</a></li>
+                        @if(auth()->user()->hasRole('Administrator') OR auth()->user()->hasRole('Admin'))
+                            <li class="breadcrumb-item"><a href="{{route('product.restore')}}">Restore Deleted Products</a></li>
+                        @endif
                         <li class="breadcrumb-item"><a href="{{route('inventory.index')}}">Inventory</a></li>
 			            <li class="breadcrumb-item active" aria-current="page">Saved Products</li>
 			         </ol>
@@ -179,7 +181,7 @@
                                     <table id="default-datatable" class="table table-bordered">
 		              					<thead>
 						                    <tr>
-                                                <<th>S/N</th>
+                                                <th>S/N</th>
                                                 <th>Name</th>
                                                 <th>Qty </th>
                                                 <th>Price </th>
@@ -206,41 +208,45 @@
 						                	<?php $number =1; ?>
 						                	@foreach($product as $products)
 							                    <tr>
-							                        <td>{{$number}}
-                                                        <a href="{{route('product.delete', $products->product_id)}}" 
-                                                            onclick="return(confirmToDelete());" class="btn btn-danger">
-                                                            <i class="fa fa-trash-o">
-                                                        </i></a>
-                                                        <a href="{{route('product.edit', $products->product_id)}}" 
-                                                            onclick="return(confirmToEdit());" class="btn btn-success">
-                                                            <i class="fa fa-pencil">
-                                                        </i></a>
+                                                    <td>{{$number}}
+                                                        @can('product-delete')
+                                                            <a href="{{route('product.delete', $products->product_id)}}" 
+                                                                onclick="return(confirmToDelete());" class="btn btn-danger">
+                                                                <i class="fa fa-trash-o">
+                                                            </i></a>
+                                                        @endcan
+                                                        @can('product-edit')
+                                                            <a href="{{route('product.edit', $products->product_id)}}" 
+                                                                onclick="return(confirmToEdit());" class="btn btn-success">
+                                                                <i class="fa fa-pencil">
+                                                            </i></a>
+                                                        @endcan
 							                        </td>
                                                     <td>{{$products->product_name}}</td> 
                                                     <td><?php echo number_format($products->quantity) ?></td> 
                                                     <td>&#8358;<?php echo number_format($products->amount)  ?></td> 
                                                     
-                                                    <td>
-                                                        @foreach(ProductCategory($products->category_id) as $categories)
+                                                    <td>{{$products->category->category_name}}
+                                                        {{-- @foreach(ProductCategory($products->category_id) as $categories)
                                                             {{$categories->category_name}}
-                                                        @endforeach
+                                                        @endforeach --}}
                                                     </td>
-                                                    <td>
-                                                        @foreach(ProductVariants($products->variant_id) as $vari)
+                                                    <td>{{$products->variant->variant_name}}
+                                                        {{-- @foreach(ProductVariants($products->variant_id) as $vari)
                                                             {{$vari->variant_name}}
-                                                        @endforeach
+                                                        @endforeach --}}
                                                     </td> 
                                                     
-                                                    <td>
-                                                        @foreach(ProductSupplier($products->supplier_id) as $suppl)
+                                                    <td>{{$products->supplier->name}}
+                                                        {{-- @foreach(ProductSupplier($products->supplier_id) as $suppl)
                                                             {{$suppl->name}}
-                                                        @endforeach
+                                                        @endforeach --}}
                                                     </td> 
                                                 
-                                                    <td>
-                                                        @foreach(WareHouseDetails($products->ware_house_id) as $wareh)
+                                                    <td>{{$products->warehouse->name}}
+                                                        {{-- @foreach(WareHouseDetails($products->ware_house_id) as $wareh)
                                                             {{$wareh->name}}
-                                                        @endforeach
+                                                        @endforeach --}}
                                                     </td> 
 							                    </tr><?php
 							                    $number++; ?>

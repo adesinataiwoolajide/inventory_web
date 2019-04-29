@@ -27,6 +27,10 @@ class User extends Authenticatable
         'name', 'email', 'password', 'role', 'status',
     ];
 
+    public function warehouse(){
+        return $this->hasOne('App\WareHouseManagement', 'ware_house_id', 'user_id');
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

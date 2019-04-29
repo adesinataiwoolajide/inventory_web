@@ -113,15 +113,16 @@
                                                                 <i class="fa fa-pencil"></i> 
                                                             Edit</a>  
                                                         </td>
-                                                        <td>
-                                                            @foreach(OutletDetails($assign_outleta->outlet_id) as $outlet_details)
+                                                        <td>{{$assign_outleta->outlet->outlet_name}}
+                                                            {{-- @foreach(OutletDetails($assign_outleta->outlet_id) as $outlet_details)
                                                                 {{$outlet_details->outlet_name}}
-                                                            @endforeach
+                                                            @endforeach --}}
                                                             </td> 
                                                         <td>
-                                                            @foreach(ProductDistributor($assign_outleta->distributor_id) as $distributor_details)
+                                                            {{$assign_outleta->distributor->name}}
+                                                            {{--  @foreach(ProductDistributor($assign_outleta->distributor_id) as $distributor_details)
                                                                 {{$distributor_details->name}}
-                                                            @endforeach
+                                                            @endforeach  --}}
                                                         </td> 
                                                         
                                                     </tr><?php $y++; ?>

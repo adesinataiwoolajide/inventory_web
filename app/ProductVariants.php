@@ -13,4 +13,21 @@ class ProductVariants extends Model
     protected $fillable = [
         'variant_name', 'category_id', 'variant_size',
     ];
+
+    //Working perfectly
+    public function category(){
+        return $this->belongsTo('App\Categories', 'category_id');
+    }
+
+    //Working perfectly
+    public function product(){
+        return $this->belongsTo('App\Products', 'product_id');
+    }
+
+    //Working perfectly
+    public function inventory(){
+        return $this->belongsTo('App\InvetoryStock', 'stock_id');
+    }
+
+
 }

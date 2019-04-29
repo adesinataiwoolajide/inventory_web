@@ -34,13 +34,13 @@
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                 @endif
-                        </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="position-relative has-icon-left">
                                 <label for="exampleInputPassword" class="sr-only">Password</label>
                                 <input  id="exampleInputPassword" type="password"
-                                class="form-control form-control-rounded}" 
+                                class="form-control form-control-rounded" 
                                 name="password" required placeholder="Enter Your Password">
 
                                 <div class="form-control-position">

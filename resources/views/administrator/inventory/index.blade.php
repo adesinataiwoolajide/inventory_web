@@ -61,30 +61,30 @@
                                                     <td><?php echo number_format($inventories->quantity) ?>
                                                     </td> 
                                                     
-                                                    <td>
-                                                        @foreach(ProductCategory($inventories->category_id) as 
+                                                    <td>{{$inventories->category->category_name}}
+                                                        {{-- @foreach(ProductCategory($inventories->category_id) as 
                                                             $categories)
                                                             {{$categories->category_name}}
-                                                        @endforeach
+                                                        @endforeach --}}
                                                     </td>
-                                                    <td>
-                                                        @foreach(ProductVariants($inventories->variant_id) 
+                                                    <td>{{$inventories->invenvariant->variant_name}}
+                                                        {{-- @foreach(ProductVariants($inventories->variant_id) 
                                                             as $vari)
                                                             {{$vari->variant_name. " ". $vari->variant_size}}
-                                                        @endforeach
+                                                        @endforeach --}}
                                                     </td> 
                                                     
-                                                    <td>
-                                                        @foreach(ProductSupplier($inventories->supplier_id) 
+                                                    <td>{{$inventories->supplier->name}}
+                                                        {{-- @foreach(ProductSupplier($inventories->supplier_id) 
                                                         as $suppl)
                                                             {{$suppl->name}}
-                                                        @endforeach
+                                                        @endforeach --}}
                                                     </td> 
-                                                    <td>
-                                                        @foreach(WareHouseDetails($inventories->ware_house_id) 
+                                                    <td>{{$inventories->warehouse->name}}
+                                                        {{-- @foreach(WareHouseDetails($inventories->ware_house_id) 
                                                         as $ware)
                                                             {{$ware->name}}
-                                                        @endforeach
+                                                        @endforeach --}}
                                                     </td> 
 							                    </tr><?php
 							                    $number++; ?>

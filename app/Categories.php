@@ -13,4 +13,16 @@ class Categories extends Model
     protected $fillable = [
         'category_name',
     ];
+
+    public function variant(){
+        return $this->hasMany('App\ProductVariant', 'variant_id', 'category_id');
+    }
+
+    public function product(){
+        return $this->hasMany('App\Product', 'product_id', 'category_id');
+    }
+
+    public function inventory(){
+        return $this->hasMany('App\InventoryStock', 'category_id', 'stock_id');
+    }
 }

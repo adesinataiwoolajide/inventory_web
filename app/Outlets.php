@@ -12,4 +12,13 @@ class Outlets extends Model
     protected $fillable = [
         'outlet_name'
     ];
+
+    public function distributor(){
+        return $this->hasMany('App\Distributors', 'distributor_id');
+    }
+
+    //working
+    public function assign(){
+        return $this->hasMany('App\AssignOutlet', 'outlet_id', 'assign_id');
+    }
 }

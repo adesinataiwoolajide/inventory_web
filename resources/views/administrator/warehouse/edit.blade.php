@@ -46,13 +46,14 @@
                                         <label>Manager</label>
                                         <select name="user_id" class="form-control 
                                         form-control-rounded" required>
-                                            @foreach(employeeDetail($ware->user_id) as $uss)
-                                                <option value="{{$uss->email}}">
-                                                    {{$uss->name}} </option>
-                                            @endforeach
+                                            
+                                            <option value="{{$ware->user->user_id}}">
+                                                {{$ware->user->name}} 
+                                            </option>
+                                            
                                             <option value=""> </option>
                                             @foreach($user as $users)
-                                                <option value="{{$users->email}}">{{$users->name}} </option>
+                                                <option value="{{$users->user_id}}">{{$users->name}} </option>
                                             @endforeach
                                         </select>
                                         <span style="color: red">** This Field is Required **</span>
@@ -265,7 +266,7 @@
 							                        <td>{{$warehouses->name}}</td> 
                                                     <td>{{$warehouses->state}}</td> 
                                                     <td>{{$warehouses->country}}</td> 
-                                                    <td>{{$warehouses->user_id}}</td> 
+                                                    <td>{{$warehouses->user->name}}</td> 
                                                     <td>{{$warehouses->start_date}}</td> 
                                                     <td>{{$warehouses->address}}</td> 
 							                    </tr><?php

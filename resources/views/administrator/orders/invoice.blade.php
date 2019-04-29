@@ -40,6 +40,7 @@
                                                 <th>Transaction Id</th>{{-- <th>Total</th> --}}
                                                 <th>Distributor </th>
                                                 <th> Invoice </th>
+                                                <th> Ware House </th>
                                                 <th>TIme Added</th>
                                                 <th>Action </th>
                                             </tr>
@@ -52,6 +53,7 @@
                                                 {{-- <th>Total</th> --}}
                                                 <th>Distributor </th>
                                                 <th> Invoice </th>
+                                                <th> Ware House </th>
                                                 <th>TIme Added</th>
                                                 <th>Action </th>
                                                 
@@ -65,12 +67,13 @@
                                                     <td>{{$orders->transaction_number}}</td>
                                                     
                                                     
-                                                    <td>@foreach(ProductDistributor($orders->distributor_id) as $dist)
+                                                    <td>{{$orders->distributor->name}}
+                                                        {{-- @foreach(ProductDistributor($orders->distributor_id) as $dist)
                                                             {{$dist->name}}
-                                                        @endforeach
+                                                        @endforeach --}}
                                                     </td>
                                                     <td> {{$orders->invoice_number}} </td>
-                                                    
+                                                    <td> {{$orders->warehouse->name}}</td>
                                                     <td>{{$orders->created_at}}
                                                         
                                                     </td>

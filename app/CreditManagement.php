@@ -12,4 +12,8 @@ class CreditManagement extends Model
     protected $fillable = [
         'payment_id', 'distributor_id', 'credit_amount', 'paid_status',
     ];
+
+    public function warehouseProduct(){
+        return $this->belongsTo('App\Distributors');
+    }
 }

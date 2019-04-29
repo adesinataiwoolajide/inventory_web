@@ -107,7 +107,7 @@ class UserController extends Controller
                 "user_id" => Auth::user()->user_id,
             ]);
             if(($log->save()) AND ($data->save())){
-                $addRoles = $data->assignRole($request->input('roles'));
+                $addRoles = $data->assignRole($request->input('role'));
                 return redirect()->route("user.create")->with("success", "You Have Added User " 
                 .$request->input("email"). " The User List Successfully");
             }else{
@@ -205,7 +205,7 @@ class UserController extends Controller
         DB::table('model_has_roles')->where('model_id',$user_id)->delete();
 
         if(($log->save()) AND ($this->model->update($data, $user_id))){
-            $addRoles = $user->assignRole($request->input('roles'));
+            $addRoles = $user->assignRole($request->input('role'));
             return redirect()->route("user.create")->with("success", "You Have Updated The User 
             Details Successfully");
         }else{

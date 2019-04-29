@@ -19,20 +19,20 @@
             <div class="card">
                 <div class="card-body">
                     <!-- Content Header (Page header) -->
-                    <section class="content-header">
-                            <img src="{{asset('styling/assets/inventory.jpg')}}" 
-                            style="height: 100px;" alt="logo icon">
-                            <h3>
-                                Company Name
-                                
-                            </h3>
-                            <h5>
-                                Address: <br>
-                                State: <br>
-                                Phone Number: <br>
-                                Email:  <br>
-                                website: <br>
-                            </h5>
+                    <section class="content-header" align="center">
+                        <img src="{{asset('styling/assets/inventory.jpg')}}" 
+                        style="height: 100px;" alt="logo icon">
+                        <h3>
+                            Company Name
+                            
+                        </h3>
+                        <h5>
+                            Address: <br>
+                            State: <br>
+                            Phone Number: <br>
+                            Email:  <br>
+                            website: <br>
+                        </h5>
                     </section>
       
                     <!-- Main content -->
@@ -55,10 +55,12 @@
                                 <div class="col-sm-4 invoice-col">
                                     Ware House Address
                                     <address>
-                                        <strong>Kudiland Inc</strong><br>
-                                        543 suthpark drive<br>
-                                        Boston, MA 94107<br>
-                                        Phone: (555) 539-1444<br>
+                                        <strong>{{$orderDetails->warehouse->name}}</strong><br>
+                                        {{$orderDetails->warehouse->address}}<br>
+                                        {{$orderDetails->warehouse->state. ", ". " ".
+                                        $orderDetails->warehouse->state."."}} <br>
+                                        {{$orderDetails->warehouse->country}} <br>
+                                       
                                         Email: info@example.com
                                     </address>
                                 </div><!-- /.col -->
@@ -108,10 +110,10 @@
                                                 array_push($total, $cal); ?>
                                                 <tr>
                                                     <td>{{$num}} </td>
-                                                    <td>
-                                                        @foreach(ProductStock($listOrder->stock_id) as $stock)
+                                                    <td>{{$listOrder->inventory->product_name}}
+                                                        {{-- @foreach(ProductStock($listOrder->stock_id) as $stock)
                                                             {{$stock->product_name}}
-                                                        @endforeach
+                                                        @endforeach --}}
                                                     </td>
                                                     <td><?php echo number_format($listOrder->quantity) ?></td> 
                                                     <td>&#8358;<?php echo number_format($listOrder->unit_amount)  ?></td> 

@@ -52,7 +52,7 @@
   <!-- Custom scripts -->
   <script src="{{asset('styling/assets/js/app-script.js')}}"></script>
   <!-- Chart js -->
-  
+  <script src="{{asset('styling/assets/js/widgets.js')}}"></script>
   <script src="{{asset('styling/assets/plugins/Chart.js/Chart.min.js')}}"></script>
   <!-- Vector map JavaScript -->
   <script src="{{asset('styling/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js')}}"></script>

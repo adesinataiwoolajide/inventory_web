@@ -33,7 +33,17 @@ class ProductController extends Controller
     {
         $category= Categories::all();
         $variant = ProductVariants::all();
-        $product =  $this->model->all();
+        if(auth()->user()->hasRole([
+            'name' => 'Administrator', 
+            'name' => 'Admin'])){
+            $product =  $this->model->all();
+        }else{
+            $inv = WareHouseManagement::find(auth()->user()->user_id);
+            $product =  Products::where([
+                'ware_house_id'=> $inv->ware_house_id]
+            )->get();
+        }
+        
         $warehouse =  WareHouseManagement::all();
         $supplier =  Suppliers::all();
         return view('administrator.products.create')
@@ -66,43 +76,49 @@ class ProductController extends Controller
 
     public function restore($product_id)
     {
-        Products::withTrashed()
-        ->where('product_id', $product_id)
-        ->restore();
-        $product= $this->model->show($product_id);
-        $product_name = $product->product_name;
-        $slug = $product->product_slug; 
-        $category_id = $product->category_id;
-        $variant_id = $product->variant_id;
-        $ware_house_id = $product->ware_house_id;
-        $supplier_id = $product->supplier_id;
-        $qty = $product->quantity;
+        if(auth()->user()->hasPermissionTo('product-restore')){
+            Products::withTrashed()
+            ->where('product_id', $product_id)
+            ->restore();
+            $product= $this->model->show($product_id);
+            $product_name = $product->product_name;
+            $slug = $product->product_slug; 
+            $category_id = $product->category_id;
+            $variant_id = $product->variant_id;
+            $ware_house_id = $product->ware_house_id;
+            $supplier_id = $product->supplier_id;
+            $qty = $product->quantity;
 
-        $che = InventoryStock::where([
-            "product_name" => $product_name,
-            "supplier_id" => $supplier_id,
-            "ware_house_id" => $ware_house_id,
-            "variant_id" => $variant_id,
-            "category_id" => $category_id,
-        ])->first();
-        $stock_id = $che->stock_id;
-        $prev_quantity = $che->quantity;
-        $new_quantity = $prev_quantity + $qty;
-        DB::table('inventory_stocks')->where([
-            "stock_id" => $stock_id,
-        ])->update([ 
-            'quantity' => $new_quantity
-        ]);
+            $che = InventoryStock::where([
+                "product_name" => $product_name,
+                "supplier_id" => $supplier_id,
+                "ware_house_id" => $ware_house_id,
+                "variant_id" => $variant_id,
+                "category_id" => $category_id,
+            ])->first();
+            $stock_id = $che->stock_id;
+            $prev_quantity = $che->quantity;
+            $new_quantity = $prev_quantity + $qty;
+            DB::table('inventory_stocks')->where([
+                "stock_id" => $stock_id,
+            ])->update([ 
+                'quantity' => $new_quantity
+            ]);
 
-        $log = new Activitylog([
-            "operations" => "Restored  ". " ".$product_name. " " . " To The Product List",
-            "user_id" => Auth::user()->user_id,
-        ]);
-        $log->save();
-        return redirect()->back()->with([
-            'success' => " You Have Restored". " ".$product_name. " " ." Product Successfully",
-            // "category" => $category,
-        ]);
+            $log = new Activitylog([
+                "operations" => "Restored  ". " ".$product_name. " " . " To The Product List",
+                "user_id" => Auth::user()->user_id,
+            ]);
+            $log->save();
+            return redirect()->back()->with([
+                'success' => " You Have Restored". " ".$product_name. " " ." Product Successfully",
+                // "category" => $category,
+            ]);
+        } else{
+            return redirect()->back()->with([
+                'error' => "You Dont have Access To Restore A Product",
+            ]);
+        }
     }
 
     /**

@@ -26,6 +26,8 @@ class WareHouseManagementController extends Controller
     {
         $warehouse= $this->model->all();
         $user = User::all();
+        // $ware = WareHouseManagement::find(1)->user;
+        // echo $ware->name;
         return view('administrator.warehouse.create')->with([
             'warehouse' => $warehouse,
             "user" => $user, 
@@ -98,8 +100,11 @@ class WareHouseManagementController extends Controller
                 "user_id" => $request->input("user_id"),
 
             ]);
+
+            //$warehouses->user->name;
+
             $check = WareHouseManagement::where([
-                "name" => $request->input('name'), 
+                // "name" => $request->input('name'), 
                 "user_id" => $request->input('user_id'),
             ])->get();
             $checkName = WareHouseManagement::where([
@@ -108,7 +113,7 @@ class WareHouseManagementController extends Controller
 
             if(count($check)>0){
                 return redirect()->back()->with([
-                    'error' => "You Have Added This User to This Ware House Before before",
+                    'error' => "You Have Added This User to A Ware House Before before",
                 ]);
             }elseif(count($checkName)>0){
                 return redirect()->back()->with([
