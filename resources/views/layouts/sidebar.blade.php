@@ -182,7 +182,7 @@
                     @if(auth()->user()->hasRole('Administrator') OR 
                         (auth()->user()->hasRole('Accountant')))
                         <li>
-                            <a href="{{route('product.create')}}" class="waves-effect">
+                            <a href="{{route('payment.index')}}" class="waves-effect">
                                 <i class="zmdi zmdi-card-travel"></i>
                                 <span>Payments</span>
                                 <small class="badge float-right badge-light">

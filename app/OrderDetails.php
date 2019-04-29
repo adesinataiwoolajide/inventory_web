@@ -20,4 +20,8 @@ class OrderDetails extends Model
     public function warehouse(){
         return $this->belongsTo('App\WareHouseManagement', 'ware_house_id');
     }
+
+    public function payment(){
+        return $this->belongsTo('App\Payments', 'payment_id');
+    }
 }

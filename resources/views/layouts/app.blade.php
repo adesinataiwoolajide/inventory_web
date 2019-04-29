@@ -112,6 +112,15 @@
           return confirm("Click Okay to Restore The Deleted Data and Cancel to Stop");
       }
     </script>
+    <script>
+      function confirmToPay(){
+          return confirm("Click Okay to Make The Payment and Cancel to Stop");
+      }
+    </script>
+
+
+
+    
     
   </body>
   </html>

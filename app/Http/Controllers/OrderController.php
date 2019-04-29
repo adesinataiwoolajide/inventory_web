@@ -213,7 +213,7 @@ class OrderController extends Controller
                 "transaction_number" => $transaction_number, 
             ])->sum('total_amount');
             $dist = DB::table('orders')->distinct()->first(['distributor_id']);
-            $distributor_id = $dist->distributor_id;
+            $distributor_id = $orderDetails->distributor_id;
             $buyers = Distributors::where([
                 "distributor_id" => $distributor_id, 
             ])->get();
@@ -260,7 +260,7 @@ class OrderController extends Controller
                 "transaction_number" => $transaction_number, 
             ])->sum('total_amount');
             $dist = DB::table('orders')->distinct()->first(['distributor_id']);
-            $distributor_id = $dist->distributor_id;
+            $distributor_id = $orderDetails->distributor_id;
             $buyers = Distributors::where([
                 "distributor_id" => $distributor_id, 
             ])->get();

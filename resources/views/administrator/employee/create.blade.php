@@ -98,31 +98,31 @@
                                     </div>
 
                                     <div class="col-sm-4">
-                                            <label>Category</label>
-                                            <select name="role" required class="form-control form-control-rounded">
-                                                <option value="">-- Contract Type --</option>
-                                                <option value=""> </option>
-                                                <option value="Accountant">Accountant </option>
-                                                <option value="Admin">Admin </option>
-                                                <option value="Administrator">Administrator </option>
-                                                <option value="Editor">Editor </option>
-                                                <option value="Receptionist">Receptionist </option>
-                                                
-                                            </select>
-                                            <span style="color: red">** This Field is Required **</span>
-                                                @if ($errors->has('role'))
-                                                <div class="alert alert-danger alert-dismissible" role="alert">
-                                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                                    <div class="alert-icon contrast-alert">
-                                                        <i class="fa fa-check"></i>
-                                                    </div>
-                                                    <div class="alert-message">
-                                                        <span><strong>Error!</strong> {{ $errors->first('role') }} !</span>
-                                                    </div>
-                                                </div>
-                                            @endif  
+                                        <label>Category</label>
+                                        <select name="role" required class="form-control form-control-rounded">
+                                            <option value="">-- Contract Type --</option>
+                                            <option value=""> </option>
+                                            <option value="Accountant">Accountant </option>
+                                            <option value="Admin">Admin </option>
+                                            <option value="Administrator">Administrator </option>
+                                            <option value="Editor">Editor </option>
+                                            <option value="Receptionist">Receptionist </option>
                                             
-                                        </div>
+                                        </select>
+                                        <span style="color: red">** This Field is Required **</span>
+                                            @if ($errors->has('role'))
+                                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                                <div class="alert-icon contrast-alert">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                                <div class="alert-message">
+                                                    <span><strong>Error!</strong> {{ $errors->first('role') }} !</span>
+                                                </div>
+                                            </div>
+                                        @endif  
+                                        
+                                    </div>
 
                                     <div class="col-sm-4">
                                         <label>Address</label>

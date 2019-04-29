@@ -137,12 +137,15 @@ Route::group(["prefix" => "administrator", "middleware" => "verified"], function
         Route::get("/restore/{user_id}", "UserController@restore")->name("user.undelete");  
     });
 
-    Route::group(["prefix" => "user-roles"], function(){
-        Route::get("/create", "UserRoleController@index")->name("roles.create");
-        Route::post("/save", "UserRoleController@store")->name("roles.save");
-        Route::get("/edit/{roles_id}", "UserRoleController@edit")->name("roles.edit");   
-        Route::get("/delete/{roles_id}", "UserRoleController@destroy")->name("roles.delete");
-        Route::post("/update/{roles_id}", "UserRoleController@update")->name("roles.update");   
+    Route::group(["prefix" => "payments"], function(){
+        Route::get("/index", "PaymentController@index")->name("payment.index");
+        Route::get("/create", "PaymentController@create")->name("payment.create");
+        Route::get("/make-payment/{transaction_number}", "PaymentController@makepayment")->
+            name("payment.add");
+        Route::post("/save", "PaymentController@store")->name("payment.save");
+        Route::get("/edit/{roles_id}", "PaymentController@edit")->name("payment.edit");   
+        Route::get("/delete/{roles_id}", "PaymentController@destroy")->name("payment.delete");
+        Route::post("/update/{roles_id}", "PaymentController@update")->name("payment.update");   
     });
 
    

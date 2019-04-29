@@ -7,27 +7,26 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('order.invoice')}}">Order Invoice</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('payment.create')}}">Add Payment</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('payment.index')}}">View Payments</a></li>
                         {{-- <li class="breadcrumb-item"><a href="{{route('order.index')}}">View Orders</a></li> --}}
-                        <li class="breadcrumb-item active" aria-current="page">List of Order Invoice</li>
+                        <li class="breadcrumb-item active" aria-current="page">Adding New Payment</li>
                         
 			         </ol>
 			   	</div>
 			</div>
-   			
-			<div class="row">
-		    	<div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12">
                     @include('partials._message')
-		          	<div class="card">
-		          		@if(count($invoice) ==0)
+                        <div class="card">
+                            @if(count($invoice) ==0)
                             <div class="card-header" align="center" style="color: red">
                                 <i class="fa fa-table"></i> The List is Empty
-			            	</div>
+                            </div>
 
-			            @else
+                        @else
                             <div class="card-header"><i class="fa fa-table"></i> 
-                                List of Saved Order Invoice
+                                Adding New Payment
                             </div>
                             
                             <div class="card-body">
@@ -65,8 +64,6 @@
                                                 <tr>
                                                     <td>{{$number}}</td>
                                                     <td>{{$orders->transaction_number}}</td>
-                                                    
-                                                    
                                                     <td>{{$orders->distributor->name}}
                                                         {{-- @foreach(ProductDistributor($orders->distributor_id) as $dist)
                                                             {{$dist->name}}
@@ -78,8 +75,9 @@
                                                         
                                                     </td>
                                                     <td>
-                                                        <a href="{{route('print.invoice', $orders->transaction_number)}}" class="btn btn-success">
-                                                            <i class="fa fa-book"></i> See Invoice
+                                                        <a href="{{route('payment.add',$orders->transaction_number)}}" 
+                                                            class="btn btn-success" onclick="return(confirmToPay());">
+                                                            <i class="fa fa-book"></i>  Pay
                                                         </a>
                                                     </td>
                                                     
@@ -95,10 +93,11 @@
                                 
                             </div> 
                                 
-		             	@endif
-	              	</div>
-	            </div>
-	        </div>
+                            @endif
+                        </div>
+                </div>
+            </div>
+			
 	     </div>
 	</div>
 

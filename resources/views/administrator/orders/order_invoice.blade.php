@@ -96,13 +96,13 @@
                                 <div class="col-12 table-responsive">
                                     <table class="table table-striped">
                                         <thead>
-                                        <tr>
-                                            <th>S/N </th>
-                                            <th>Product</th>
-                                            <th>Qty</th>
-                                            <th>Price</th>
-                                            <th>Subtotal</th>
-                                        </tr>
+                                            <tr>
+                                                <th>S/N </th>
+                                                <th>Product</th>
+                                                <th>Qty</th>
+                                                <th>Price</th>
+                                                <th>Subtotal</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($viewOrder as $listOrder)<?php

@@ -12,4 +12,8 @@ class Payments extends Model
     protected $fillable = [
         'order_id', 'total_amount', 'paid_amount', 'payment_number', 'paid_status',
     ];
+
+    public function order(){
+        return $this->hasMany('App\Order', 'order_id');
+    }
 }

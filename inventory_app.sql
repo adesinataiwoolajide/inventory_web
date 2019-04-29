@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2019 at 10:28 AM
+-- Generation Time: Apr 29, 2019 at 12:27 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -317,7 +317,32 @@ INSERT INTO `activity_logs` (`activity_id`, `user_id`, `operations`, `created_at
 (261, '1', 'Added Order 31CE2DFC460A  For Distributor Desktops', '2019-04-28 06:45:13', '2019-04-28 06:45:13'),
 (262, '1', 'Added Order 31CE2DFC460A  For Distributor Desktops', '2019-04-28 06:45:14', '2019-04-28 06:45:14'),
 (263, '1', 'Added Order 31CE2DFC460A  For Distributor Desktops', '2019-04-28 06:45:16', '2019-04-28 06:45:16'),
-(264, '1', 'Added Order 31CE2DFC460A  For Distributor Desktops', '2019-04-28 06:45:17', '2019-04-28 06:45:17');
+(264, '1', 'Added Order 31CE2DFC460A  For Distributor Desktops', '2019-04-28 06:45:17', '2019-04-28 06:45:17'),
+(265, '1', 'Added edit@gmail.com To The User List', '2019-04-28 15:26:19', '2019-04-28 15:26:19'),
+(266, '1', 'Updated  Glorious  Ware House Details', '2019-04-28 15:27:52', '2019-04-28 15:27:52'),
+(267, '1', 'Updated  Glorious  Ware House Details', '2019-04-28 15:31:28', '2019-04-28 15:31:28'),
+(268, '1', 'Added Tita Mall To The Ware House List', '2019-04-28 16:09:01', '2019-04-28 16:09:01'),
+(269, '1', 'Updated  Glorious  Ware House Details', '2019-04-28 16:22:50', '2019-04-28 16:22:50'),
+(270, '1', 'You Have UpdatedUnidentifiedwith Size NullTo Hybrid Applications', '2019-04-28 16:32:32', '2019-04-28 16:32:32'),
+(271, '1', 'You Have UpdatedGYwith Size 25 LitresTo Raw Material', '2019-04-28 16:33:20', '2019-04-28 16:33:20'),
+(272, '1', 'Added Order 7D5267706B04  For Distributor Distributing', '2019-04-28 20:02:48', '2019-04-28 20:02:48'),
+(273, '1', 'Added Order 7D5267706B04  For Distributor Distributing', '2019-04-28 20:02:48', '2019-04-28 20:02:48'),
+(274, '1', 'Added Order 7D5267706B04  For Distributor Distributing', '2019-04-28 20:02:48', '2019-04-28 20:02:48'),
+(275, '1', 'Added Order 7D5267706B04  For Distributor Distributing', '2019-04-28 20:02:48', '2019-04-28 20:02:48'),
+(276, '1', 'Added Order 1D7ED2C39B1E  For Distributor Distributing', '2019-04-28 20:09:29', '2019-04-28 20:09:29'),
+(277, '1', 'Added Order 1D7ED2C39B1E  For Distributor Distributing', '2019-04-28 20:09:29', '2019-04-28 20:09:29'),
+(278, '1', 'Added Order 1D7ED2C39B1E  For Distributor Distributing', '2019-04-28 20:09:30', '2019-04-28 20:09:30'),
+(279, '1', 'Added Order 1D7ED2C39B1E  For Distributor Distributing', '2019-04-28 20:09:30', '2019-04-28 20:09:30'),
+(280, '1', 'Added Order 8315AC1B2308  For Distributor Distributing', '2019-04-28 20:10:59', '2019-04-28 20:10:59'),
+(281, '1', 'Added Order 8315AC1B2308  For Distributor Distributing', '2019-04-28 20:10:59', '2019-04-28 20:10:59'),
+(282, '1', 'Added Order 8315AC1B2308  For Distributor Distributing', '2019-04-28 20:10:59', '2019-04-28 20:10:59'),
+(283, '1', 'Added Order 8315AC1B2308  For Distributor Distributing', '2019-04-28 20:11:00', '2019-04-28 20:11:00'),
+(284, '1', 'Added accountant@gmail.com To The User List', '2019-04-29 06:05:58', '2019-04-29 06:05:58'),
+(285, '1', 'Added accountant@gmail.com To The User List', '2019-04-29 06:18:28', '2019-04-29 06:18:28'),
+(286, '1', 'Added editor@gmail.com To The User List', '2019-04-29 08:37:13', '2019-04-29 08:37:13'),
+(287, '1', 'Added receptionist@gmail.com To The User List', '2019-04-29 08:37:54', '2019-04-29 08:37:54'),
+(288, '1', 'Added admin@gmail.com To The User List', '2019-04-29 08:38:33', '2019-04-29 08:38:33'),
+(289, '1', 'Added administrator@gmail.com To The User List', '2019-04-29 08:39:12', '2019-04-29 08:39:12');
 
 -- --------------------------------------------------------
 
@@ -340,10 +365,10 @@ CREATE TABLE `assign_outlets` (
 
 INSERT INTO `assign_outlets` (`assign_id`, `outlet_id`, `distributor_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 1, 1, '2019-04-13 20:47:18', '2019-04-13 20:47:18', NULL),
-(2, 1, 2, '2019-04-13 20:47:49', '2019-04-13 20:47:49', NULL),
-(3, 2, 1, '2019-04-13 20:54:27', '2019-04-13 20:54:27', NULL),
+(2, 1, 1, '2019-04-13 20:47:49', '2019-04-13 20:47:49', NULL),
+(3, 2, 5, '2019-04-13 20:54:27', '2019-04-13 20:54:27', NULL),
 (4, 4, 3, '2019-04-13 21:00:31', '2019-04-13 21:00:31', NULL),
-(5, 4, 1, '2019-04-15 12:00:02', '2019-04-15 12:00:02', NULL),
+(5, 4, 3, '2019-04-15 12:00:02', '2019-04-15 12:00:02', NULL),
 (6, 4, 5, '2019-04-24 22:48:20', '2019-04-24 22:48:20', NULL);
 
 -- --------------------------------------------------------
@@ -492,11 +517,11 @@ CREATE TABLE `inventory_stocks` (
 
 INSERT INTO `inventory_stocks` (`stock_id`, `product_name`, `supplier_id`, `ware_house_id`, `variant_id`, `category_id`, `quantity`, `deleted_at`, `updated_at`, `created_at`) VALUES
 (1, 'CASIO CALCULATOR', 1, 1, 2, 1, 20, NULL, '2019-04-25 06:08:04', '2019-04-25 06:08:04'),
-(2, 'CASIO CALCULATOR', 1, 1, 2, 1, 500, NULL, '2019-04-25 06:10:35', '2019-04-25 06:10:35'),
+(2, 'CASIO CALCULATOR', 1, 1, 2, 1, 494, NULL, '2019-04-25 06:10:35', '2019-04-25 06:10:35'),
 (3, 'SCHOOL EXTRA', 2, 1, 6, 2, 0, NULL, '2019-04-25 06:11:47', '2019-04-25 06:11:47'),
-(4, 'SCHOOL EXTRA', 2, 1, 6, 2, 7, NULL, '2019-04-25 06:12:13', '2019-04-25 06:12:13'),
-(8, 'NOVEL', 1, 1, 2, 1, 4, NULL, '2019-04-25 06:40:37', '2019-04-25 06:40:37'),
-(9, 'LOGO', 1, 1, 2, 1, 36, NULL, '2019-04-25 06:44:28', '2019-04-25 06:44:28'),
+(4, 'SCHOOL EXTRA', 2, 1, 6, 2, -2, NULL, '2019-04-25 06:12:13', '2019-04-25 06:12:13'),
+(8, 'NOVEL', 1, 1, 2, 1, -5, NULL, '2019-04-25 06:40:37', '2019-04-25 06:40:37'),
+(9, 'LOGO', 1, 1, 2, 1, -3, NULL, '2019-04-25 06:44:28', '2019-04-25 06:44:28'),
 (10, 'PHONE', 1, 1, 1, 2, 79, NULL, '2019-04-25 23:13:23', '2019-04-25 23:13:23');
 
 -- --------------------------------------------------------
@@ -645,6 +670,7 @@ INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) 
 (53, 'App\\User', '1'),
 (54, 'App\\User', '0'),
 (54, 'App\\User', '1'),
+(59, 'App\\User', '1'),
 (70, 'App\\User', '1'),
 (71, 'App\\User', '1');
 
@@ -667,9 +693,13 @@ CREATE TABLE `model_has_roles` (
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\User', 0),
 (1, 'App\\User', 1),
+(1, 'App\\User', 33),
+(1, 'App\\User', 38),
 (2, 'App\\User', 24),
 (2, 'App\\User', 28),
+(2, 'App\\User', 35),
 (3, 'App\\User', 29),
+(3, 'App\\User', 36),
 (4, 'App\\User', 7),
 (4, 'App\\User', 8),
 (4, 'App\\User', 12),
@@ -681,8 +711,11 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (5, 'App\\User', 18),
 (5, 'App\\User', 21),
 (6, 'App\\User', 28),
+(6, 'App\\User', 33),
+(6, 'App\\User', 34),
 (7, 'App\\User', 23),
-(7, 'App\\User', 28);
+(7, 'App\\User', 28),
+(7, 'App\\User', 37);
 
 -- --------------------------------------------------------
 
@@ -737,7 +770,19 @@ INSERT INTO `orders` (`order_id`, `stock_id`, `quantity`, `transaction_number`, 
 (27, 4, 5, '31CE2DFC460A', '1000', '60000', 7, '2019-04-28 06:45:14', '2019-04-28 06:45:14', NULL),
 (28, 8, 9, '31CE2DFC460A', '1000', '180000', 7, '2019-04-28 06:45:15', '2019-04-28 06:45:15', NULL),
 (29, 9, 5, '31CE2DFC460A', '1000', '100000', 7, '2019-04-28 06:45:16', '2019-04-28 06:45:16', NULL),
-(30, 10, 10, '31CE2DFC460A', '1000', '200000', 7, '2019-04-28 06:45:17', '2019-04-28 06:45:17', NULL);
+(30, 10, 10, '31CE2DFC460A', '1000', '200000', 7, '2019-04-28 06:45:17', '2019-04-28 06:45:17', NULL),
+(31, 2, 2, '7D5267706B04', '1000', '24000', 8, '2019-04-28 20:02:48', '2019-04-28 20:02:48', NULL),
+(32, 4, 3, '7D5267706B04', '1000', '36000', 8, '2019-04-28 20:02:48', '2019-04-28 20:02:48', NULL),
+(33, 8, 3, '7D5267706B04', '1000', '60000', 8, '2019-04-28 20:02:48', '2019-04-28 20:02:48', NULL),
+(34, 9, 13, '7D5267706B04', '1000', '260000', 8, '2019-04-28 20:02:49', '2019-04-28 20:02:49', NULL),
+(35, 2, 2, '1D7ED2C39B1E', '1000', '24000', 8, '2019-04-28 20:09:29', '2019-04-28 20:09:29', NULL),
+(36, 4, 3, '1D7ED2C39B1E', '1000', '36000', 8, '2019-04-28 20:09:30', '2019-04-28 20:09:30', NULL),
+(37, 8, 3, '1D7ED2C39B1E', '1000', '60000', 8, '2019-04-28 20:09:30', '2019-04-28 20:09:30', NULL),
+(38, 9, 13, '1D7ED2C39B1E', '1000', '260000', 8, '2019-04-28 20:09:30', '2019-04-28 20:09:30', NULL),
+(39, 2, 2, '8315AC1B2308', '1000', '24000', 8, '2019-04-28 20:10:59', '2019-04-28 20:10:59', NULL),
+(40, 4, 3, '8315AC1B2308', '1000', '36000', 8, '2019-04-28 20:10:59', '2019-04-28 20:10:59', NULL),
+(41, 8, 3, '8315AC1B2308', '1000', '60000', 8, '2019-04-28 20:10:59', '2019-04-28 20:10:59', NULL),
+(42, 9, 13, '8315AC1B2308', '1000', '260000', 8, '2019-04-28 20:11:00', '2019-04-28 20:11:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -750,6 +795,7 @@ CREATE TABLE `order_details` (
   `transaction_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `distributor_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `invoice_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ware_house_id` int(255) NOT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -759,9 +805,10 @@ CREATE TABLE `order_details` (
 -- Dumping data for table `order_details`
 --
 
-INSERT INTO `order_details` (`details_id`, `transaction_number`, `distributor_id`, `invoice_number`, `updated_at`, `created_at`, `deleted_at`) VALUES
-(1, 'D78C38AB8B15', '3', 'FD45BGDS', '2019-04-27 14:31:59', '2019-04-27 14:31:59', NULL),
-(2, '31CE2DFC460A', '7', 'E702BC', '2019-04-28 06:45:18', '2019-04-28 06:45:18', NULL);
+INSERT INTO `order_details` (`details_id`, `transaction_number`, `distributor_id`, `invoice_number`, `ware_house_id`, `updated_at`, `created_at`, `deleted_at`) VALUES
+(1, 'D78C38AB8B15', '3', 'FD45BGDS', 1, '2019-04-27 14:31:59', '2019-04-27 14:31:59', NULL),
+(2, '31CE2DFC460A', '7', 'E702BC', 6, '2019-04-28 06:45:18', '2019-04-28 06:45:18', NULL),
+(3, '8315AC1B2308', '8', '1A8F72', 1, '2019-04-28 20:11:00', '2019-04-28 20:11:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -940,10 +987,10 @@ INSERT INTO `products` (`product_id`, `product_name`, `product_slug`, `supplier_
 (3, 'SCHOOL EXTRA', 'school-extra-545', 2, 6, 12000, 2, 1, 2, '2019-04-25 06:11:48', '2019-04-25 06:11:48', NULL),
 (4, 'SCHOOL EXTRA', 'school-extra-1011', 2, 6, 12000, 3, 1, 2, '2019-04-25 06:12:13', '2019-04-25 06:12:13', NULL),
 (5, 'NOVEL', 'novel-1531', 1, 3, 15000, 3, 1, 1, '2019-04-25 06:38:20', '2019-04-25 06:38:20', NULL),
-(6, 'NOVEL', 'novel-1340', 1, 2, 20000, 2, 1, 1, '2019-04-25 06:39:12', '2019-04-25 06:39:12', NULL),
+(6, 'NOVEL', 'novel-1340', 1, 2, 20000, 2, 6, 1, '2019-04-25 06:39:12', '2019-04-25 06:39:12', NULL),
 (7, 'NOVEL', 'novel-1394', 1, 2, 20000, 2, 1, 1, '2019-04-25 06:39:43', '2019-04-25 06:39:43', NULL),
 (8, 'NOVEL', 'novel-1197', 1, 2, 20000, 16, 1, 1, '2019-04-25 06:40:38', '2019-04-25 06:40:38', NULL),
-(9, 'NOVEL', 'novel-1351', 1, 2, 20000, 16, 1, 1, '2019-04-25 06:41:26', '2019-04-25 06:41:26', NULL),
+(9, 'NOVEL', 'novel-1351', 1, 2, 20000, 16, 6, 1, '2019-04-25 06:41:26', '2019-04-25 06:41:26', NULL),
 (10, 'NOVEL', 'novel-1051', 1, 2, 20000, 160, 1, 1, '2019-04-25 06:43:06', '2019-04-25 06:43:06', NULL),
 (11, 'LOGO', 'logo-976', 1, 2, 20000, 2, 1, 1, '2019-04-25 06:44:28', '2019-04-25 06:44:28', NULL),
 (12, 'LOGO', 'logo-373', 1, 2, 20000, 3, 1, 1, '2019-04-25 06:44:55', '2019-04-25 06:44:55', NULL),
@@ -979,7 +1026,7 @@ INSERT INTO `product_variants` (`variant_id`, `variant_name`, `category_id`, `va
 (1, 'GYNG', 2, '25 Litres', '2019-04-25 22:59:27', '2019-04-22 17:15:46', NULL),
 (2, 'GY', 1, '20 Litres', '2019-04-22 17:16:13', '2019-04-22 17:16:13', NULL),
 (3, 'GY', 1, '25 Litres', '2019-04-22 17:17:47', '2019-04-22 17:17:47', NULL),
-(4, 'Unidentified', 1, 'Null', '2019-04-25 16:04:13', '2019-04-22 17:19:14', NULL),
+(4, 'Unidentified', 7, 'Null', '2019-04-28 16:32:32', '2019-04-22 17:19:14', NULL),
 (5, 'GYNG', 1, '25 Litres', '2019-04-22 17:22:12', '2019-04-22 17:22:12', NULL),
 (6, 'GYNG', 2, '25 Litres', '2019-04-22 17:22:58', '2019-04-22 17:22:58', NULL),
 (7, 'Cooking Gas (kg)', 1, '20 Litres', '2019-04-25 22:59:13', '2019-04-24 15:06:55', NULL);
@@ -1161,7 +1208,8 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (58, 6),
 (58, 7),
 (70, 6),
-(70, 7);
+(70, 7),
+(71, 7);
 
 -- --------------------------------------------------------
 
@@ -1235,17 +1283,11 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `name`, `email`, `role`, `password`, `status`, `updated_at`, `created_at`, `deleted_at`, `email_verified_at`) VALUES
 (1, 'Adesina Taiwo Olajide', 'tolajide74@gmail.com', '\"Administrator\"', '$2y$10$/HzGhIa5ALfVv4LkM5jiVuEHTa3Hq8LnRDyFWxavUVCsXMAej2kDq', 1, '2019-04-10 16:29:39', '2019-04-10 16:29:39', NULL, '2019-04-10 16:29:39'),
-(16, 'Noble Immaculate', 'tolajide75@gmail.com', '\"Receptionist\"', '$2y$10$OEou0g.UyrvUCGRz82TLMuhSN0kO7N.lnz7XJzbXN.6jKDplwnOaq', 1, '2019-04-24 09:33:34', '2019-04-24 09:33:34', NULL, NULL),
-(22, 'Testing', 'tolajide744@gmail.com', '\"Editor\"', '$2y$10$hUYILUq5FEEcjFDwQpXR2uTZLdO4WeAZyUNqB7llenhk8I4PZiY6i', 1, '2019-04-25 22:19:37', '2019-04-24 16:48:30', NULL, NULL),
-(23, 'Olajide Taiwo', 'taiwos@gmail.com', 'Admin', '$2y$10$/zQKk.GPBvB/av4xSeogp.VZJSsRJ3C8vA5321pAbk361f.gxvwJ.', 1, '2019-04-25 15:24:55', '2019-04-24 16:49:58', NULL, NULL),
-(24, 'Testingf dkmd', 'admian@gmail.com', '\"Editor\"', '$2y$10$0BST6YUgR.YGr5We1q0m/elWIDH27nyS2YOQxLmmSXGi1fti5plUa', 1, '2019-04-25 14:49:23', '2019-04-24 16:52:07', '2019-04-25 15:49:23', NULL),
-(25, 'Adelabu Adebayo', 'adminsssss@gmail.com', '\"Supplier\"', '$2y$10$7nTuwkXtiA.HmUsOaZgOo./xDmbYkuLq7LQtkj8ZKexiQvQs260hq', 1, '2019-04-24 17:21:33', '2019-04-24 17:21:12', '2019-04-24 18:21:33', NULL),
-(26, 'Politician', 'kennys@gmail.com', '\"Supplier\"', '$2y$10$3BFSps5v9KbTaAHUqzt8HeeRZPtGFgbpTVp7TfGb3PK4YZa/JHvl6', 1, '2019-04-25 15:25:32', '2019-04-25 12:03:13', NULL, NULL),
-(27, 'Distributing', 'doctor@gmail.com', 'Distributor', '$2y$10$U6Z1tLmOtXSagdNN1D/V1us/Cu7ORkfV06Ec6a4pjYqVax/hylZmW', 1, '2019-04-25 22:01:06', '2019-04-25 12:50:49', NULL, NULL),
-(28, 'Employeeskgjb jhkgbi', 'laboratory@gmail.com', 'Editor', '$2y$10$dTGy//dEIm2wxAMU4Mu.t.YKX5gxdpCxaSrMV6um2BlI5KxJSZLK.', 1, '2019-04-25 22:50:30', '2019-04-25 13:22:02', NULL, NULL),
-(29, 'Adesina Kolade', 'taiwoss@gmail.com', 'Receptionist', '$2y$10$b3tRnlac4q8t4hhxaryDre/fUhrNs5UQGbqYqcQrpRczb2O.DR13S', 1, '2019-04-25 14:50:31', '2019-04-25 14:02:14', '2019-04-25 15:50:31', NULL),
-(30, 'Adeniran Toyese', 'account@gmail.com', '\"Accountant\"', '$2y$10$RrjeUd4z7jB/9mSxW3XOReRWMMznjxlk91TJOYFilYIr6lueBjqX.', 1, '2019-04-25 22:19:52', '2019-04-25 14:32:11', NULL, NULL),
-(31, 'jfi bfvtuvihnf la', 'solaa@gmail.com', '\"Supplier\"', '$2y$10$AwekdkbdOVuDGTMCYhywN.1VXAcwHh620kqmMq3ZnKoG0AOPMoLv.', 1, '2019-04-25 14:42:26', '2019-04-25 14:36:56', '2019-04-25 15:42:26', NULL);
+(34, 'New Accountant', 'accountant@gmail.com', '\"Accountant\"', '$2y$10$/G1SWEaKZ0rOb7Le06CTKeKWQfWGUdw/ew6eoYeRAnRRHdykkkEnu', 1, '2019-04-29 06:18:28', '2019-04-29 06:18:28', NULL, '2019-04-01 23:00:00'),
+(35, 'Editor', 'editor@gmail.com', '\"Editor\"', '$2y$10$MfG93yAgiBzoBh.VNI4ubeK6U98yy1jLlaaDiTs4cislHjix0oswy', 1, '2019-04-29 08:37:13', '2019-04-29 08:37:13', NULL, '2019-04-06 23:00:00'),
+(36, 'Receptionist', 'receptionist@gmail.com', '\"Receptionist\"', '$2y$10$6n3ymtijFM1mNoVfrJhGneV3LLxGbtkPlRDI9DFopfE3tSC60Itve', 1, '2019-04-29 08:37:54', '2019-04-29 08:37:54', NULL, '2019-04-04 23:00:00'),
+(37, 'Admin User', 'admin@gmail.com', '\"Admin\"', '$2y$10$0U2R9dp42Hk5KEpPPEimCONTOD3YoWT5Pr2cyRhp1qZB3Icrb3zT6', 1, '2019-04-29 08:38:33', '2019-04-29 08:38:33', NULL, '2019-04-01 23:00:00'),
+(38, 'Super Administrator', 'administrator@gmail.com', '\"Administrator\"', '$2y$10$pk17qvsG/AavWn2S6Ayx6./42WqKLutbcWjERVTjn.Dhdbjhhmd6C', 1, '2019-04-29 08:39:12', '2019-04-29 08:39:12', NULL, '2019-04-06 23:00:00');
 
 -- --------------------------------------------------------
 
@@ -1274,7 +1316,7 @@ CREATE TABLE `ware_house_managements` (
   `state` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `country` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `start_date` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(191) NOT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `deleted_at` text COLLATE utf8mb4_unicode_ci
@@ -1285,11 +1327,8 @@ CREATE TABLE `ware_house_managements` (
 --
 
 INSERT INTO `ware_house_managements` (`ware_house_id`, `name`, `address`, `city`, `state`, `country`, `start_date`, `user_id`, `updated_at`, `created_at`, `deleted_at`) VALUES
-(1, 'Glorious', 'kjfdhL zngivzds am;o vhfgxizcsads; ioh', 'Mushin', 'Adamawa', 'Nigeria', '2019-04-07', 'taiwoss@gmail.com', '2019-04-21 17:45:39', '2019-04-21 17:45:39', NULL),
-(2, 'Adelabu Adebayo', 'lk jgrvdfl zsifgvfsmlahsc bfiuv', 'Mushin', 'Abuja FCT', 'Others', '2019-04-25', 'Goke Demmy', '2019-04-21 17:58:24', '2019-04-21 17:53:51', '2019-04-21 18:58:24'),
-(3, 'Noble Immaculatem mfw', 'fkads hssuerwqwx', 'Warri', 'Delta', '20 Litres', '2019-04-21', 'taiwos@gmail.com', '2019-04-25 22:33:34', '2019-04-24 17:13:11', NULL),
-(4, 'Glorious Emp', 'Head Office', 'Mushin Lagos', 'Akwa Ibom', 'Nigeria', '2020-04-07', 'doctor@gmail.com', '2019-04-25 16:25:38', '2019-04-25 16:25:38', NULL),
-(5, 'Glorious Empires', 'Head Office Ikeja', 'Mushin Lagos Abija', 'Abuja FCT', 'Nigeria', '2020-04-07', 'doctor@gmail.com', '2019-04-25 22:33:20', '2019-04-25 16:27:09', NULL);
+(1, 'Glorious', 'New Estate', 'Mushin', 'Adamawa', 'Nigeria', '2019-04-07', 1, '2019-04-28 16:22:50', '2019-04-21 17:45:39', NULL),
+(6, 'Tita Mall', 'Bodija Estate', 'IBADAN', 'Adamawa', 'Nigeria', '2019-04-10', 23, '2019-04-28 16:09:01', '2019-04-28 16:09:01', NULL);
 
 --
 -- Indexes for dumped tables
@@ -1477,7 +1516,7 @@ ALTER TABLE `account_managements`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `activity_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=265;
+  MODIFY `activity_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=290;
 
 --
 -- AUTO_INCREMENT for table `assign_outlets`
@@ -1525,13 +1564,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `order_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `details_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `details_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `outlets`
@@ -1585,7 +1624,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `user_roles`
@@ -1597,7 +1636,7 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT for table `ware_house_managements`
 --
 ALTER TABLE `ware_house_managements`
-  MODIFY `ware_house_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ware_house_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
