@@ -18,6 +18,10 @@ class Distributors extends Model
         return $this->hasMany('App\OrderDetails', 'distributor_id');
     }
 
+    public function payment(){
+        return $this->hasMany('App\Payments', 'payment_id');
+    }
+
     public function assign(){
         return $this->hasMany('App\AssignOutlet', 'distributor_id', 'assign_id');
     }

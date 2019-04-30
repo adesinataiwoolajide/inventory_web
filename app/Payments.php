@@ -10,10 +10,18 @@ class Payments extends Model
     protected $table = 'payments';
     protected $primaryKey = 'payment_id';
     protected $fillable = [
-        'order_id', 'total_amount', 'paid_amount', 'payment_number', 'paid_status',
+        'details_id', 'total_amount', 'paid_amount', 'ware_house_id', 'credit', 'distributor_id', 'paid_status', 'payment_number'
     ];
 
     public function order(){
-        return $this->hasMany('App\Order', 'order_id');
+        return $this->belongsTo('App\OrderDetails', 'details_id');
+    }
+
+    public function distributor(){
+        return $this->belongsTo('App\Distributors', 'distributor_id');
+    }
+
+    public function warehouse(){
+        return $this->belongsTo('App\WareHouseManagement', 'ware_house_id');
     }
 }

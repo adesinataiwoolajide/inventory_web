@@ -192,9 +192,9 @@
                             
                         </li>
                         <li>
-                            <a href="" class="waves-effect">
+                            <a href="{{route('credit.index')}}" class="waves-effect">
                                 <i class="zmdi zmdi-card-travel"></i>
-                                <span>Salary</span>
+                                <span>Credit Mgt</span>
                                 <small class="badge float-right badge-light">
                                     <i class="zmdi zmdi-long-arrow-right"></i>
                                 </small>
@@ -204,13 +204,14 @@
                         <li>
                             <a href="" class="waves-effect">
                                 <i class="zmdi zmdi-card-travel"></i>
-                                <span>Credit Mgt</span>
+                                <span>Salary</span>
                                 <small class="badge float-right badge-light">
                                     <i class="zmdi zmdi-long-arrow-right"></i>
                                 </small>
                             </a>
                             
                         </li>
+                        
                     @endif
                     <li>
                         <a href="" class="waves-effect">

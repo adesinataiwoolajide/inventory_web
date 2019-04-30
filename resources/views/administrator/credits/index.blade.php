@@ -7,9 +7,10 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('payment.index')}}">View Payments</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('payment.create')}}">Add Payment</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">List of Payment</li>
+                        <li class="breadcrumb-item"><a href="{{route('credit.index')}}">View All Credits</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('credit.paid')}}">Paid Credit</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('credit.unpaid')}}">UnPaid Credit</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">List of Credit</li>
                         
 			         </ol>
 			   	</div>
@@ -19,14 +20,14 @@
 		    	<div class="col-lg-12">
                     @include('partials._message')
 		          	<div class="card">
-		          		@if(count($payment) ==0)
+		          		@if(count($credit) ==0)
                             <div class="card-header" align="center" style="color: red">
                                 <i class="fa fa-table"></i> The List is Empty
 			            	</div>
 
 			            @else
                             <div class="card-header"><i class="fa fa-table"></i> 
-                                List of Saved Order Payment
+                                List of All Saved Credit
                             </div>
                             
                             <div class="card-body">
@@ -36,56 +37,57 @@
                                         <thead>
                                             <tr>
                                                 <th> S/N</th>
-                                                <th> Invoice ID</th>
+                                                <th> Payment ID</th>
                                                 <th> Distributor </th>
-                                                <th> Ware House </th>
-                                                <th> Total Amount </th>
-                                                <th> Amount Paid </th>
-                                                <th> Credit </th>
-                                                {{-- <th> Payment</th> --}}
+                                                <th> Ware House</th>
+                                                <th> Credit Amount </th>
+                                                <th> Status </th>
+                                                <th> Time Added </th>
                                             </tr>
                                         </thead>
 
                                         <tfoot>
                                             <tr>
                                                 <th> S/N</th>
+                                                <th> Payment ID</th>
                                                 <th> Distributor </th>
-                                                <th> Ware House </th>
-                                                <th> Invoice ID</th>
-                                                <th> Total Amount </th>
-                                                <th> Amount Paid </th>
-                                                <th> Credit </th>
-                                                {{-- <th> Payment</th> --}}
+                                                <th> Ware House</th>
+                                                <th> Credit Amount </th>
+                                                <th> Status </th>
+                                                <th> Time Added </th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
                                             <?php $number =1; ?>
-                                            @foreach($payment as $orders)
+                                            @foreach($credit as $credits)
                                                 <tr>
                                                     <td>{{$number}}
-                                                        <a href="{{route('payment.delete', $orders->order->transaction_number)}}" 
+                                                        {{-- <a href="{{route('payment.delete', $orders->order->transaction_number)}}" 
                                                             onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
                                                         <a href="{{route('payment.edit', $orders->order->transaction_number)}}" 
                                                             onclick="return(confirmToEdit());" class="btn btn-success">
                                                             <i class="fa fa-pencil"></i></a>
                                                         <a href="{{route('payment.details', $orders->order->transaction_number)}}" 
                                                              class="btn btn-primary">
-                                                            <i class="fa fa-list"></i></a>  
+                                                            <i class="fa fa-list"></i>
+                                                        </a>   --}}
                                                     </td>
                                                     
-                                                    <td>{{$orders->order->transaction_number}}</td>
-                                                    <td>{{$orders->distributor->name}}</td>
-                                                    <td>{{$orders->warehouse->name}}</td>
-                                                    <td> &#8358;<?php echo number_format($orders->total_amount) ?> </td>
-                                                    <td> &#8358;<?php echo number_format($orders->paid_amount) ?></td>
+                                                    <td>{{$credits->payment_number}}</td>
+                                                    <td>{{$credits->distributor->name}}</td>
+                                                    <td>{{$credits->warehouse->name}}</td>
+                                                    <td> &#8358;<?php echo number_format($credits->credit_amount) ?> </td>
+                                                    
                                                     <td> 
-                                                        @if($orders->credit ==0)
-                                                            <p style="color: green"> No Credit </p>
+                                                        @if($credits->paid_status ==1)
+                                                            <p style="color: green"> Paid </p>
                                                         @else
-                                                            <p style="color: red"> &#8358;<?php echo number_format($orders->credit) ?> </p>
+                                                            <p style="color: red"> &#8358;
+                                                                <?php echo number_format($credits->credit_amount) ?> Pending </p>
                                                         @endif
                                                     </td>
-                                                   
+                                                    <td>{{$credits->created_at}}</td>
+                                                    
                                                 </tr>
                                                 
                                                 <?php

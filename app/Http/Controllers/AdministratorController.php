@@ -45,7 +45,7 @@ class AdministratorController extends Controller
         //     'guard_name' => 'web'
         // ]);
         // Permission::create([
-        //     'name'=>'print-invoice',
+        //     'name'=>'payment-restore',
         //     'guard_name' => 'web'
         // ]);
         
@@ -76,10 +76,11 @@ class AdministratorController extends Controller
         $roleAccount->givePermissionTo([
             'salary-create',  'salary-update', 'salary-edit',
             'account-create',  'account-update', 'account-edit',
-            'order-create',  'order-edit', 'order-update', 'order-invoice'
+            'order-create',  'order-edit', 'order-update', 'order-invoice',
+            'payment-create', 'payment-edit', 'payment-update', 'payment-delete', 
             //'payment-create', 'account-update', 'account-edit', 
         ]);
-        // auth()->user()->givePermissionTo('category-restore');
+        //auth()->user()->givePermissionTo('payment-create');
         $roleAdmin->givePermissionTo([
             'category-restore',  'product-restore', 'variant-restore',
             'distributor-restore', 'supplier-restore', 'outlet-restore', 'warehouse-restore',
@@ -97,7 +98,8 @@ class AdministratorController extends Controller
             'salary-create', 'salary-delete', 'salary-update', 'salary-edit',
             'account-create', 'account-delete', 'account-update', 'account-edit',
             'order-create', 'order-update', 'order-edit', 'order-delete', 'order-invoice', 
-            //'payment-create', 'account-update', 'account-edit', 
+            'payment-create', 'payment-edit', 'payment-update', 'payment-delete', 
+            //'account-update', 'account-edit', 
                 'print-invoice'
         ]);
 

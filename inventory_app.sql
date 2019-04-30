@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2019 at 12:27 PM
+-- Generation Time: Apr 30, 2019 at 01:05 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -342,7 +342,27 @@ INSERT INTO `activity_logs` (`activity_id`, `user_id`, `operations`, `created_at
 (286, '1', 'Added editor@gmail.com To The User List', '2019-04-29 08:37:13', '2019-04-29 08:37:13'),
 (287, '1', 'Added receptionist@gmail.com To The User List', '2019-04-29 08:37:54', '2019-04-29 08:37:54'),
 (288, '1', 'Added admin@gmail.com To The User List', '2019-04-29 08:38:33', '2019-04-29 08:38:33'),
-(289, '1', 'Added administrator@gmail.com To The User List', '2019-04-29 08:39:12', '2019-04-29 08:39:12');
+(289, '1', 'Added administrator@gmail.com To The User List', '2019-04-29 08:39:12', '2019-04-29 08:39:12'),
+(290, '34', 'Added  To The Employee List', '2019-04-30 05:19:14', '2019-04-30 05:19:14'),
+(291, '34', 'Added  To The Employee List', '2019-04-30 05:27:46', '2019-04-30 05:27:46'),
+(292, '34', 'Added  To The Employee List', '2019-04-30 05:51:27', '2019-04-30 05:51:27'),
+(293, '34', 'Added  To The Employee List', '2019-04-30 05:55:18', '2019-04-30 05:55:18'),
+(294, '34', 'Added  To The Employee List', '2019-04-30 05:57:08', '2019-04-30 05:57:08'),
+(295, '34', 'Added  To The Employee List', '2019-04-30 06:00:01', '2019-04-30 06:00:01'),
+(296, '34', 'Added  To The Employee List', '2019-04-30 06:17:23', '2019-04-30 06:17:23'),
+(297, '34', 'Added  To The Employee List', '2019-04-30 06:18:52', '2019-04-30 06:18:52'),
+(298, '34', 'Added  To The Employee List', '2019-04-30 06:34:19', '2019-04-30 06:34:19'),
+(299, '34', 'Updated Payment For D78C38AB8B15', '2019-04-30 08:39:32', '2019-04-30 08:39:32'),
+(300, '34', 'Updated Payment For D78C38AB8B15', '2019-04-30 08:40:28', '2019-04-30 08:40:28'),
+(301, '34', 'Updated Payment For D78C38AB8B15', '2019-04-30 08:41:35', '2019-04-30 08:41:35'),
+(302, '34', 'Updated Payment For D78C38AB8B15', '2019-04-30 08:43:31', '2019-04-30 08:43:31'),
+(303, '34', 'Updated Payment For D78C38AB8B15', '2019-04-30 08:43:58', '2019-04-30 08:43:58'),
+(304, '34', 'Updated Payment For D78C38AB8B15', '2019-04-30 08:44:35', '2019-04-30 08:44:35'),
+(305, '34', 'Updated Payment For D78C38AB8B15', '2019-04-30 08:47:03', '2019-04-30 08:47:03'),
+(306, '34', 'Added Payment For 31CE2DFC460A', '2019-04-30 09:38:16', '2019-04-30 09:38:16'),
+(307, '34', 'Added Payment For 31CE2DFC460A', '2019-04-30 09:38:46', '2019-04-30 09:38:46'),
+(308, '34', 'Added Payment For 31CE2DFC460A', '2019-04-30 09:41:21', '2019-04-30 09:41:21'),
+(309, '34', 'Added Payment For 31CE2DFC460A', '2019-04-30 09:41:59', '2019-04-30 09:41:59');
 
 -- --------------------------------------------------------
 
@@ -405,15 +425,24 @@ INSERT INTO `categories` (`category_id`, `category_name`, `updated_at`, `created
 --
 
 CREATE TABLE `credit_managements` (
-  `credit_id` int(11) NOT NULL,
-  `payment_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `credit_id` int(255) NOT NULL,
+  `payment_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `distributor_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `credit_amount` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ware_house_id` int(255) NOT NULL,
   `paid_status` int(255) NOT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `credit_managements`
+--
+
+INSERT INTO `credit_managements` (`credit_id`, `payment_number`, `distributor_id`, `credit_amount`, `ware_house_id`, `paid_status`, `updated_at`, `created_at`, `deleted_at`) VALUES
+(1, 'D78C38AB8B15', '3', '8000', 1, 0, '2019-04-30 08:47:03', '2019-04-30 06:34:19', NULL),
+(2, '31CE2DFC460A', '7', '0', 6, 1, '2019-04-30 09:41:59', '2019-04-30 09:41:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -672,7 +701,8 @@ INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) 
 (54, 'App\\User', '1'),
 (59, 'App\\User', '1'),
 (70, 'App\\User', '1'),
-(71, 'App\\User', '1');
+(71, 'App\\User', '1'),
+(72, 'App\\User', '34');
 
 -- --------------------------------------------------------
 
@@ -796,6 +826,7 @@ CREATE TABLE `order_details` (
   `distributor_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `invoice_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ware_house_id` int(255) NOT NULL,
+  `order_status` int(1) NOT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -805,10 +836,10 @@ CREATE TABLE `order_details` (
 -- Dumping data for table `order_details`
 --
 
-INSERT INTO `order_details` (`details_id`, `transaction_number`, `distributor_id`, `invoice_number`, `ware_house_id`, `updated_at`, `created_at`, `deleted_at`) VALUES
-(1, 'D78C38AB8B15', '3', 'FD45BGDS', 1, '2019-04-27 14:31:59', '2019-04-27 14:31:59', NULL),
-(2, '31CE2DFC460A', '7', 'E702BC', 6, '2019-04-28 06:45:18', '2019-04-28 06:45:18', NULL),
-(3, '8315AC1B2308', '8', '1A8F72', 1, '2019-04-28 20:11:00', '2019-04-28 20:11:00', NULL);
+INSERT INTO `order_details` (`details_id`, `transaction_number`, `distributor_id`, `invoice_number`, `ware_house_id`, `order_status`, `updated_at`, `created_at`, `deleted_at`) VALUES
+(1, 'D78C38AB8B15', '3', 'FD45BGDS', 1, 1, '2019-04-27 14:31:59', '2019-04-27 14:31:59', NULL),
+(2, '31CE2DFC460A', '7', 'E702BC', 6, 1, '2019-04-28 06:45:18', '2019-04-28 06:45:18', NULL),
+(3, '8315AC1B2308', '8', '1A8F72', 1, 0, '2019-04-28 20:11:00', '2019-04-28 20:11:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -856,15 +887,26 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `payments` (
   `payment_id` bigint(20) UNSIGNED NOT NULL,
-  `order_id` int(11) NOT NULL,
+  `details_id` int(255) NOT NULL,
+  `distributor_id` int(255) NOT NULL,
   `total_amount` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `paid_amount` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payment_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `credit` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ware_house_id` int(255) NOT NULL,
   `paid_status` int(1) NOT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`payment_id`, `details_id`, `distributor_id`, `total_amount`, `paid_amount`, `credit`, `payment_number`, `ware_house_id`, `paid_status`, `updated_at`, `created_at`, `deleted_at`) VALUES
+(1, 1, 3, '488000', '480000', '8000', 'D78C38AB8B15', 1, 1, '2019-04-30 08:47:03', '2019-04-30 06:34:19', NULL),
+(4, 2, 7, '540000', '540000', '0', '31CE2DFC460A', 6, 1, '2019-04-30 09:41:59', '2019-04-30 09:41:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -954,7 +996,12 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (68, 'salary-restore', 'web', '2019-04-27 07:03:13', '2019-04-27 07:03:13'),
 (69, 'account-restore', 'web', '2019-04-27 07:03:29', '2019-04-27 07:03:29'),
 (70, 'order-invoice', 'web', '2019-04-27 13:16:28', '2019-04-27 13:16:28'),
-(71, 'print-invoice', 'web', '2019-04-27 15:03:40', '2019-04-27 15:03:40');
+(71, 'print-invoice', 'web', '2019-04-27 15:03:40', '2019-04-27 15:03:40'),
+(72, 'payment-create', 'web', '2019-04-30 05:00:58', '2019-04-30 05:00:58'),
+(73, 'payment-edit', 'web', '2019-04-30 05:01:22', '2019-04-30 05:01:22'),
+(74, 'payment-update', 'web', '2019-04-30 05:01:44', '2019-04-30 05:01:44'),
+(75, 'payment-delete', 'web', '2019-04-30 05:02:04', '2019-04-30 05:02:04'),
+(76, 'payment-restore', 'web', '2019-04-30 05:02:15', '2019-04-30 05:02:15');
 
 -- --------------------------------------------------------
 
@@ -1209,7 +1256,15 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (58, 7),
 (70, 6),
 (70, 7),
-(71, 7);
+(71, 7),
+(72, 6),
+(72, 7),
+(73, 6),
+(73, 7),
+(74, 6),
+(74, 7),
+(75, 6),
+(75, 7);
 
 -- --------------------------------------------------------
 
@@ -1357,6 +1412,12 @@ ALTER TABLE `assign_outlets`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indexes for table `credit_managements`
+--
+ALTER TABLE `credit_managements`
+  ADD PRIMARY KEY (`credit_id`);
 
 --
 -- Indexes for table `customers`
@@ -1516,7 +1577,7 @@ ALTER TABLE `account_managements`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `activity_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=290;
+  MODIFY `activity_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=310;
 
 --
 -- AUTO_INCREMENT for table `assign_outlets`
@@ -1529,6 +1590,12 @@ ALTER TABLE `assign_outlets`
 --
 ALTER TABLE `categories`
   MODIFY `category_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `credit_managements`
+--
+ALTER TABLE `credit_managements`
+  MODIFY `credit_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -1582,13 +1649,13 @@ ALTER TABLE `outlets`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `payment_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `payment_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `products`

@@ -22,6 +22,6 @@ class OrderDetails extends Model
     }
 
     public function payment(){
-        return $this->belongsTo('App\Payments', 'payment_id');
+        return $this->hasOne('App\Payments', 'details_id', 'payment_id');
     }
 }

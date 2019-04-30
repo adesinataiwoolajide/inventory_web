@@ -29,8 +29,15 @@ class WareHouseManagement extends Model
         return $this->hasMany('App\OrderDetails', 'distributor_id');
     }
 
+    public function payment(){
+        return $this->hasMany('App\Payments', 'payment_id');
+    }
     
     public function warehouseOrder(){
         return $this->hasMany('App\WareHouseManagement', 'ware_house_id');
+    }
+
+    public function credit(){
+        return $this->hasMany('App\CreditManagement', 'credit_id');
     }
 }

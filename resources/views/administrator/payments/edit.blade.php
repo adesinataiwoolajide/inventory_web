@@ -7,10 +7,10 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('payment.add', $orderDetails->transaction_number)}}">Adding Payment</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('payment.update', $payment->payment_number)}}">Edit Payment</a></li>
                         <li class="breadcrumb-item"><a href="{{route('payment.create')}}">Add Payment</a></li>
                         <li class="breadcrumb-item"><a href="{{route('payment.index')}}">View Payments</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">List of Order Invoice</li>
+                        <li class="breadcrumb-item active" aria-current="page">Editing The Payment</li>
                         
 			         </ol>
 			   	</div>
@@ -20,10 +20,10 @@
 
                     @include('partials._message')
                     <div class="card">
-                        <div class="card-header"><i class="fa fa-table"></i> Please Fill The Below Form To Add 
+                        <div class="card-header"><i class="fa fa-table"></i> Please Fill The Below Form To Update 
                             New Payment Details</div>
                         <div class="card-body">
-                            <form action="{{route('payment.save')}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{route('payment.update', $payment->payment_number)}}" method="POST" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="form-group row ">
                                     <div class="col-sm-4">
@@ -68,9 +68,11 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <label>Amount Paid</label>
+                                        
                                         <input type="number" name="paid_amount" class="form-control form-control-rounded" 
-                                        required 
+                                        required value="{{$payment->paid_amount}}"
                                         placeholder="Enter Amount Paid">
+                                        
                                         <span style="color: red">** This Field is Required **</span>
                                             @if ($errors->has('paid_amount'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -89,7 +91,7 @@
                                     <input type="hidden" name="transaction_number" 
                                         value="{{$orderDetails->transaction_number}}">
                                     <div class="col-sm-12" align="center">
-                                        <button type="submit" class="btn btn-success btn-lg btn-block">ADD THE 
+                                        <button type="submit" class="btn btn-success btn-lg btn-block">UPDATE THE 
                                             PAYMENT </button>
                                     </div>
                                     
@@ -115,62 +117,62 @@
                             <div class="table-responsive">
                                 <table id="default-datatable" class="table table-bordered">
                                     <thead>
+                                        <tr>
+                                            <th>S/N </th>
+                                            <th>Product</th>
+                                            <th>Qty</th>
+                                            <th>Price</th>
+                                            <th>Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($viewOrder as $listOrder)<?php
+                                            $cal = $listOrder->quantity * $listOrder->unit_amount;
+                                            array_push($total, $cal); ?>
                                             <tr>
-                                                <th>S/N </th>
-                                                <th>Product</th>
-                                                <th>Qty</th>
-                                                <th>Price</th>
-                                                <th>Subtotal</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($viewOrder as $listOrder)<?php
-                                                $cal = $listOrder->quantity * $listOrder->unit_amount;
-                                                array_push($total, $cal); ?>
-                                                <tr>
-                                                    <td>{{$num}} </td>
-                                                    <td>{{$listOrder->inventory->product_name}}
-                                                        {{-- @foreach(ProductStock($listOrder->stock_id) as $stock)
-                                                            {{$stock->product_name}}
-                                                        @endforeach --}}
-                                                    </td>
-                                                    <td><?php echo number_format($listOrder->quantity) ?></td> 
-                                                    <td>&#8358;<?php echo number_format($listOrder->unit_amount)  ?></td> 
-                                                    <td>&#8358;<?php echo number_format($listOrder->total_amount)  ?></td>
+                                                <td>{{$num}} </td>
+                                                <td>{{$listOrder->inventory->product_name}}
+                                                    {{-- @foreach(ProductStock($listOrder->stock_id) as $stock)
+                                                        {{$stock->product_name}}
+                                                    @endforeach --}}
+                                                </td>
+                                                <td><?php echo number_format($listOrder->quantity) ?></td> 
+                                                <td>&#8358;<?php echo number_format($listOrder->unit_amount)  ?></td> 
+                                                <td>&#8358;<?php echo number_format($listOrder->total_amount)  ?></td>
 
-                                                </tr>
-                                                <?php 
-                                                $num++; ?>
-                                            @endforeach
-                                        </tbody>
-                                        <tbody>
-                                            <td></td> 
-                                            <td></td> 
-                                            <td></td> 
-                                            <td></td> 
-                                            
-                                        </tbody>
-                                        <tbody>
-                                            <td></td> 
-                                            <td></td> 
-                                            <td></td> 
-                                            <td>Transaction Number</td> 
-                                            <td>{{$orderDetails->transaction_number}}</td>   
-                                        </tbody>
-                                        <tbody>
-                                            <td></td> 
-                                            <td></td> 
-                                            <td></td> 
-                                            <td>Invoice Number</td> 
-                                            <td>{{$orderDetails->invoice_number}}</td>   
-                                        </tbody>
-                                        <tbody>
-                                            <td></td> 
-                                            <td></td> 
-                                            <td></td> 
-                                            <td>Total</td> 
-                                            <td>&#8358;<?php echo number_format($price) ?></td> 
-                                        </tbody>
+                                            </tr>
+                                            <?php 
+                                            $num++; ?>
+                                        @endforeach
+                                    </tbody>
+                                    <tbody>
+                                        <td></td> 
+                                        <td></td> 
+                                        <td></td> 
+                                        <td></td> 
+                                        
+                                    </tbody>
+                                    <tbody>
+                                        <td></td> 
+                                        <td></td> 
+                                        <td></td> 
+                                        <td>Transaction Number</td> 
+                                        <td>{{$orderDetails->transaction_number}}</td>   
+                                    </tbody>
+                                    <tbody>
+                                        <td></td> 
+                                        <td></td> 
+                                        <td></td> 
+                                        <td>Invoice Number</td> 
+                                        <td>{{$orderDetails->invoice_number}}</td>   
+                                    </tbody>
+                                    <tbody>
+                                        <td></td> 
+                                        <td></td> 
+                                        <td></td> 
+                                        <td>Total</td> 
+                                        <td>&#8358;<?php echo number_format($price) ?></td> 
+                                    </tbody>
                                 
                                 </table>
                             </div>
@@ -213,11 +215,11 @@
                                     @else
                                         @foreach($credit as $credits)
                                             <tr> 
-                                                <td>&#8358;
-                                                    <?php echo number_format($credits->credit_amount); ?>
+                                                <td>
+                                                    &#8358;<?php echo number_format($credits->credit_amount); ?>
                                                 
                                                     @if($credits->paid_status ==1)
-                                                        <p style="color:greenyellow"> Paid </p>
+                                                    &#8358;<p style="color:greenyellow"> Paid </p>
                                                     @else
                                                         <p style="color:red"> Pending </p>
                                                     @endif

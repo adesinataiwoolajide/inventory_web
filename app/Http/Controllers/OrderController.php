@@ -50,6 +50,7 @@ class OrderController extends Controller
         $inventory =  InventoryStock::all();
         $distributor =  Distributors::all();
         $order= $this->model->all();
+        
         return view('administrator.orders.create')
             ->with([
             "category" => $category,
@@ -94,7 +95,7 @@ class OrderController extends Controller
                             "order" => new Order,
                             "stock_id" => $request->input("stock_id$i"),
                             "quantity" => $request->input("quantity$i"),
-                            "unit_amount" => $request->input("unit_amount$i"),
+                            "unit_amount" => $price,
                             "distributor_id" => $request->input("distributor_id"),
                             "transaction_number" => $transaction_number,
                             "total_amount" => $request->input("quantity$i") * 

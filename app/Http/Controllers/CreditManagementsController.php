@@ -1,11 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\{Order,OrderDetails, Distributors, Products, ProductVariants, Categories, User, 
+    Activitylog, Suppliers, WareHouseManagement, InventoryStock, Payments, CreditManagement};
+use App\Repositories\CreditRepository;
+use DB;
 
 class CreditManagementsController extends Controller
 {
+    protected $model;
+    public function __construct(CreditManagement $credit)
+    {
+       // set the model
+       $this->model = new CreditRepository($credit);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +22,26 @@ class CreditManagementsController extends Controller
      */
     public function index()
     {
-        //
+        $credit =CreditManagement::orderBy('credit_id', 'desc')->get();
+        return view('administrator.credits.index')->with([
+            "credit" => $credit,
+        ]);
+    }
+
+    public function paid()
+    {
+        $credit =CreditManagement::where('paid_status', 1)->orderBy('credit_id', 'desc')->get();
+        return view('administrator.credits.paid')->with([
+            "credit" => $credit,
+        ]);
+    }
+
+    public function unpaid()
+    {
+        $credit =CreditManagement::where('paid_status', 0)->orderBy('credit_id', 'desc')->get();
+        return view('administrator.credits.paid')->with([
+            "credit" => $credit,
+        ]);
     }
 
     /**
