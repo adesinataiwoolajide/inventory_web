@@ -24,8 +24,9 @@ class WareHouseManagementController extends Controller
      */
     public function index()
     {
-        $warehouse= $this->model->all();
+        $warehouse= WareHouseManagement::orderBy('name', 'asc')->get();
         $user = User::all();
+        //$id = $warehouse->user_id;
         // $ware = WareHouseManagement::find(1)->user;
         // echo $ware->name;
         return view('administrator.warehouse.create')->with([

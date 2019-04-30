@@ -6,10 +6,17 @@
    			<div class="row pt-2 pb-2">
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
-				    	<li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-						<li class="breadcrumb-item"><a href="{{route('outlet.create')}}">Add Outlet</a></li>
-						<li class="breadcrumb-item"><a href="{{route('outlet.restore')}}">Restore Deleted Outlets</a></li>
-						<li class="breadcrumb-item"><a href="{{route('assign.outlet.create')}}">Assign An Outlet</a></li>
+						<li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
+						@can('outlet-create')
+							<li class="breadcrumb-item"><a href="{{route('outlet.create')}}">Add Outlet</a></li>
+						@endcan
+						@can('outlet-restore')
+							<li class="breadcrumb-item"><a href="{{route('outlet.restore')}}">Restore Deleted Outlets</a></li>	
+						@endcan
+						@can('assign-create')
+							<li class="breadcrumb-item"><a href="{{route('assign.outlet.create')}}">
+								Assign An Outlet</a></li>
+						@endcan
 			            <li class="breadcrumb-item active" aria-current="page">Saved Outlets</li>
 			         </ol>
 			   	</div>
@@ -82,11 +89,17 @@
 						                	<?php $number =1; ?>
 						                	@foreach($outlet as $outlets)
 							                    <tr>
-							                        <td>{{$number}}
-                                                        <a href="{{route('outlet.delete', $outlets->outlet_id)}}" 
-                                                            class="btn btn-danger" onclick="return(confirmToDelete());"><i class="fa fa-trash-o"></i></a>
+													<td>{{$number}}
+														@can('outlet-delete')
+                                                        	<a href="{{route('outlet.delete', $outlets->outlet_id)}}" 
+															class="btn btn-danger" onclick="return(confirmToDelete());">
+															<i class="fa fa-trash-o"></i></a>
+														@endcan
+														@can('outlet-edit')
                                                         <a href="{{route('outlet.edit', $outlets->outlet_id)}}" 
-                                                            class="btn btn-success" onclick="return(confirmToEdit());"><i class="fa fa-pencil"></i></a>
+															class="btn btn-success" onclick="return(confirmToEdit());">
+															<i class="fa fa-pencil"></i></a>
+														@endcan
 							                        </td>
 							                        <td>{{$outlets->outlet_name}}</td>
 							                        

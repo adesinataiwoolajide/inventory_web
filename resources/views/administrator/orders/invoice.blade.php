@@ -7,8 +7,12 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('order.invoice')}}">Order Invoice</a></li>
+                        @can('order-invoice')
+                            <li class="breadcrumb-item"><a href="{{route('order.invoice')}}">Order Invoice</a></li>
+                        @endcan
+                        @can('order-create')
                         <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
+                        @endcan
                         {{-- <li class="breadcrumb-item"><a href="{{route('order.index')}}">View Orders</a></li> --}}
                         <li class="breadcrumb-item active" aria-current="page">List of Order Invoice</li>
                         
@@ -42,7 +46,9 @@
                                                 <th> Invoice </th>
                                                 <th> Ware House </th>
                                                 <th>TIme Added</th>
-                                                <th>Action </th>
+                                                @can('print-invoice')
+                                                    <th>Action </th>
+                                                @endcan
                                             </tr>
                                         </thead>
 
@@ -55,7 +61,9 @@
                                                 <th> Invoice </th>
                                                 <th> Ware House </th>
                                                 <th>TIme Added</th>
-                                                <th>Action </th>
+                                                @can('print-invoice')
+                                                    <th>Action </th>
+                                                @endcan
                                                 
                                             </tr>
                                         </tfoot>
@@ -65,8 +73,6 @@
                                                 <tr>
                                                     <td>{{$number}}</td>
                                                     <td>{{$orders->transaction_number}}</td>
-                                                    
-                                                    
                                                     <td>{{$orders->distributor->name}}
                                                         {{-- @foreach(ProductDistributor($orders->distributor_id) as $dist)
                                                             {{$dist->name}}
@@ -77,12 +83,15 @@
                                                     <td>{{$orders->created_at}}
                                                         
                                                     </td>
-                                                    <td>
-                                                        <a href="{{route('print.invoice', $orders->transaction_number)}}" class="btn btn-success">
-                                                            <i class="fa fa-book"></i> See Invoice
-                                                        </a>
-                                                    </td>
-                                                    
+                                                    @can('print-invoice')
+                                                        <td>
+                                                       
+                                                            <a href="{{route('print.invoice', $orders->transaction_number)}}" class="btn btn-success">
+                                                                <i class="fa fa-book"></i> See Invoice
+                                                            </a>
+                                                        
+                                                        </td>
+                                                    @endcan
                                                 </tr>
                                                 
                                                 <?php

@@ -48,65 +48,6 @@
                             </small>
                         </a>
                     </li>
-                    @if(auth()->user()->hasRole('Administrator') OR auth()->user()->hasRole('Admin'))
-                        <li>
-                            <a href="{{route('user.create')}}" class="waves-effect">
-                                <i class="fa fa-users"></i> <span>Users</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('outlet.create')}}" class="waves-effect">
-                                <i class="fa fa-shopping-cart"></i> <span>Outlets</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('employee.create')}}" class="waves-effect">
-                                <i class="fa fa-group"></i> <span>Employee</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('inventory.index')}}" class="waves-effect">
-                                <i class="zmdi zmdi-card-travel"></i>
-                                <span>Inventory</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                            
-                        </li>
-                        <li>
-                            <a href="{{route('order.invoice')}}" class="waves-effect">
-                                <i class="zmdi zmdi-card-travel"></i>
-                                <span>Order</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                            
-                        </li>
-                        <li>
-                            <a href="{{route('product.create')}}" class="waves-effect">
-                                <i class="zmdi zmdi-card-travel"></i>
-                                <span>Sales</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                            
-                        </li>
-                        
-
-                    @endif
-                    
                     @if ((auth()->user()->hasRole('Administrator')) OR
                         (auth()->user()->hasRole('Admin')) OR 
                         (auth()->user()->hasRole('Editor')) OR
@@ -168,6 +109,76 @@
                             
                         </li>
                     @endif
+                    @if(auth()->user()->hasRole('Administrator') OR
+                         auth()->user()->hasRole('Admin'))
+                        <li>
+                            <a href="{{route('user.create')}}" class="waves-effect">
+                                <i class="fa fa-users"></i> <span>Users</span>
+                                <small class="badge float-right badge-light">
+                                    <i class="zmdi zmdi-long-arrow-right"></i>
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('outlet.create')}}" class="waves-effect">
+                                <i class="fa fa-shopping-cart"></i> <span>Outlets</span>
+                                <small class="badge float-right badge-light">
+                                    <i class="zmdi zmdi-long-arrow-right"></i>
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('employee.create')}}" class="waves-effect">
+                                <i class="fa fa-group"></i> <span>Employee</span>
+                                <small class="badge float-right badge-light">
+                                    <i class="zmdi zmdi-long-arrow-right"></i>
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('inventory.index')}}" class="waves-effect">
+                                <i class="zmdi zmdi-card-travel"></i>
+                                <span>Inventory</span>
+                                <small class="badge float-right badge-light">
+                                    <i class="zmdi zmdi-long-arrow-right"></i>
+                                </small>
+                            </a>
+                            
+                        </li>
+                        <li>
+                            <a href="{{route('order.invoice')}}" class="waves-effect">
+                                <i class="zmdi zmdi-card-travel"></i>
+                                <span>Order</span>
+                                <small class="badge float-right badge-light">
+                                    <i class="zmdi zmdi-long-arrow-right"></i>
+                                </small>
+                            </a>
+                            
+                        </li>
+                        <li>
+                            <a href="{{route('product.create')}}" class="waves-effect">
+                                <i class="zmdi zmdi-card-travel"></i>
+                                <span>Sales</span>
+                                <small class="badge float-right badge-light">
+                                    <i class="zmdi zmdi-long-arrow-right"></i>
+                                </small>
+                            </a>
+                            
+                        </li>
+
+                        <li>
+                            <a href="{{route('log.index')}}" class="waves-effect">
+                                <i class="fa fa-users"></i> <span>Activities Log</span>
+                                <small class="badge float-right badge-light">
+                                    <i class="zmdi zmdi-long-arrow-right"></i>
+                                </small>
+                            </a>
+                        </li>
+                        
+
+                    @endif
+                    
+                    
                     @if(auth()->user()->hasRole('Administrator'))
                        
                         <li>
@@ -180,7 +191,9 @@
                         </li>
                     @endif
                     @if(auth()->user()->hasRole('Administrator') OR 
-                        (auth()->user()->hasRole('Accountant')))
+                        (auth()->user()->hasRole('Accountant'))
+                        OR 
+                        (auth()->user()->hasRole('Admin')))
                         <li>
                             <a href="{{route('payment.index')}}" class="waves-effect">
                                 <i class="zmdi zmdi-card-travel"></i>
@@ -214,7 +227,7 @@
                         
                     @endif
                     <li>
-                        <a href="" class="waves-effect">
+                        <a href="{{route('log.user')}}" class="waves-effect">
                             <i class="fa fa-cloud"></i> <span>My Activity Log</span>
                             <small class="badge float-right badge-light"><i class="zmdi zmdi-long-arrow-right"></i></small>
                         </a>

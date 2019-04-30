@@ -36,7 +36,7 @@
                                         <thead>
                                             <tr>
                                                 <th> S/N</th>
-                                                <th> Invoice ID</th>
+                                                <th> Transaction ID</th>
                                                 <th> Distributor </th>
                                                 <th> Ware House </th>
                                                 <th> Total Amount </th>
@@ -51,7 +51,7 @@
                                                 <th> S/N</th>
                                                 <th> Distributor </th>
                                                 <th> Ware House </th>
-                                                <th> Invoice ID</th>
+                                                <th> Transaction ID</th>
                                                 <th> Total Amount </th>
                                                 <th> Amount Paid </th>
                                                 <th> Credit </th>
@@ -63,8 +63,11 @@
                                             @foreach($payment as $orders)
                                                 <tr>
                                                     <td>{{$number}}
-                                                        <a href="{{route('payment.delete', $orders->order->transaction_number)}}" 
-                                                            onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                                                        @can('payment-delete')
+                                                            <a href="{{route('payment.delete', $orders->order->transaction_number)}}" 
+                                                            onclick="return(confirmToDelete());" class="btn btn-danger">
+                                                            <i class="fa fa-trash-o"></i></a>
+                                                        @endcan
                                                         <a href="{{route('payment.edit', $orders->order->transaction_number)}}" 
                                                             onclick="return(confirmToEdit());" class="btn btn-success">
                                                             <i class="fa fa-pencil"></i></a>

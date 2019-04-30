@@ -26,9 +26,10 @@ class OrderController extends Controller
         
         
         $inv = WareHouseManagement::find(auth()->user()->user_id);
-        $invoice =  OrderDetails::where([
-            'ware_house_id'=> $inv->ware_house_id]
-        )->get();
+        // $invoice =  OrderDetails::where([
+        //     'ware_house_id'=> $inv->ware_house_id]
+        // )->get();
+        $invoice =  OrderDetails::orderBy('details_id', 'desc')->get();
         return view('administrator.orders.index')->with([
             
             "invoice" => $invoice,
@@ -47,7 +48,7 @@ class OrderController extends Controller
         $product =  Products::all();
         $warehouse =  WareHouseManagement::all();
         $supplier =  Suppliers::all();
-        $inventory =  InventoryStock::all();
+        $inventory =  InventoryStock::orderBy('quantity', 'desc')->get();
         $distributor =  Distributors::all();
         $order= $this->model->all();
         
@@ -99,7 +100,8 @@ class OrderController extends Controller
                             "distributor_id" => $request->input("distributor_id"),
                             "transaction_number" => $transaction_number,
                             "total_amount" => $request->input("quantity$i") * 
-                            $price,   
+                            $price,  
+                           
 
                         ]);
 
@@ -138,12 +140,14 @@ class OrderController extends Controller
                     }
                     
                 }
-                $dell = WareHouseManagement::find(auth()->user()->user_id);
+                $dell = WareHouseManagement::where('user_id', Auth::user()->user_id)->first();
                 OrderDetails::create([
                     'transaction_number' => $transaction_number,
                     'distributor_id' => $request->input("distributor_id"),
                     'invoice_number' => $invoice_number,
                     "ware_house_id" => $dell->ware_house_id,
+                     "order_status" => 0
+                     , 
                 ]);
                 return redirect()->route("order.invoice")->
                 with([
@@ -172,9 +176,10 @@ class OrderController extends Controller
         if(auth()->user()->hasPermissionTo('order-invoice')){
 
             $inv = WareHouseManagement::find(auth()->user()->user_id);
-            $invoice =  OrderDetails::where([
-                'ware_house_id'=> $inv->ware_house_id]
-            )->get();
+            // $invoice =  OrderDetails::where([
+            //     'ware_house_id'=> $inv->ware_house_id]
+            // )->get();
+            $invoice =  OrderDetails::orderBy('details_id', 'desc')->get();
             return view('administrator.orders.invoice')->with([
                 
                 "invoice" => $invoice,

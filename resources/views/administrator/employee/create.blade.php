@@ -6,11 +6,16 @@
    			<div class="row pt-2 pb-2">
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
-				    	<li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('employee.create')}}">Add Employee</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('employee.restore')}}">Restore Deleted Employees</a></li>
-			            <li class="breadcrumb-item active" aria-current="page">Saved Employees</li>
-			         </ol>
+                        <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
+                        @can('employee-create')
+                            <li class="breadcrumb-item"><a href="{{route('employee.create')}}">Add Employee</a></li>
+                        @endcan    
+                        @can('employee-restore')
+                            <li class="breadcrumb-item"><a href="{{route('employee.restore')}}">Restore Deleted Employees</a></li>
+                            
+                        @endcan
+                        <li class="breadcrumb-item active" aria-current="page">Saved Employees</li>
+                    </ol>
 			   	</div>
 			</div>
    			<div class="row">
@@ -192,11 +197,19 @@
 						                	<?php $number =1; ?>
 						                	@foreach($employee as $employees)
 							                    <tr>
-							                        <td>{{$number}}
-                                                        <a href="{{route('employee.delete', $employees->employee_id)}}" 
-                                                            onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
-                                                        <a href="{{route('employee.edit', $employees->employee_id)}}" 
-                                                            onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i></a>
+                                                    <td>{{$number}}
+                                                        @can('employee-delete')
+                                                            <a href="{{route('employee.delete', $employees->employee_id)}}" 
+                                                                onclick="return(confirmToDelete());" class="btn btn-danger">
+                                                                <i class="fa fa-trash-o"></i>
+                                                            </a>
+                                                        @endcan
+                                                        @can('employee-edit')
+                                                            <a href="{{route('employee.edit', $employees->employee_id)}}" 
+                                                                onclick="return(confirmToEdit());" class="btn btn-success">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+                                                        @endcan
 							                        </td>
 							                        <td>{{$employees->full_name}}</td> 
                                                     <td>{{$employees->phone_number}}</td> 

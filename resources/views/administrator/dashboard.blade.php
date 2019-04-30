@@ -154,11 +154,11 @@
 
                         @if (auth()->user()->hasRole('Administrator'))
                             <div class="col-12 col-lg-6 col-xl-3" onclick="location.href='{{route('warehouse.create')}}'" style="">
-                                <div class="card gradient-forest">
+                                <div class="card gradient-orange">
                                     <div class="card-body">
                                         <div class="media d-flex">
                                             <div class="media-body">
-                                                <span class="text-white">Our <br>Ware Houses</span>
+                                                <span class="text-white">Our <br>Ware <br> Houses</span>
                                                 <h3 class="text-white">{{count($warehouse)}}</h3>
                                             </div>
                                             <div class="w-icon">
@@ -174,7 +174,7 @@
                     </div>
                 @endif
                 @if (auth()->user()->hasRole('Administrator') OR auth()->user()->hasRole('Admin'))
-                    <div class="card mt-3 gradient-forest">
+                    <div class="card mt-3 gradient-dusk">
                         <div class="card-content">
                             <div class="row row-group m-0" style="">
                                 <div class="col-12 col-lg-6 col-xl-4 border-white-2"  

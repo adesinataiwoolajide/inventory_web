@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\{User, Activitylog};
+use DB;
+use Illuminate\Support\Facades\Auth;
 class ActivityLogController extends Controller
 {
     /**
@@ -13,7 +15,18 @@ class ActivityLogController extends Controller
      */
     public function index()
     {
-        //
+        $log= Activitylog::orderBy('activity_id', 'desc')->get();
+        return view('administrator.activities.all_log')->with([
+            'log' => $log,
+        ]);
+    }
+
+    public function mylog()
+    {
+        $log= Activitylog::where('user_id', Auth::user()->user_id)->orderBy('activity_id', 'desc')->get();
+        return view('administrator.activities.my_log')->with([
+            'log' => $log,
+        ]);
     }
 
     /**

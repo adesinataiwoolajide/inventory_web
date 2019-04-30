@@ -23,7 +23,7 @@ Auth::routes(['verify' => true]);
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::group(["prefix" => "administrator", "middleware" => "verified"], function(){
     Route::get("/dashboard", "AdministratorController@index")->name("administrator.dashboard");
-
+    //Route::get("/password/reset", "AdministratorController@index")->name("administrator.dashboard");
     Route::group(["prefix" => "categories"], function(){
         Route::get("/create", "CategoryController@index")->name("category.create");
         Route::post("/save", "CategoryController@store")->name("category.save");
@@ -109,6 +109,14 @@ Route::group(["prefix" => "administrator", "middleware" => "verified"], function
 
         Route::get("/recyclebin", "InventoryStockController@bin")->name("inventory.restore"); 
         Route::get("/restore/{strock_id}", "InventoryStockController@restore")->name("inventory.undelete");  
+    });
+
+    Route::group(["prefix" => "activities"], function(){
+        Route::get("/all_log", "ActivityLogController@index")->name("log.index"); 
+        Route::get("/index", "ActivityLogController@mylog")->name("log.user"); 
+
+        // Route::get("/recyclebin", "ActivityLogController@bin")->name("inventory.restore"); 
+        // Route::get("/restore/{strock_id}", "ActivityLogController@restore")->name("inventory.undelete");  
     });
 
     Route::group(["prefix" => "orders"], function(){

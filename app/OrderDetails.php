@@ -10,7 +10,7 @@ class OrderDetails extends Model
     protected $table = 'order_details';
     protected $primaryKey = 'details_id';
     protected $fillable = [
-        'transaction_number', 'distributor_id', 'invoice_number', 'ware_house_id'
+        'transaction_number', 'distributor_id', 'invoice_number', 'ware_house_id', 'order_status',
     ];
 
     public function distributor(){

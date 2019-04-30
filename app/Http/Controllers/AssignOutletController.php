@@ -56,7 +56,7 @@ class AssignOutletController extends Controller
      */
     public function store(Request $request)
     {
-        if(auth()->user()->hasPermissionTo('outlet-create')){
+        if(auth()->user()->hasPermissionTo('assign-create')){
             $this->validate($request, [
                 'outlet_id' =>'required|min:1|max:255',
                 'distributor_id' =>'required|min:1|max:255',
@@ -101,7 +101,7 @@ class AssignOutletController extends Controller
   
         } else{
             return redirect()->back()->with([
-                'error' => "You Dont have Access To Create Outlets",
+                'error' => "You Dont have Access To Assign An Outlets",
             ]);
         }
     }
@@ -148,19 +148,25 @@ class AssignOutletController extends Controller
      */
     public function destroy($assign_id)
     {
-        $assign_outlet =  $this->model->show($assign_id); 
-        $details= $assign_outlet->assign_name; 
-        $distributor_id = $assign_outlet->distributor_id;
-        $distrib = Distributors::where([
-            "distributor_id" => $distributor_id, 
-        ])->first(); 
-        $log = new Activitylog([
-            "operations" => "Deleted Outlet ". " ". $details. " Assigned to ". " ". $distrib->name,
-            "user_id" => Auth::user()->user_id,
-        ]);
-        if (($assign->delete($assign_id))AND ($assign_outlet->trashed()) AND ($log->save())) {
+        if(auth()->user()->hasPermissionTo('assign-delete')){
+            $assign_outlet =  $this->model->show($assign_id); 
+            $details= $assign_outlet->assign_name; 
+            $distributor_id = $assign_outlet->distributor_id;
+            $distrib = Distributors::where([
+                "distributor_id" => $distributor_id, 
+            ])->first(); 
+            $log = new Activitylog([
+                "operations" => "Deleted Outlet ". " ". $details. " Assigned to ". " ". $distrib->name,
+                "user_id" => Auth::user()->user_id,
+            ]);
+            if (($assign->delete($assign_id))AND ($assign_outlet->trashed()) AND ($log->save())) {
+                return redirect()->back()->with([
+                    'success' => "You Have Deleted Outlet ". " ". $details. " Assigned to ". " ". $distrib->name. " ". "Successfully",
+                ]);
+            }
+        } else{
             return redirect()->back()->with([
-                'success' => "You Have Deleted Outlet ". " ". $details. " Assigned to ". " ". $distrib->name. " ". "Successfully",
+                'error' => "You Dont have Access To Delete Assigned An Outlets",
             ]);
         }
     

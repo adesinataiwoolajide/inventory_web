@@ -90,6 +90,8 @@ class UserController extends Controller
                 'password' => 'required|min:1|max:255',
                 'role' => 'required|min:1|max:255'
             ]);
+
+            
             
             if(User::where("email", $request->input("email"))->exists()){
                 return redirect()->back()->with("error", "The E-Mail is In Use By Another User");
@@ -206,6 +208,7 @@ class UserController extends Controller
 
         if(($log->save()) AND ($this->model->update($data, $user_id))){
             $addRoles = $user->assignRole($request->input('role'));
+            
             return redirect()->route("user.create")->with("success", "You Have Updated The User 
             Details Successfully");
         }else{

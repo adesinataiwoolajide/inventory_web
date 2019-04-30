@@ -105,13 +105,17 @@
                                                     <tr>
                                                     
                                                         <td>{{$y}}
+                                                            @can('assign-delete')
                                                             <a href="{{route('assign.outlet.delete', $assign_outleta->assign_id)}}" 
                                                                 class="btn btn-danger" onclick="return(confirmToDelete());">
                                                                 <i class="fa fa-trash-o"></i>
                                                             Delete</a>
+                                                            @endcan
+                                                            @can('assign-edit')
                                                             <a href="" class="btn btn-primary" onclick="return(confirmToDelete());">
                                                                 <i class="fa fa-pencil"></i> 
                                                             Edit</a>  
+                                                            @endcan
                                                         </td>
                                                         <td>{{$assign_outleta->outlet->outlet_name}}
                                                             {{-- @foreach(OutletDetails($assign_outleta->outlet_id) as $outlet_details)

@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\CanResetPassword;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
 
     use Notifiable;
@@ -28,7 +29,11 @@ class User extends Authenticatable
     ];
 
     public function warehouse(){
-        return $this->hasOne('App\WareHouseManagement', 'ware_house_id', 'user_id');
+        return $this->hasMany('App\WareHouseManagement', 'user_id', 'ware_house_id');
+    }
+
+    public function log(){
+        return $this->HasMany('App\ActivityLog', 'user_id', 'activity_id');
     }
 
     /**
