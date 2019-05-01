@@ -1,1 +1,0 @@
-<?php $ink = "Print Invoice"; ?>

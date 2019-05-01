@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Categories, User, Activitylog};
+use App\{Categories, User, ActivityLog};
 use App\Repositories\CategoryRepository;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +50,7 @@ class CategoryController extends Controller
             ->restore();
             $categ= $this->model->show($category_id);
             $category_name = $categ->category_name;
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Restored  ". " ".$category_name. " " . " To The Category List",
                 "user_id" => Auth::user()->user_id,
             ]);
@@ -84,7 +84,7 @@ class CategoryController extends Controller
                 "user_id" => Auth::user()->user_id,  
             ]);
 
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Added ".$request->input("category_name"). " To The Category List",
                 "user_id" => Auth::user()->user_id,
             ]);
@@ -146,7 +146,7 @@ class CategoryController extends Controller
                 "user_id" => Auth::user()->user_id,  
             ]);
 
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Changed The Category name From ". " ".
                 $request->input('prev_name') ." ". " To" .$request->input("category_name"),
                 "user_id" => Auth::user()->user_id,
@@ -174,7 +174,7 @@ class CategoryController extends Controller
         if(auth()->user()->hasPermissionTo('category-delete')){
             $category =  $this->model->show($category_id); 
             $details= $category->category_name;  
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Deleted ". $details. " From The Category List",
                 "user_id" => Auth::user()->user_id,
             ]);

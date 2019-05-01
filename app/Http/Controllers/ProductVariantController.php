@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{ProductVariants, Categories, User, Activitylog};
+use App\{ProductVariants, Categories, User, ActivityLog};
 use App\Repositories\VariantRepository;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +56,7 @@ class ProductVariantController extends Controller
         ->restore();
         $categ= $this->model->show($variant_id);
         $variant_name = $categ->variant_name;
-        $log = new Activitylog([
+        $log = new ActivityLog([
             "operations" => "Restored  ". " ".$variant_name. " " . " To The Variant List",
             "user_id" => Auth::user()->user_id,
         ]);
@@ -107,7 +107,7 @@ class ProductVariantController extends Controller
                 ]);
             }else{
                 
-                $log = new Activitylog([
+                $log = new ActivityLog([
                     "operations" => "You Have Added". $request->input('variant_name').   
                     "with Size ".$request->input('variant_size'). "To " .$category_name,
                     "user_id" => Auth::user()->user_id,
@@ -204,7 +204,7 @@ class ProductVariantController extends Controller
             //     ]);
             // }else{
                 
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "You Have Updated". $request->input('variant_name').   
                 "with Size ".$request->input('variant_size'). "To " .$category_name,
                 "user_id" => Auth::user()->user_id,
@@ -238,7 +238,7 @@ class ProductVariantController extends Controller
                 "variant_id" => $variant_id, 
             ])->first();
  
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Deleted ". " ". $details->variant_name. " ". " From The Product Variant List",
                 "user_id" => Auth::user()->user_id,
             ]);

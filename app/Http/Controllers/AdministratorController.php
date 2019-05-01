@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use App\{Categories, User, Activitylog, AssignOutlet, Distributors, Suppliers, Employee,InventoryStock, Order, Outlets, Products, 
+use App\{Categories, User, ActivityLog, AssignOutlet, Distributors, Suppliers, Employee,InventoryStock, Order, Outlets, Products, 
     ProductVariants, Sales, WareHouseManagement, OrderDetails, CreditManagement, Payments};
 
 
@@ -22,7 +22,7 @@ class AdministratorController extends Controller
     {
         $categories = Categories::all();
         $user = User::all();
-        $log = Activitylog::all(); 
+    //$log = ActivityLog::all(); 
         $assign = AssignOutlet::all();
         $distributor = Distributors::all();
         $supplier = Suppliers::all();
@@ -164,7 +164,7 @@ class AdministratorController extends Controller
                 $message = 'Receptionist';
             }
             if(!empty($usertype)){
-                $log = new Activitylog([
+                $log = new ActivityLog([
                     "operations" => "Login Successfully",
                     "user_id" => Auth::user()->user_id,
                 ]);
@@ -189,11 +189,11 @@ class AdministratorController extends Controller
 
     public function logout(Request $request)
     {
-        $log = new Activitylog([
-            "operations" => "Logged Out Successfully",
-            "user_id" => Auth::user()->user_id,
-        ]);
-        $log->save();
+        // $log = new ActivityLog([
+        //     "operations" => "Logged Out Successfully",
+        //     "user_id" => auth()->user()->user_id,
+        // ]);
+        // $log->save();
         Auth::logout();
         return view("auth.login");
     }

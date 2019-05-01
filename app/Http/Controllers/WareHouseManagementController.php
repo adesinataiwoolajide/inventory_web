@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{WareHouseManagement, User, Activitylog};
+use App\{WareHouseManagement, User, ActivityLog};
 use App\Repositories\WareHouseRepository;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -51,7 +51,7 @@ class WareHouseManagementController extends Controller
         $categ= $this->model->show($ware_house_id);
         $name = $categ->name;
         
-        $log = new Activitylog([
+        $log = new ActivityLog([
             "operations" => "Restored  ". " ".$name. " " . " To The Ware House List List",
             "user_id" => Auth::user()->user_id,
         ]);
@@ -123,7 +123,7 @@ class WareHouseManagementController extends Controller
             
             }else{
 
-                $log = new Activitylog([
+                $log = new ActivityLog([
                     "operations" => "Added ".$request->input("name"). " To The Ware House List",
                     "user_id" => Auth::user()->user_id,
                 ]);
@@ -223,7 +223,7 @@ class WareHouseManagementController extends Controller
             
             // }else{
 
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Updated ". " ".$request->input("name")." "." Ware House Details",
                 "user_id" => Auth::user()->user_id,
             ]);
@@ -254,7 +254,7 @@ class WareHouseManagementController extends Controller
                 "ware_house_id" => $ware_house_id, 
             ])->first();
  
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Deleted ". " ". $details->name. " ". " From The Warehouse List",
                 "user_id" => Auth::user()->user_id,
             ]);

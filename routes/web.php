@@ -22,6 +22,13 @@ Route::get("/logout", "AdministratorController@logout")->name("admin.logout");
 Auth::routes(['verify' => true]);
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::group(["prefix" => "administrator", "middleware" => "verified"], function(){
+
+    // Route::get('password/reset', 'Auth\ForgotPasswordController@showResetForm')->name('password.reset');
+    // Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    // Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset.token');
+    // Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+
     Route::get("/dashboard", "AdministratorController@index")->name("administrator.dashboard");
     //Route::get("/password/reset", "AdministratorController@index")->name("administrator.dashboard");
     Route::group(["prefix" => "categories"], function(){

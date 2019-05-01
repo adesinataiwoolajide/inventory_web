@@ -1,15 +1,22 @@
-@extends('layouts.app')
+
+<?php $ink = "Forgot Password"; ?>
+@extends('layouts.login')
 
 @section('content')
-<div class="clearfix"></div>
-<div class="content-wrapper">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">{{ __('Reset Password') }}</div>
+    <div id="wrapper">
 
-                    <div class="card-body">
+        <div class="card card-authentication1 mx-auto my-5">
+            @include('partials._message')
+            <div class="card-body">
+                <div class="card-content p-2">
+                    
+                    <div class="text-center">
+                        <a href="{{route('admin.login')}}">
+                            <img src="{{asset('styling/assets/inventory.jpg')}}" style="height: 100px;" alt="logo icon">
+                        </a>
+                    </div>
+
+                    <div class="card-title text-uppercase text-center py-3">Reset Password</div>
                         <form method="POST" action="{{ route('password.update') }}">
                             @csrf
 
@@ -64,5 +71,5 @@
             </div>
         </div>
     </div>
-</div>
+
 @endsection

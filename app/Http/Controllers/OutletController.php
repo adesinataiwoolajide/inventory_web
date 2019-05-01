@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\{Outlets, User, Activitylog};
+use App\{Outlets, User, ActivityLog};
 use App\Repositories\OutletRepository;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -54,7 +54,7 @@ class OutletController extends Controller
         ->restore();
         $categ= $this->model->show($outlet_id);
         $outlet_name = $categ->outlet_name;
-        $log = new Activitylog([
+        $log = new ActivityLog([
             "operations" => "Restored  ". " ".$outlet_name. " " . " To The Outlet List",
             "user_id" => Auth::user()->user_id,
         ]);
@@ -82,7 +82,7 @@ class OutletController extends Controller
                 "outlet_name" => $request->input("outlet_name"),
             ]);
 
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Added ".$request->input("outlet_name"). " To The Outlet List",
                 "user_id" => Auth::user()->user_id,
             ]);
@@ -149,7 +149,7 @@ class OutletController extends Controller
                 "outlet_name" => $request->input("outlet_name"),
             ]);
 
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Changed The Outlet Name From ". " ". $request->input("prev_name"). " ". " 
                 To". " ". $request->input("outlet_name"),
                 "user_id" => Auth::user()->user_id,
@@ -180,7 +180,7 @@ class OutletController extends Controller
                 "outlet_id" => $outlet_id, 
             ])->first();
  
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Deleted ". " ". $details->outlet_name. " ". " From The Outlet List",
                 "user_id" => Auth::user()->id,
             ]);

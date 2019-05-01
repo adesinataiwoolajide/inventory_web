@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{User, Activitylog};
+use App\{User, ActivityLog};
 use Spatie\Permission\Models\Role;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -51,7 +51,7 @@ class UserController extends Controller
         $name = $categ->name;
         $email = $categ->email;
        
-        $log = new Activitylog([
+        $log = new ActivityLog([
             "operations" => "Restored  ". " ".$email. " " . " To The User List",
             "user_id" => Auth::user()->user_id,
         ]);
@@ -104,7 +104,7 @@ class UserController extends Controller
                 "role" => $request->input("role"),
                 "status" => 1,
             ]);
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Added ".$request->input("email"). " To The User List",
                 "user_id" => Auth::user()->user_id,
             ]);
@@ -199,7 +199,7 @@ class UserController extends Controller
             "status" => 1,
         ]);
 
-        $log = new Activitylog([
+        $log = new ActivityLog([
             "operations" => "Changed User Email From" . " ". "From". " ". $request->input('prev_email'). 
             " " ."To". " "  .$request->input("email"),
             "user_id" => Auth::user()->user_id,
@@ -234,7 +234,7 @@ class UserController extends Controller
             $details= $use->name; 
             $email = $use->email;
             $roles = $use->role;
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Deleted ". $email. " From The User List",
                 "user_id" => Auth::user()->user_id,
             ]);

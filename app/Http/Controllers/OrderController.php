@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\{Order,OrderDetails, Distributors, Products, ProductVariants, Categories, User, 
-    Activitylog, Suppliers, WareHouseManagement, InventoryStock};
+    ActivityLog, Suppliers, WareHouseManagement, InventoryStock};
 use App\Repositories\OrderRepository;
 use DB;
 use Str;
@@ -124,7 +124,7 @@ class OrderController extends Controller
                             'quantity' => $new_quantity
                         ]); 
 
-                        $log = new Activitylog([
+                        $log = new ActivityLog([
                             "operations" => "Added Order". " "  .$transaction_number. " ".
                             " For Distributor". " ". $distributor_name,
                             "user_id" => Auth::user()->user_id,

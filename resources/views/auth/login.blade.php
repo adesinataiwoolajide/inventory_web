@@ -59,6 +59,12 @@
                                 <div class="icheck-material-primary">
                                 <input type="checkbox" id="user-checkbox" checked="" />
                                 <label for="user-checkbox">Remember me</label>
+                                
+                                @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('Forgot Your Password?') }}
+                                    </a>
+                                @endif
                                 </div>
                             </div>
                             {{-- <div class="form-group col-6 text-right">

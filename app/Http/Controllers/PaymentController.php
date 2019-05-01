@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\{Order,OrderDetails, Distributors, Products, ProductVariants, Categories, User, 
-    Activitylog, Suppliers, WareHouseManagement, InventoryStock, Payments, CreditManagement};
+    ActivityLog, Suppliers, WareHouseManagement, InventoryStock, Payments, CreditManagement};
 use App\Repositories\PaymentRepository;
 use DB;
 use Str;
@@ -51,7 +51,7 @@ class PaymentController extends Controller
     //     ->restore();
     //     $categ= $this->model->show($payment_id);
     //     $outlet_name = $categ->outlet_name;
-    //     $log = new Activitylog([
+    //     $log = new ActivityLog([
     //         "operations" => "Restored  ". " ".$outlet_name. " " . " To The Outlet List",
     //         "user_id" => Auth::user()->user_id,
     //     ]);
@@ -243,7 +243,7 @@ class PaymentController extends Controller
                     'order_status' => 1
                 ]);
     
-                $log = new Activitylog([
+                $log = new ActivityLog([
                     "operations" => "Added Payment For $transaction_number",
                     "user_id" => Auth::user()->user_id,
                 ]);
@@ -457,7 +457,7 @@ class PaymentController extends Controller
                     "paid_status" => $owing,
                 ]);
     
-                $log = new Activitylog([
+                $log = new ActivityLog([
                     "operations" => "Updated Payment For $payment_number",
                     "user_id" => Auth::user()->user_id,
                 ]);

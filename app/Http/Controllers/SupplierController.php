@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Suppliers, User, Activitylog};
+use App\{Suppliers, User, ActivityLog};
 use App\Repositories\SupplierRepository;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -59,7 +59,7 @@ class SupplierController extends Controller
         User::withTrashed()
         ->where('email', $email)
         ->restore();
-        $log = new Activitylog([
+        $log = new ActivityLog([
             "operations" => "Restored  ". " ".$email. " " . " To The Supplier List",
             "user_id" => Auth::user()->user_id,
         ]);
@@ -128,7 +128,7 @@ class SupplierController extends Controller
                     //"registration_number" => rand(0001, 1000),
                 ]);
 
-                $log = new Activitylog([
+                $log = new ActivityLog([
                     "operations" => "Added ".$request->input("name"). " To The Supplier List",
                     "user_id" => Auth::user()->user_id,
                 ]);
@@ -230,7 +230,7 @@ class SupplierController extends Controller
                 "status" => 1,
             ]);
 
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Changed The Supplier E-Mail From ". " ".
                 $request->input('prev_email') ." ". " To" .$request->input("email"),
                 "user_id" => Auth::user()->user_id,
@@ -268,7 +268,7 @@ class SupplierController extends Controller
                 "email" => $email, 
             ])->first();
             $user_id = $user->user_id;
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Deleted ". $details. " From The Supplier List",
                 "user_id" => Auth::user()->user_id,
             ]);

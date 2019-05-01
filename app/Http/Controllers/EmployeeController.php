@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Employee, User, Activitylog};
+use App\{Employee, User, ActivityLog};
 use App\Repositories\EmployeeRepository;
 use DB;
 use Spatie\Permission\Models\Role;
@@ -60,7 +60,7 @@ class EmployeeController extends Controller
         User::withTrashed()
         ->where('email', $email)
         ->restore();
-        $log = new Activitylog([
+        $log = new ActivityLog([
             "operations" => "Restored  ". " ".$email. " " . " To The employee List",
             "user_id" => Auth::user()->user_id,
         ]);
@@ -115,7 +115,7 @@ class EmployeeController extends Controller
                     //"registration_number" => rand(0002, 2000),
                 ]);
 
-                $log = new Activitylog([
+                $log = new ActivityLog([
                     "operations" => "Added ".$request->input("email"). " To The Employee List",
                     "user_id" => Auth::user()->user_id,
                 ]);
@@ -229,7 +229,7 @@ class EmployeeController extends Controller
             ]);
             DB::table('model_has_roles')->where('model_id',$user_id)->delete();
 
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Changed The Employee E-Mail From ". " ".
                 $request->input('prev_email') ." ". " To" .$request->input("email"),
                 "user_id" => Auth::user()->user_id,
@@ -269,7 +269,7 @@ class EmployeeController extends Controller
             $user_id = $user->user_id;
             $roles = $user->getRoleNames();
             $details= $employee->employee_name;  
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Deleted ". " ". $details->name. " ". " From The Employee List",
                 "user_id" => Auth::user()->user_id,
             ]);

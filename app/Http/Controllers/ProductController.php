@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Products, ProductVariants, Categories, User, Activitylog, Suppliers, WareHouseManagement, InventoryStock};
+use App\{Products, ProductVariants, Categories, User, ActivityLog, Suppliers, WareHouseManagement, InventoryStock};
 use App\Repositories\ProductRepository;
 use DB;
 use Str;
@@ -105,7 +105,7 @@ class ProductController extends Controller
                 'quantity' => $new_quantity
             ]);
 
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Restored  ". " ".$product_name. " " . " To The Product List",
                 "user_id" => Auth::user()->user_id,
             ]);
@@ -199,7 +199,7 @@ class ProductController extends Controller
                 "ware_house_id" => $request->input("ware_house_id"), 
                 "category_id" => $category_id,
             ]);
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Added ".$request->input("name"). " To The Supplier List",
                 "user_id" => Auth::user()->user_id,
             ]);
@@ -341,7 +341,7 @@ class ProductController extends Controller
             }
 
             
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Added ".$request->input("name"). " To The Supplier List",
                 "user_id" => Auth::user()->user_id,
             ]);
@@ -391,7 +391,7 @@ class ProductController extends Controller
                 'quantity' => $sub
             ]);
 
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Deleted ". $slug. " From The Product List",
                 "user_id" => Auth::user()->user_id,
             ]);

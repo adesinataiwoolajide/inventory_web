@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\{Distributors, User, Activitylog};
+use App\{Distributors, User, ActivityLog};
 use App\Repositories\DistributorRepository;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -58,7 +58,7 @@ class DistributorController extends Controller
         User::withTrashed()
         ->where('email', $email)
         ->restore();
-        $log = new Activitylog([
+        $log = new ActivityLog([
             "operations" => "Restored  ". " ".$email. " " . " To The Distributor List",
             "user_id" => Auth::user()->user_id,
         ]);
@@ -126,7 +126,7 @@ class DistributorController extends Controller
                     //"registration_number" => rand(0002, 2000),
                 ]);
 
-                $log = new Activitylog([
+                $log = new ActivityLog([
                     "operations" => "Added ".$request->input("email"). " To The Distributor List",
                     "user_id" => Auth::user()->user_id,
                 ]);
@@ -227,7 +227,7 @@ class DistributorController extends Controller
                 "status" => 1,
             ]);
 
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Changed The Distributor E-Mail From ". " ".
                 $request->input('prev_email') ." ". " To" .$request->input("email"),
                 "user_id" => Auth::user()->user_id,
@@ -264,7 +264,7 @@ class DistributorController extends Controller
             $user_id = $user->user_id;
             
             $details= $distributor->name;  
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Deleted ". " ". $details. " ". " From The Distributors List",
                 "user_id" => Auth::user()->user_id,
             ]);

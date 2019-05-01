@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\{Order,OrderDetails, Distributors, Products, ProductVariants, Categories, User, 
-    Activitylog, Suppliers, WareHouseManagement, InventoryStock, Payments, CreditManagement};
+    ActivityLog, Suppliers, WareHouseManagement, InventoryStock, Payments, CreditManagement};
 use App\Repositories\CreditRepository;
 use DB;
 

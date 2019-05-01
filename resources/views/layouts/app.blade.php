@@ -36,7 +36,12 @@
             @yield('content')
         </main>
     </div>
-    @include('layouts.sidebar')
+    @guest
+
+    @else
+        @include('layouts.sidebar')
+    @endguest
+    
     
   </div>
   <script src="{{asset('styling/assets/js/jquery.min.js')}}"></script>

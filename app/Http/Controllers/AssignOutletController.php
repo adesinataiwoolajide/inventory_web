@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{AssignOutlet, Distributors, Outlets, User, Activitylog};
+use App\{AssignOutlet, Distributors, Outlets, User, ActivityLog};
 use App\Repositories\AssignOutletRepository;
 // use App\Repositories\OutletRepository;
 // use App\Repositories\DistributorRepository;
@@ -88,7 +88,7 @@ class AssignOutletController extends Controller
             }else{
                 
 
-                $log = new Activitylog([
+                $log = new ActivityLog([
                     "operations" => "Assigned ". $distributor_name. " To ". $outlet_name,
                     "user_id" => Auth::user()->user_id,
                 ]);
@@ -155,7 +155,7 @@ class AssignOutletController extends Controller
             $distrib = Distributors::where([
                 "distributor_id" => $distributor_id, 
             ])->first(); 
-            $log = new Activitylog([
+            $log = new ActivityLog([
                 "operations" => "Deleted Outlet ". " ". $details. " Assigned to ". " ". $distrib->name,
                 "user_id" => Auth::user()->user_id,
             ]);
