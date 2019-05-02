@@ -156,17 +156,7 @@
                             </a>
                             
                         </li>
-                        <li>
-                            <a href="{{route('product.create')}}" class="waves-effect">
-                                <i class="zmdi zmdi-card-travel"></i>
-                                <span>Sales</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                            
-                        </li>
-
+                        
                         <li>
                             <a href="{{route('log.index')}}" class="waves-effect">
                                 <i class="fa fa-users"></i> <span>Activities Log</span>
@@ -209,6 +199,26 @@
                             <a href="{{route('credit.index')}}" class="waves-effect">
                                 <i class="zmdi zmdi-card-travel"></i>
                                 <span>Credit Mgt</span>
+                                <small class="badge float-right badge-light">
+                                    <i class="zmdi zmdi-long-arrow-right"></i>
+                                </small>
+                            </a>
+                            
+                        </li>
+                        <li>
+                            <a href="{{route('sales.index')}}" class="waves-effect">
+                                <i class="zmdi zmdi-card-travel"></i>
+                                <span>Sales</span>
+                                <small class="badge float-right badge-light">
+                                    <i class="zmdi zmdi-long-arrow-right"></i>
+                                </small>
+                            </a>
+                            
+                        </li>
+                        <li>
+                            <a href="{{route('product.create')}}" class="waves-effect">
+                                <i class="zmdi zmdi-card-travel"></i>
+                                <span>Account</span>
                                 <small class="badge float-right badge-light">
                                     <i class="zmdi zmdi-long-arrow-right"></i>
                                 </small>

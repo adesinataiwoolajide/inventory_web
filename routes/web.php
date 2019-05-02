@@ -141,6 +141,15 @@ Route::group(["prefix" => "administrator", "middleware" => "verified"], function
         Route::post("/update/{order_id}", "OrderController@update")->name("order.update");   
     });
 
+    Route::group(["prefix" => "sales"], function(){
+        Route::get("/index", "SalesController@index")->name("sales.index");
+        Route::get("/invoice", "SalesController@invoice")->name("sales.invoice");
+        Route::get("/sales_report", "SalesController@report")->name("sales.report");
+        Route::get("/invoice_details/{transaction_number}", "OrderController@printinvoice")->
+         name("print.sales.invoice");
+          
+    });
+
     Route::group(["prefix" => "users"], function(){
         Route::get("/create", "UserController@index")->name("user.create");
         Route::post("/save", "UserController@store")->name("user.save");
@@ -171,7 +180,10 @@ Route::group(["prefix" => "administrator", "middleware" => "verified"], function
         Route::get("/create", "CreditManagementsController@create")->name("credit.create");
         Route::get("/paid", "CreditManagementsController@paid")->name("credit.paid");
         Route::get("/unpaid", "CreditManagementsController@unpaid")->name("credit.unpaid");
+        Route::get("/clear_credit/{payment_number}", "CreditPaymentController@clearCredit")->name("credit.clear");
         Route::post("/save", "CreditManagementsController@store")->name("credit.save");
+        Route::get("/payments", "CreditPaymentController@index")->name("credit.payment");
+
         Route::get("/edit/{employee_id}", "CreditManagementsController@edit")->name("credit.edit");   
         Route::get("/delete/{employee_id}", "CreditManagementsController@destroy")->name("credit.delete");
         Route::post("/update/{employee_id}", "CreditManagementsController@update")->name("credit.update"); 

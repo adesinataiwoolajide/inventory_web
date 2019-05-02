@@ -30,6 +30,10 @@ class Distributors extends Model
         return $this->belongsTo('App\Outlet', 'outlet_id');
     }
 
+    public function creditPaid(){
+        return $this->hasMany('App\CreditPayment', 'pay_id');
+    }
+
 
     // public function credit(){
     //     return $this->hasMany('App\CreditManagement');

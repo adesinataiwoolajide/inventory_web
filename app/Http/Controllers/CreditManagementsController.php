@@ -39,9 +39,14 @@ class CreditManagementsController extends Controller
     public function unpaid()
     {
         $credit =CreditManagement::where('paid_status', 0)->orderBy('credit_id', 'desc')->get();
-        return view('administrator.credits.paid')->with([
+        return view('administrator.credits.unpaid')->with([
             "credit" => $credit,
         ]);
+    }
+
+    public function clearCredit($payment_number)
+    {
+        
     }
 
     /**

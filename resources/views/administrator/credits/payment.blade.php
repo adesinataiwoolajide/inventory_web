@@ -7,10 +7,11 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('credit.unpaid')}}">UnPaid Credits</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('credit.payment')}}">Credit Payment</a></li>
                         <li class="breadcrumb-item"><a href="{{route('credit.index')}}">View All Credits</a></li>
                         <li class="breadcrumb-item"><a href="{{route('credit.paid')}}">Paid Credit</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('credit.payment')}}">Credit Payment</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('credit.unpaid')}}">UnPaid Credit</a></li>
+                        
                         <li class="breadcrumb-item active" aria-current="page">List of Credit</li>
                         
 			         </ol>
@@ -28,7 +29,7 @@
 
 			            @else
                             <div class="card-header"><i class="fa fa-table"></i> 
-                                List of Saved Un Paid Credit
+                                List of All Credit Payments
                             </div>
                             
                             <div class="card-body">
@@ -41,8 +42,9 @@
                                                 <th> Payment ID</th>
                                                 <th> Distributor </th>
                                                 <th> Ware House</th>
+                                                <th> Amount Paid </th>
                                                 <th> Credit Amount </th>
-                                                <th> Status </th>
+                                                <th>Outstanding </th>
                                                 <th> Time Added </th>
                                             </tr>
                                         </thead>
@@ -53,8 +55,9 @@
                                                 <th> Payment ID</th>
                                                 <th> Distributor </th>
                                                 <th> Ware House</th>
+                                                <th> Amount Paid </th>
                                                 <th> Credit Amount </th>
-                                                <th> Status </th>
+                                                <th>Outstanding </th>
                                                 <th> Time Added </th>
                                             </tr>
                                         </tfoot>
@@ -62,31 +65,17 @@
                                             <?php $number =1; ?>
                                             @foreach($credit as $credits)
                                                 <tr>
-                                                    <td>{{$number}}
-                                                        <a href="{{route('credit.clear', $credits->payment_number)}}"
-                                                        onclick="return(confirmToPayCredit());"
-                                                         class="btn btn-success"><i class="fa fa-money"></i> Clear Debt</a>
-                                                         <a href="{{route('credit.clear', $credits->payment_number)}}"
-                                                        onclick="return(confirmToPayCredit());"
-                                                         class="btn btn-success"><i class="fa fa-money"></i> Pay Part</a>
-                                                        
-                                                    </td>
-                                                    
+                                                    <td>{{$number}}</td>
                                                     <td>{{$credits->payment_number}}</td>
                                                     <td>{{$credits->distributor->name}}</td>
-                                                    <td>{{$credits->warehouse->name}}</td>
-                                                    <td> &#8358;<?php echo number_format($credits->credit_amount) ?> </td>
-                                                    
-                                                    <td> 
-                                                        @if($credits->paid_status ==1)
-                                                            <p style="color: green"> Paid </p>
-                                                        @else
-                                                            <p style="color: red"> &#8358;
-                                                                <?php echo number_format($credits->credit_amount) ?> Pending </p>
-                                                        @endif
-                                                    </td>
-                                                    <td>{{$credits->created_at}}</td>
-                                                    
+                                                    {{-- <td>{{$credits->payment_number}}</td>
+                                                    <td>{{$credits->distributor->name}}</td>
+                                                    <td>{{$credits->warehouse->name}}</td> --}}
+                                                    <td> {{$credits->warehouse->name}} </td>
+                                                    <td><p style="color: green">&#8358;<?php echo number_format($credits->amount_paid) ?> </p></td>
+                                                    <td><p style="color: red"> &#8358;<?php echo number_format($credits->credit->credit_amount) ?></p></td>
+                                                    <td>&#8358;<?php echo number_format($credits->credit->credit_amount - $credits->amount_paid ) ?></td>
+                                                     <td>{{$credits->created_at}}</td>
                                                 </tr>
                                                 
                                                 <?php

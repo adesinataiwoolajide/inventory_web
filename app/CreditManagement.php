@@ -25,4 +25,8 @@ class CreditManagement extends Model
         return $this->belongsTo('App\Distributors', 'distributor_id');
     }
 
+    public function credit(){
+        return $this->belongsTo('App\CreditPayment', 'pay_id');
+    }
+
 }

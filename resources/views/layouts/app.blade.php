@@ -123,6 +123,12 @@
       }
     </script>
 
+    <script>
+      function confirmToPayCredit(){
+          return confirm("Click Okay to Clear The Credit and Cancel to Stop");
+      }
+    </script>
+
 
 
     

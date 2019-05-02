@@ -47,7 +47,7 @@ class AdministratorController extends Controller
         
         
         // Permission::create([
-        //     'name'=>'assign-delete',
+        //     'name'=>'credit-payment-delete',
         //     'guard_name' => 'web'
         // ]);
         $roleAccount = Role::where([
@@ -57,7 +57,8 @@ class AdministratorController extends Controller
             'salary-create',  'salary-update', 'salary-edit',
             'account-create',  'account-update', 'account-edit',
             'order-create',  'order-edit', 'order-update', 'order-invoice',
-            'payment-create', 'payment-edit', 'payment-update',
+            'payment-create', 'payment-edit', 'payment-update', 'credit-payment', 
+            'credit-payment-edit', 'credit-payment-update', 'credit-payment-delete'
         ]);
         $roleAdmin = Role::where([
             'name' => 'Administrator',
@@ -84,7 +85,9 @@ class AdministratorController extends Controller
             'order-create', 'order-update', 'order-edit', 'order-delete', 'order-invoice', 
             'payment-create', 'payment-edit', 'payment-update', 'payment-delete', 
             //'account-update', 'account-edit', 
-            'print-invoice'
+            'print-invoice', 'credit-payment', 'credit-payment-edit', 'credit-payment-update',
+            'credit-payment-delete'
+
         ]);
 
         $remove = Role::where([

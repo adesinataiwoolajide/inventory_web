@@ -10,6 +10,7 @@
                         <li class="breadcrumb-item"><a href="{{route('credit.index')}}">View All Credits</a></li>
                         <li class="breadcrumb-item"><a href="{{route('credit.paid')}}">Paid Credit</a></li>
                         <li class="breadcrumb-item"><a href="{{route('credit.unpaid')}}">UnPaid Credit</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('credit.payment')}}">Credit Payment</a></li>
                         <li class="breadcrumb-item active" aria-current="page">List of Credit</li>
                         
 			         </ol>

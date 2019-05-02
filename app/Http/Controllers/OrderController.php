@@ -105,8 +105,6 @@ class OrderController extends Controller
 
                         ]);
 
-                        
-                        
                         $dist = Distributors::where([
                             "distributor_id" => $request->input("distributor_id"), 
                         ])->first();
