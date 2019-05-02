@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\{Distributors, User, ActivityLog};
+use App\{Distributors, User, ActivityLog, Payments, OrderDetails};
 use App\Repositories\DistributorRepository;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -45,6 +45,42 @@ class DistributorController extends Controller
         return view('administrator.distributors.recyclebin')->with([
             'distributor' => $distributor,
         ]);
+    }
+
+    public function payment($distributor_id)
+    {
+        $payment= Payments::where([
+            "distributor_id" => $distributor_id
+        ])->get();
+
+        if(count($payment) == 0){
+            return redirect()->back()->with([
+                'error' => " No Payment is Found For The Selected Distributor ", 
+            ]);
+        }else{
+            return view('administrator.distributors.payment')->with([
+                'payment' => $payment,
+            ]);
+        }
+        
+    }
+
+    public function order($distributor_id)
+    {
+        $dist_order= OrderDetails::where([
+            "distributor_id" => $distributor_id
+        ])->get();
+
+        if(count($dist_order) == 0){
+            return redirect()->back()->with([
+                'error' => " No Order is Found For The Selected Distributor ", 
+            ]);
+        }else{
+            return view('administrator.distributors.order')->with([
+                'dist_order' => $dist_order,
+            ]);
+        }
+        
     }
 
     public function restore($distributor_id)

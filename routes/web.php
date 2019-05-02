@@ -47,7 +47,8 @@ Route::group(["prefix" => "administrator", "middleware" => "verified"], function
         Route::get("/edit/{distributor_id}", "DistributorController@edit")->name("distributor.edit");   
         Route::get("/delete/{distributor_id}", "DistributorController@destroy")->name("distributor.delete");
         Route::post("/update/{distributor_id}", "DistributorController@update")->name("distributor.update");
-         
+        Route::get("/payment/{distributor_id}", "DistributorController@payment")->name("distributor.payment");   
+        Route::get("/order/{distributor_id}", "DistributorController@order")->name("distributor.order");
         Route::get("/assign_outlet", "AssignOutletController@index")->name("assign.outlet.create");  
         Route::post("/save_assign_outlet", "AssignOutletController@store")->name("assign.outlet.save"); 
         Route::get("/delete/{assign_id}", "AssignOutletController@destroy")->name("assign.outlet.delete");

@@ -115,7 +115,7 @@ class AdministratorController extends Controller
 
 
         
-        //auth()->user()->givePermissionTo('payment-delete');
+        auth()->user()->givePermissionTo('payment-delete');
        
         
        // auth()->user()->givePermissionTo('order-invoice');

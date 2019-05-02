@@ -211,9 +211,20 @@
                                                     <td>{{$distributors->email}}</td> 
                                                     
                                                     <td>
-                                                        <a href="" class="btn btn-danger"><i class="far fa-trash-o"></i>
-                                                            View Outlet
+                                                        <a href="{{route('distributor.payment', $distributors->distributor_id)}}"><i class="fa fa-money"></i>
+                                                            Payment
                                                         </a>
+                                                        <a href="{{route('distributor.order', $distributors->distributor_id)}}"><i class="fa fa-shopping-cart"></i>
+                                                            Order
+                                                        </a>
+                                                        <a href="{{route('distributor.payment', $distributors->distributor_id)}}"><i class="fa fa-list"></i>
+                                                            Credit
+                                                        </a>
+                                                        <a href="{{route('distributor.payment', $distributors->distributor_id)}}"><i class="fa fa-building"></i>
+                                                            Outlet
+                                                        </a>
+                                                       
+                                                        
                                                             
                                                     </td> 
 							                    </tr><?php

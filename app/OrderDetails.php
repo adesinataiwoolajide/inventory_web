@@ -24,4 +24,8 @@ class OrderDetails extends Model
     public function payment(){
         return $this->hasOne('App\Payments', 'details_id', 'payment_id');
     }
+
+    public function order(){
+        return $this->belongsTo('App\Distributors', 'distributor_id');
+    }
 }
