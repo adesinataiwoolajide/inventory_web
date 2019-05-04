@@ -22,7 +22,6 @@ class AdministratorController extends Controller
     {
         $categories = Categories::all();
         $user = User::all();
-    //$log = ActivityLog::all(); 
         $assign = AssignOutlet::all();
         $distributor = Distributors::all();
         $supplier = Suppliers::all();
@@ -39,88 +38,11 @@ class AdministratorController extends Controller
         $log = ActivityLog::all();
         $payment = Payments::all();
 
-        //auth()->user()->assignRole(['Accountant']);
-        // Role::create([
-        //     'name'=>'Admin',
-        //     'guard_name' => 'web'
-        // ]);
-        
-        
-        // Permission::create([
-        //     'name'=>'credit-payment-delete',
-        //     'guard_name' => 'web'
-        // ]);
-        $roleAccount = Role::where([
-            'name' => 'Accountant',
-        ])->first();
-        $roleAccount->givePermissionTo([
-            'salary-create',  'salary-update', 'salary-edit',
-            'account-create',  'account-update', 'account-edit',
-            'order-create',  'order-edit', 'order-update', 'order-invoice',
-            'payment-create', 'payment-edit', 'payment-update', 'credit-payment', 
-            'credit-payment-edit', 'credit-payment-update', 'credit-payment-delete'
-        ]);
-        $roleAdmin = Role::where([
-            'name' => 'Administrator',
-            'name' => 'Admin',
-        ])->first();
-        $roleAdmin->givePermissionTo([
-            'category-restore',  'product-restore', 'variant-restore',
-            'distributor-restore', 'supplier-restore', 'outlet-restore', 'warehouse-restore',
-            'employee-restore', 'user-restore', 'salary-restore', 'account-restore', 
-            'payment-restore', 'assign-restore',
-
-            'assign-create', 'assign-edit', 'assign-update', 'assign-delete',
-            'product-edit','product-create', 'product-delete', 'product-update',
-            'category-edit', 'category-delete', 'category-update', 'category-create',
-            'variant-create', 'variant-delete', 'variant-update', 'variant-edit',
-            'distributor-create', 'distributor-edit', 'distributor-update', 'distributor-delete',
-            'supplier-create', 'supplier-edit', 'supplier-update', 'supplier-delete',
-            'outlet-create', 'outlet-edit', 'outlet-update', 'outlet-delete',
-            'warehouse-create', 'warehouse-edit', 'warehouse-delete', 'warehouse-update',
-            'employee-create', 'employee-delete', 'employee-update', 'employee-edit',
-            'user-create', 'user-delete', 'user-update', 'user-edit',
-            'salary-create', 'salary-delete', 'salary-update', 'salary-edit',
-            'account-create', 'account-delete', 'account-update', 'account-edit',
-            'order-create', 'order-update', 'order-edit', 'order-delete', 'order-invoice', 
-            'payment-create', 'payment-edit', 'payment-update', 'payment-delete', 
-            //'account-update', 'account-edit', 
-            'print-invoice', 'credit-payment', 'credit-payment-edit', 'credit-payment-update',
-            'credit-payment-delete'
+        auth()->user()->revokePermissionTo([
+            'payment-delete',
 
         ]);
 
-        $remove = Role::where([
-            'name' => 'Admin',
-        ])->first();
-
-        $remove->revokePermissionTo([
-            'warehouse-create', 'warehouse-edit', 'warehouse-delete', 'warehouse-update',
-
-        ]);
-        
-        
-
-        $editorRecep = Role::where([
-            'name' => 'Editor',
-            'name' => 'Receptionist',
-        ])->first();
-        $editorRecep->givePermissionTo([
-            'product-edit','product-create', 'product-update',
-            'category-edit', 'category-delete', 'category-create',
-            'variant-create', 'variant-delete', 'variant-edit',
-            'distributor-create', 'distributor-edit', 'distributor-update', 
-            'supplier-create', 'supplier-edit', 'supplier-update', 
-        ]);
-
-
-        
-        auth()->user()->givePermissionTo('payment-delete');
-       
-        
-       // auth()->user()->givePermissionTo('order-invoice');
-
-       //auth()->user()->assignRole('Administrator');
         
         return view("administrator.dashboard")->with([
             'categories' => $categories,
@@ -141,10 +63,6 @@ class AdministratorController extends Controller
             'credit' => $credit,
             'payment' => $payment,
         ]);
-        
-
-        //return auth()->user()->getAllPermissions();
-
     }
 
     public function userlogin(Request $request)
@@ -156,15 +74,88 @@ class AdministratorController extends Controller
         if(Auth::attempt($data)){
             $usertype = Auth::user()->role;
             if(auth()->user()->hasRole('Administrator')){
+                auth()->user()->givePermissionTo([
+                    'category-restore',  'product-restore', 'variant-restore',
+                    'distributor-restore', 'supplier-restore', 'outlet-restore', 'warehouse-restore',
+                    'employee-restore', 'user-restore', 'salary-restore', 'account-restore', 
+                    'payment-restore', 'assign-restore',
+        
+                    'assign-create', 'assign-edit', 'assign-update', 'assign-delete',
+                    'product-edit','product-create', 'product-delete', 'product-update',
+                    'category-edit', 'category-delete', 'category-update', 'category-create',
+                    'variant-create', 'variant-delete', 'variant-update', 'variant-edit',
+                    'distributor-create', 'distributor-edit', 'distributor-update', 'distributor-delete',
+                    'supplier-create', 'supplier-edit', 'supplier-update', 'supplier-delete',
+                    'outlet-create', 'outlet-edit', 'outlet-update', 'outlet-delete',
+                    'warehouse-create', 'warehouse-edit', 'warehouse-delete', 'warehouse-update',
+                    'employee-create', 'employee-delete', 'employee-update', 'employee-edit',
+                    'user-create', 'user-delete', 'user-update', 'user-edit',
+                    'salary-create', 'salary-delete', 'salary-update', 'salary-edit',
+                    'account-create', 'account-delete', 'account-update', 'account-edit',
+                    'order-create', 'order-update', 'order-edit', 'order-delete', 'order-invoice', 
+                    'payment-create', 'payment-edit', 'payment-update', 'payment-delete',  
+                    'print-invoice', 'credit-payment', 'credit-payment-edit', 'credit-payment-update',
+                    'credit-payment-delete'
+        
+                ]);
                 $message = 'Administrator';
             }elseif(auth()->user()->hasRole('Admin')){
+                auth()->user()->givePermissionTo([
+                    'category-restore',  'product-restore', 'variant-restore',
+                    'distributor-restore', 'supplier-restore', 'outlet-restore',
+                    'employee-restore', 'user-restore', 'salary-restore', 'account-restore', 
+                    'payment-restore', 'assign-restore',
+        
+                    'assign-create', 'assign-edit', 'assign-update', 'assign-delete',
+                    'product-edit','product-create', 'product-delete', 'product-update',
+                    'category-edit', 'category-delete', 'category-update', 'category-create',
+                    'variant-create', 'variant-delete', 'variant-update', 'variant-edit',
+                    'distributor-create', 'distributor-edit', 'distributor-update', 'distributor-delete',
+                    'supplier-create', 'supplier-edit', 'supplier-update', 'supplier-delete',
+                    'outlet-create', 'outlet-edit', 'outlet-update', 'outlet-delete',
+                    'employee-create', 'employee-delete', 'employee-update', 'employee-edit',
+                    'user-create', 'user-delete', 'user-update', 'user-edit',
+                    'salary-create', 'salary-delete', 'salary-update', 'salary-edit',
+                    'account-create', 'account-delete', 'account-update', 'account-edit',
+                    'order-create', 'order-update', 'order-edit', 'order-delete', 'order-invoice', 
+                    'payment-create', 'payment-edit', 'payment-update', 'payment-delete',  
+                    'print-invoice', 'credit-payment', 'credit-payment-edit', 'credit-payment-update',
+                    'credit-payment-delete'
+        
+                ]);
                 $message = 'Admin';
             }elseif(auth()->user()->hasRole('Editor')){
+                auth()->user()->givePermissionTo([
+                    'product-edit','product-create', 'product-update',
+                    'category-edit', 'category-delete', 'category-create',
+                    'variant-create', 'variant-delete', 'variant-edit',
+                    'distributor-create', 'distributor-edit', 'distributor-update', 
+                    'supplier-create', 'supplier-edit', 'supplier-update', 
+                ]);
                 $message = 'Editor';
             }elseif(auth()->user()->hasRole('Accountant')){
+                auth()->user()->givePermissionTo([
+                    'salary-create',  'salary-update', 'salary-edit',
+                    'account-create',  'account-update', 'account-edit',
+                    'order-create',  'order-edit', 'order-update', 'order-invoice',
+                    'payment-create', 'payment-edit', 'payment-update', 'credit-payment', 
+                    'credit-payment-edit', 'credit-payment-update', 'credit-payment-delete'
+                ]);
                 $message = 'Accountant';
-            }else{
+            }elseif(auth()->user()->hasRole('Receptionist')){
+                auth()->user()->givePermissionTo([
+                    'product-edit','product-create', 'product-update',
+                    'category-edit', 'category-delete', 'category-create',
+                    'variant-create', 'variant-delete', 'variant-edit',
+                    'distributor-create', 'distributor-edit', 'distributor-update', 
+                    'supplier-create', 'supplier-edit', 'supplier-update',
+                    'payment-create', 'payment-edit', 'payment-update', 
+                    'print-invoice', 'credit-payment', 'credit-payment-edit', 
+                    'credit-payment-update',
+                ]);
                 $message = 'Receptionist';
+            }else{
+                $message = "Invalid User";
             }
             if(!empty($usertype)){
                 $log = new ActivityLog([
@@ -192,11 +183,7 @@ class AdministratorController extends Controller
 
     public function logout(Request $request)
     {
-        // $log = new ActivityLog([
-        //     "operations" => "Logged Out Successfully",
-        //     "user_id" => auth()->user()->user_id,
-        // ]);
-        // $log->save();
+        
         Auth::logout();
         return view("auth.login");
     }

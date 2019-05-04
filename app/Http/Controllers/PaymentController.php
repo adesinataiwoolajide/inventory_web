@@ -109,7 +109,6 @@ class PaymentController extends Controller
 
         
         return view('administrator.payments.make-payment')->with([
-            //"dist"=> $dist,
             "price"=> $price,
             "buyers" => $buyers,
             "viewOrder" => $viewOrder,
@@ -128,49 +127,55 @@ class PaymentController extends Controller
 
     public function viewpaymentdetails($transaction_number)
     {
+        if(auth()->user()->hasPermissionTo('payment-create')){
         
-        $viewOrder = Order::where([
-            "transaction_number"=> $transaction_number
-        ])->get();
-        $orderDetails = OrderDetails::where([
-            "transaction_number"=> $transaction_number
-        ])->first();
-        $category= Categories::all();
-        $variant = ProductVariants::all();
-        $product =  Products::all();
-        $warehouse =  WareHouseManagement::all();
-        $supplier =  Suppliers::all();
-        $inventory =  InventoryStock::all();
-        $distributor =  Distributors::all();
-        $price = Order::where([
-            "transaction_number" => $transaction_number, 
-        ])->sum('total_amount');
+            $viewOrder = Order::where([
+                "transaction_number"=> $transaction_number
+            ])->get();
+            $orderDetails = OrderDetails::where([
+                "transaction_number"=> $transaction_number
+            ])->first();
+            $category= Categories::all();
+            $variant = ProductVariants::all();
+            $product =  Products::all();
+            $warehouse =  WareHouseManagement::all();
+            $supplier =  Suppliers::all();
+            $inventory =  InventoryStock::all();
+            $distributor =  Distributors::all();
+            $price = Order::where([
+                "transaction_number" => $transaction_number, 
+            ])->sum('total_amount');
 
-        $distributor_id = $orderDetails->distributor_id;
-        $buyers = Distributors::where([
-            "distributor_id" => $distributor_id, 
-        ])->get();
-        $credit = CreditManagement::where([
-            "distributor_id" => $distributor_id, 
-        ])->get();
+            $distributor_id = $orderDetails->distributor_id;
+            $buyers = Distributors::where([
+                "distributor_id" => $distributor_id, 
+            ])->get();
+            $credit = CreditManagement::where([
+                "distributor_id" => $distributor_id, 
+            ])->get();
 
-        
-        return view('administrator.payments.make-payment')->with([
-            //"dist"=> $dist,
-            "price"=> $price,
-            "buyers" => $buyers,
-            "viewOrder" => $viewOrder,
-            "category" => $category,
-            "variant" => $variant,
-            "product" => $product,
-            "warehouse"=> $warehouse,
-            "supplier" => $supplier,
-            "inventory" =>$inventory,
-            "distributor" => $distributor,
-            "orderDetails" => $orderDetails,
             
-            "credit" => $credit,
-        ]);
+            return view('administrator.payments.make-payment')->with([
+                //"dist"=> $dist,
+                "price"=> $price,
+                "buyers" => $buyers,
+                "viewOrder" => $viewOrder,
+                "category" => $category,
+                "variant" => $variant,
+                "product" => $product,
+                "warehouse"=> $warehouse,
+                "supplier" => $supplier,
+                "inventory" =>$inventory,
+                "distributor" => $distributor,
+                "orderDetails" => $orderDetails,
+                
+                "credit" => $credit,
+            ]);
+        } else{
+            return redirect()->back()->with([
+                'error' => "You Dont have Access To View A Payment Details",
+            ]);
+        }
     }
 
     /**

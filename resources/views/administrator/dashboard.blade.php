@@ -239,7 +239,7 @@
                     (auth()->user()->hasRole('Admin')) OR 
                     (auth()->user()->hasRole('Accountant')))
                     <div class="row">
-                        <div class="col-12 col-lg-6 col-xl-4" onclick="location.href=''" 
+                        <div class="col-12 col-lg-6 col-xl-4" onclick="location.href='{{route('payment.index')}}'" 
                             style="">
                             <div class="card gradient-dusk">
                                 <div class="card-body">
@@ -256,7 +256,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6 col-xl-4" onclick="location.href=''" 
+                        <div class="col-12 col-lg-6 col-xl-4" onclick="location.href='{{route('order.invoice')}}'" 
                             style="">
                             <div class="card gradient-forest">
                                 <div class="card-body">
@@ -274,7 +274,7 @@
                             </div>
                         </div>
                     
-                        <div class="col-12 col-lg-6 col-xl-4" onclick="location.href=''" 
+                        <div class="col-12 col-lg-6 col-xl-4" onclick="location.href='{{route('credit.index')}}'" 
                             style="">
                             <div class="card gradient-orange">
                                 <div class="card-body">
@@ -308,13 +308,30 @@
                             </div>
                         </div>
                        
-                        <div class="col-12 col-lg-6 col-xl-4" onclick="location.href=''" style="">
+                        <div class="col-12 col-lg-6 col-xl-4" onclick="location.href='{{route('order.index')}}'" 
+                            style="">
                             <div class="card gradient-dusk">
                                 <div class="card-body">
                                     <div class="media d-flex">
                                         <div class="media-body">
                                             <span class="text-white">Product <br> Order</span>
                                             <h3 class="text-white">{{count($order)}}</h3>
+                                        </div>
+                                        <div class="w-icon">
+                                            <i class="fa fa-shopping-cart text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div id="widget-chart-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 col-xl-4" onclick="location.href=''" style="">
+                            <div class="card gradient-dusk">
+                                <div class="card-body">
+                                    <div class="media d-flex">
+                                        <div class="media-body">
+                                            <span class="text-white">Sales <br> List</span>
+                                            <h3 class="text-white">{{count($payment)}}</h3>
                                         </div>
                                         <div class="w-icon">
                                             <i class="fa fa-shopping-cart text-white"></i>

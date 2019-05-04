@@ -63,7 +63,7 @@
                                             @foreach($credit as $credits)
                                                 <tr>
                                                     <td>{{$number}}
-                                                        {{-- <a href="{{route('payment.delete', $orders->order->transaction_number)}}" 
+                                                        {{-- <a href="{{route('payment.delete', $credits->order->transaction_number)}}" 
                                                             onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
                                                         <a href="{{route('payment.edit', $orders->order->transaction_number)}}" 
                                                             onclick="return(confirmToEdit());" class="btn btn-success">

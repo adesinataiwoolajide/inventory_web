@@ -63,17 +63,21 @@
                                             @foreach($payment as $orders)
                                                 <tr>
                                                     <td>{{$number}}
-                                                        @can('payment-delete')
+                                                        @if(auth()->user()->hasRole('Administrator') OR (auth()->user()->hasRole('Admin')))
                                                             <a href="{{route('payment.delete', $orders->order->transaction_number)}}" 
                                                             onclick="return(confirmToDelete());" class="btn btn-danger">
                                                             <i class="fa fa-trash-o"></i></a>
+                                                        @endif
+                                                        @can('payment-edit')
+                                                            <a href="{{route('payment.edit', $orders->order->transaction_number)}}" 
+                                                                onclick="return(confirmToEdit());" class="btn btn-success">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+                                                            <a href="{{route('payment.details', $orders->order->transaction_number)}}" 
+                                                                class="btn btn-primary">
+                                                                <i class="fa fa-list"></i>
+                                                            </a>  
                                                         @endcan
-                                                        <a href="{{route('payment.edit', $orders->order->transaction_number)}}" 
-                                                            onclick="return(confirmToEdit());" class="btn btn-success">
-                                                            <i class="fa fa-pencil"></i></a>
-                                                        <a href="{{route('payment.details', $orders->order->transaction_number)}}" 
-                                                             class="btn btn-primary">
-                                                            <i class="fa fa-list"></i></a>  
                                                     </td>
                                                     
                                                     <td>{{$orders->order->transaction_number}}</td>

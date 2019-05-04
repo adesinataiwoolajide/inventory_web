@@ -66,9 +66,8 @@
                                                         <td>{{$inventories->product_name}}</td> 
                                                         <input type="hidden" name="product_name<?php echo $number ?>"
                                                             value="{{$inventories->product_name}}">
-                                                        
-                                                        
                                                         <td>
+                                                            
                                                             @foreach(ProductCategory($inventories->category_id) as 
                                                                 $categories)
                                                                 {{$categories->category_name}}

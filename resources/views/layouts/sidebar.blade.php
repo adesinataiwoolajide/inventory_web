@@ -196,6 +196,16 @@
                             
                         </li>
                         <li>
+                            <a href="{{route('order.invoice')}}" class="waves-effect">
+                                <i class="zmdi zmdi-card-travel"></i>
+                                <span>Order Invoice </span>
+                                <small class="badge float-right badge-light">
+                                    <i class="zmdi zmdi-long-arrow-right"></i>
+                                </small>
+                            </a>
+                            
+                        </li>
+                        <li>
                             <a href="{{route('credit.index')}}" class="waves-effect">
                                 <i class="zmdi zmdi-card-travel"></i>
                                 <span>Credit Mgt</span>
