@@ -17,9 +17,16 @@ class SalesController extends Controller
      */
     public function index()
     {
+        $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+        $ware_house_id = $inv->ware_house_id;
+        $pay =  Payments::where([
+            'ware_house_id'=> $inv->ware_house_id]
+        )->orderBy('payment_id', 'desc')->get();
         $payment =Payments::orderBy('payment_id', 'desc')->get();
         return view('administrator.sales.index')->with([
             "payment" => $payment,
+            "pay" => $pay,
+            "inv" => $inv,
             //"invoice" => $invoice,
         ]);
     }
@@ -37,13 +44,16 @@ class SalesController extends Controller
     {
         if(auth()->user()->hasPermissionTo('order-invoice')){
 
-            $inv = WareHouseManagement::find(auth()->user()->user_id);
-            // $invoice =  OrderDetails::where([
-            //     'ware_house_id'=> $inv->ware_house_id]
-            // )->get();
+            $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+            $ware_house_id = $inv->ware_house_id;
+            $invo =  OrderDetails::where([
+                'ware_house_id'=> $ware_house_id]
+            )->get();
             $invoice =  OrderDetails::orderBy('details_id', 'desc')->get();
             return view('administrator.sales.invoice')->with([
                 "invoice" => $invoice,
+                "invo"=> $invo,
+                "inv" => $inv,
             ]);
             
             return view('administrator.orders.invoice')

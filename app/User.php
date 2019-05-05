@@ -33,7 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function log(){
-        return $this->HasMany('App\ActivityLog', 'user_id', 'activity_id');
+        return $this->hasMany('App\ActivityLog', 'user_id', 'activity_id');
     }
 
     /**

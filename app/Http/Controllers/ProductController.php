@@ -33,18 +33,20 @@ class ProductController extends Controller
     {
         $category= Categories::all();
         $variant = ProductVariants::all();
-        if(auth()->user()->hasRole([
-            'name' => 'Administrator', 
-            'name' => 'Admin'])){
-            $product =  $this->model->all();
-        }else{
-            $inv = WareHouseManagement::find(auth()->user()->user_id);
-            $product =  Products::where([
-                'ware_house_id'=> $inv->ware_house_id]
-            )->get();
-        }
-        
+        // if(auth()->user()->hasRole([
+        //     'name' => 'Administrator', ]))
+        // {
+        $product =  Products::orderBy('product_id', 'desc')->get();
         $warehouse =  WareHouseManagement::all();
+       // }else{
+        $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+        $ware_house_id = $inv->ware_house_id;
+        $prod =  Products::where([
+            'ware_house_id'=> $inv->ware_house_id]
+        )->orderBy('product_id', 'desc')->get();
+       // }
+        
+       
         $supplier =  Suppliers::all();
         return view('administrator.products.create')
             ->with([
@@ -53,6 +55,8 @@ class ProductController extends Controller
             "product" => $product,
             "warehouse"=> $warehouse,
             "supplier" => $supplier,
+            "inv" => $inv,
+            "prod" => $prod,
         ]);
     }
 

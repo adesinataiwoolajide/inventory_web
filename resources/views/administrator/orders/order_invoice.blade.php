@@ -43,7 +43,7 @@
                             <!-- title row -->
                             <div class="row mt-3">
                                 <div class="col-lg-6">
-                                    <h4><i class="fa fa-globe"></i> Company Name</h4>
+                                    {{-- <h4><i class="fa fa-globe"></i> Company Name</h4> --}}
                                 </div>
                                 <div class="col-lg-6">
                                     <h5 class="float-sm-right">Date: <?php echo date('d/m/y') ?></h5>
@@ -159,14 +159,14 @@
                             <!-- this row will not appear when printing -->
                             <hr>
                             <div class="row no-print">
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                 <a href="{{route('print.the.invoice',$orderDetails->transaction_number)}}" target="_blank" 
-                                    class="btn btn-dark m-1"><i class="fa fa-print"></i> Print</a>
+                                    class="btn btn-dark m-1"><i class="fa fa-print"></i> Print The Invoice</a>
                                 </div>
-                                <div class="col-lg-9">
+                                <div class="col-lg-8">
                                     <div class="float-sm-right">
-                                        <button class="btn btn-success m-1"><i class="fa fa-credit-card"></i> Submit Payment</button>
-                                        <button class="btn btn-primary m-1"><i class="fa fa-download"></i> Generate PDF</button>
+                                        {{-- <button class="btn btn-success m-1"><i class="fa fa-credit-card"></i> Submit Payment</button>
+                                        <button class="btn btn-primary m-1"><i class="fa fa-download"></i> Generate PDF</button> --}}
                                     </div>
                                 </div>
                             </div>

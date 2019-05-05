@@ -7,9 +7,9 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('inventory.outstock')}}" style="color: red">Out of Stock</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('inventory.instock')}}" style="color: green">Available Stock</a></li>
                         <li class="breadcrumb-item"><a href="{{route('inventory.index')}}">Inventory</a></li>
-                        {{-- <li class="breadcrumb-item"><a href="{{route('inventory.outstock')}}" style="color: red">Out of Stock</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('inventory.instock')}}" style="color: green">Available Stock</a></li> --}}
 				    	<li class="breadcrumb-item"><a href="{{route('product.create')}}">Add  Product</a></li>
 			            <li class="breadcrumb-item active" aria-current="page">Saved Products Inventory</li>
 			         </ol>
@@ -69,11 +69,11 @@
                                                             @endif
                                                         </td> 
                                                         
-                                                        <td>{{$inventories->category->category_name}}
-                                                            {{-- @foreach(ProductCategory($inventories->category_id) as 
+                                                        {{-- <td>{{$inventories->category->category_name}} --}}
+                                                            @foreach(ProductCategory($inventories->category_id) as 
                                                                 $categories)
                                                                 {{$categories->category_name}}
-                                                            @endforeach --}}
+                                                            @endforeach
                                                         </td>
                                                         <td>{{$inventories->invenvariant->variant_name}}
                                                             {{-- @foreach(ProductVariants($inventories->variant_id) 
@@ -146,19 +146,18 @@
                                                         <td>{{$number}}</td>
                                                         <td>{{$inven->product_name}}</td> 
                                                         <td>
-                                                            @if($inven->quantity < 5)
-                                                            <p style="color: red"><?php echo number_format($inven->quantity) ?>
-                                                            @else
-                                                                <p style="color: green"><?php echo number_format($inven->quantity) ?></p>
-                                                            @endif
-                                                            
+                                                                @if($inven->quantity < 5)
+                                                                <p style="color: red"><?php echo number_format($inven->quantity) ?>
+                                                                @else
+                                                                    <p style="color: green"><?php echo number_format($inven->quantity) ?></p>
+                                                                @endif
                                                         </td> 
                                                         
                                                         <td>{{$inven->category->category_name}}
-                                                            {{-- @foreach(ProductCategory($inventories->category_id) as 
+                                                            @foreach(ProductCategory($inventories->category_id) as 
                                                                 $categories)
                                                                 {{$categories->category_name}}
-                                                            @endforeach --}}
+                                                            @endforeach
                                                         </td>
                                                         <td>{{$inven->invenvariant->variant_name}}
                                                             {{-- @foreach(ProductVariants($inventories->variant_id) 

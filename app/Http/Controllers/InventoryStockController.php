@@ -24,6 +24,13 @@ class InventoryStockController extends Controller
         $warehouse =  WareHouseManagement::all();
         $supplier =  Suppliers::all();
         $inventory =  InventoryStock::all();
+
+        $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+        $ware_house_id = $inv->ware_house_id;
+        
+        $invent =  InventoryStock::where([
+            'ware_house_id'=> $inv->ware_house_id]
+        )->orderBy('stock_id', 'desc')->get();
         return view('administrator.inventory.index')
             ->with([
             "category" => $category,
@@ -31,9 +38,73 @@ class InventoryStockController extends Controller
             "product" => $product,
             "warehouse"=> $warehouse,
             "supplier" => $supplier,
-            "inventory" =>$inventory
+            "inventory" =>$inventory,
+            "invent" => $invent,
+            "inv" => $inv,
         ]);
     }
+
+    public function outofstock()
+    {
+        $category= Categories::all();
+        $variant = ProductVariants::all();
+        $product =  Products::all();
+        $warehouse =  WareHouseManagement::all();
+        $supplier =  Suppliers::all();
+        //$inventory =  InventoryStock::all();
+
+        $inventory =  DB::table('inventory_stocks')->where([
+            ['quantity', '<', 1],
+        ])->orderBy('stock_id', 'desc')->get();
+
+        $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+        $ware_house_id = $inv->ware_house_id;
+        
+        $invent =  DB::table('inventory_stocks')->where([
+            ['ware_house_id', $inv->ware_house_id],
+            ['quantity', '<', 5],
+        ])->orderBy('stock_id', 'desc')->get();
+        return view('administrator.inventory.out_of_stock')
+            ->with([
+            "category" => $category,
+            "variant" => $variant,
+            "product" => $product,
+            "warehouse"=> $warehouse,
+            "supplier" => $supplier,
+            "inventory" =>$inventory,
+            "invent" => $invent,
+            "inv" => $inv,
+        ]);
+    }
+
+    // public function instock()
+    // {
+    //     $category= Categories::all();
+    //     $variant = ProductVariants::all();
+    //     $product =  Products::all();
+    //     $warehouse =  WareHouseManagement::all();
+    //     $supplier =  Suppliers::all();
+    //     $inventory =  InventoryStock::all();
+
+    //     $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+    //     $ware_house_id = $inv->ware_house_id;
+        
+    //     $invent =  InventoryStock::where([
+    //         'ware_house_id'=> $inv->ware_house_id,
+    //         'quantity' > 0]
+    //     )->orderBy('stock_id', 'desc')->get();
+    //     return view('administrator.inventory.in_stock')
+    //         ->with([
+    //         "category" => $category,
+    //         "variant" => $variant,
+    //         "product" => $product,
+    //         "warehouse"=> $warehouse,
+    //         "supplier" => $supplier,
+    //         "inventory" =>$inventory,
+    //         "invent" => $invent,
+    //         "inv" => $inv,
+    //     ]);
+    // }
 
     /**
      * Show the form for creating a new resource.

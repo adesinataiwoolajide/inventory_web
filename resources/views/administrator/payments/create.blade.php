@@ -19,81 +19,159 @@
                 <div class="col-lg-12">
                     @include('partials._message')
                         <div class="card">
-                            @if(count($invoice) ==0)
-                            <div class="card-header" align="center" style="color: red">
-                                <i class="fa fa-table"></i> The List is Empty
-                            </div>
+                            @role('Administrator')
+                                @if(count($invoice) ==0)
+                                    <div class="card-header" align="center" style="color: red">
+                                        <i class="fa fa-table"></i> The List is Empty
+                                    </div>
 
-                        @else
-                            <div class="card-header"><i class="fa fa-table"></i> 
-                                Adding New Payment
-                            </div>
-                            
-                            <div class="card-body">
-                            
-                                <div class="table-responsive">
-                                    <table id="default-datatable" class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>S/N</th>
-                                                <th>Transaction Id</th>{{-- <th>Total</th> --}}
-                                                <th>Distributor </th>
-                                                <th> Invoice </th>
-                                                <th> Ware House </th>
-                                                <th>TIme Added</th>
-                                                <th>Action </th>
-                                            </tr>
-                                        </thead>
-
-                                        <tfoot>
-                                            <tr>
-                                                <th>S/N</th>
-                                                <th>Transaction Id</th>
-                                                {{-- <th>Total</th> --}}
-                                                <th>Distributor </th>
-                                                <th> Invoice </th>
-                                                <th> Ware House </th>
-                                                <th>TIme Added</th>
-                                                <th>Action </th>
-                                                
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            <?php $number =1; ?>
-                                            @foreach($invoice as $orders)
-                                                <tr>
-                                                    <td>{{$number}}</td>
-                                                    <td>{{$orders->transaction_number}}</td>
-                                                    <td>{{$orders->distributor->name}}
-                                                        {{-- @foreach(ProductDistributor($orders->distributor_id) as $dist)
-                                                            {{$dist->name}}
-                                                        @endforeach --}}
-                                                    </td>
-                                                    <td> {{$orders->invoice_number}} </td>
-                                                    <td> {{$orders->warehouse->name}}</td>
-                                                    <td>{{$orders->created_at}}
-                                                        
-                                                    </td>
-                                                    <td>
-                                                        <a href="{{route('payment.add',$orders->transaction_number)}}" 
-                                                            class="btn btn-success" onclick="return(confirmToPay());">
-                                                            <i class="fa fa-book"></i>  Pay
-                                                        </a>
-                                                    </td>
-                                                    
-                                                </tr>
-                                                
-                                                <?php
-                                                $number++; ?>
-                                            @endforeach
-                                        </tbody>
+                                @else
+                                    <div class="card-header"><i class="fa fa-table"></i> 
+                                        Adding New Payment
+                                    </div>
                                     
-                                    </table>
-                                </div>
-                                
-                            </div> 
-                                
-                            @endif
+                                    <div class="card-body">
+                                    
+                                        <div class="table-responsive">
+                                            <table id="default-datatable" class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S/N</th>
+                                                        <th>Transaction Id</th>{{-- <th>Total</th> --}}
+                                                        <th>Distributor </th>
+                                                        <th> Invoice </th>
+                                                        <th> Ware House </th>
+                                                        <th>TIme Added</th>
+                                                        <th>Action </th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>S/N</th>
+                                                        <th>Transaction Id</th>
+                                                        {{-- <th>Total</th> --}}
+                                                        <th>Distributor </th>
+                                                        <th> Invoice </th>
+                                                        <th> Ware House </th>
+                                                        <th>TIme Added</th>
+                                                        <th>Action </th>
+                                                        
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                    <?php $number =1; ?>
+                                                    @foreach($invoice as $orders)
+                                                        <tr>
+                                                            <td>{{$number}}</td>
+                                                            <td>{{$orders->transaction_number}}</td>
+                                                            <td>{{$orders->distributor->name}}
+                                                                {{-- @foreach(ProductDistributor($orders->distributor_id) as $dist)
+                                                                    {{$dist->name}}
+                                                                @endforeach --}}
+                                                            </td>
+                                                            <td> {{$orders->invoice_number}} </td>
+                                                            <td> {{$orders->warehouse->name}}</td>
+                                                            <td>{{$orders->created_at}}
+                                                                
+                                                            </td>
+                                                            <td>
+                                                                <a href="{{route('payment.add',$orders->transaction_number)}}" 
+                                                                    class="btn btn-success" onclick="return(confirmToPay());">
+                                                                    <i class="fa fa-book"></i>  Pay
+                                                                </a>
+                                                            </td>
+                                                            
+                                                        </tr>
+                                                        
+                                                        <?php
+                                                        $number++; ?>
+                                                    @endforeach
+                                                </tbody>
+                                            
+                                            </table>
+                                        </div>
+                                        
+                                    </div> 
+                                    
+                                @endif
+                            @else 
+                                @if(count($invoi) ==0)
+                                    <div class="card-header" align="center" style="color: red">
+                                        <i class="fa fa-table"></i> The List is Empty in {{$inv->name}}
+                                    </div>
+
+                                @else
+                                    <div class="card-header"><i class="fa fa-table"></i> 
+                                        Adding New Payment in {{$inv->name}}
+                                    </div>
+                                    
+                                    <div class="card-body">
+                                    
+                                        <div class="table-responsive">
+                                            <table id="default-datatable" class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S/N</th>
+                                                        <th>Transaction Id</th>{{-- <th>Total</th> --}}
+                                                        <th>Distributor </th>
+                                                        <th> Invoice </th>
+                                                        <th> Ware House </th>
+                                                        <th>TIme Added</th>
+                                                        <th>Action </th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>S/N</th>
+                                                        <th>Transaction Id</th>
+                                                        {{-- <th>Total</th> --}}
+                                                        <th>Distributor </th>
+                                                        <th> Invoice </th>
+                                                        <th> Ware House </th>
+                                                        <th>TIme Added</th>
+                                                        <th>Action </th>
+                                                        
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                    <?php $number =1; ?>
+                                                    @foreach($invoi as $orders)
+                                                        <tr>
+                                                            <td>{{$number}}</td>
+                                                            <td>{{$orders->transaction_number}}</td>
+                                                            <td>{{$orders->distributor->name}}
+                                                                {{-- @foreach(ProductDistributor($orders->distributor_id) as $dist)
+                                                                    {{$dist->name}}
+                                                                @endforeach --}}
+                                                            </td>
+                                                            <td> {{$orders->invoice_number}} </td>
+                                                            <td> {{$orders->warehouse->name}}</td>
+                                                            <td>{{$orders->created_at}}
+                                                                
+                                                            </td>
+                                                            <td>
+                                                                <a href="{{route('payment.add',$orders->transaction_number)}}" 
+                                                                    class="btn btn-success" onclick="return(confirmToPay());">
+                                                                    <i class="fa fa-book"></i>  Pay
+                                                                </a>
+                                                            </td>
+                                                            
+                                                        </tr>
+                                                        
+                                                        <?php
+                                                        $number++; ?>
+                                                    @endforeach
+                                                </tbody>
+                                            
+                                            </table>
+                                        </div>
+                                        
+                                    </div> 
+                                    
+                                @endif
+                            @endrole
                         </div>
                 </div>
             </div>

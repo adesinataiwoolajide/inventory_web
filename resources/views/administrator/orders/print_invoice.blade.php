@@ -42,9 +42,9 @@
                             
                             <hr>
                             <div class="row invoice-info">
-                                <div class="col-sm-4 invoice-col">
+                                <div class="col-sm-4 invoice-col" style="text-align: justify; text-justify: inter-word;">
                                     Ware House Address
-                                    <address>
+                                    <address >
                                         <strong>Kudiland Inc</strong><br>
                                         543 suthpark drive<br>
                                         Boston, MA 94107<br>
@@ -52,7 +52,7 @@
                                         Email: info@example.com
                                     </address>
                                 </div><!-- /.col -->
-                                <div class="col-sm-4 invoice-col">
+                                <div class="col-sm-4 invoice-col" style="text-align: justify; text-justify: inter-word;">
                                     Distributor Address
                                     @foreach($buyers as $see)
                                         
@@ -70,7 +70,7 @@
                                         
                                     @endforeach
                                 </div><!-- /.col -->
-                                <div class="col-sm-4 invoice-col">
+                                <div class="col-sm-4 invoice-col" style="text-align: justify; text-justify: inter-word;">
                                     <b>Invoice {{$orderDetails->invoice_number}}</b><br>
                                     <br>
                                     <b>Order ID:</b> {{$orderDetails->transaction_number}}<br>
@@ -149,12 +149,12 @@
                             <div class="row no-print">
                                 <div class="col-lg-3">
                                 <a href="javascript:window.print();" target="" 
-                                    class="btn btn-dark m-1"><i class="fa fa-print"></i> Print</a>
+                                    class="btn btn-dark m-1"><i class="fa fa-print"></i>  Print The Invoice</a>
                                 </div>
                                 <div class="col-lg-9">
                                     <div class="float-sm-right">
                                         {{-- <button class="btn btn-success m-1"><i class="fa fa-credit-card"></i> Submit Payment</button> --}}
-                                        <button class="btn btn-primary m-1"><i class="fa fa-download"></i> Generate PDF</button>
+                                        {{-- <button class="btn btn-primary m-1"><i class="fa fa-download"></i> Generate PDF</button> --}}
                                     </div>
                                 </div>
                             </div>

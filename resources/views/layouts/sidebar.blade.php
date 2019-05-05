@@ -136,7 +136,7 @@
                                 </small>
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="{{route('inventory.index')}}" class="waves-effect">
                                 <i class="zmdi zmdi-card-travel"></i>
                                 <span>Inventory</span>
@@ -145,8 +145,8 @@
                                 </small>
                             </a>
                             
-                        </li>
-                        <li>
+                        </li> --}}
+                        {{-- <li>
                             <a href="{{route('order.invoice')}}" class="waves-effect">
                                 <i class="zmdi zmdi-card-travel"></i>
                                 <span>Order</span>
@@ -155,7 +155,7 @@
                                 </small>
                             </a>
                             
-                        </li>
+                        </li> --}}
                         
                         <li>
                             <a href="{{route('log.index')}}" class="waves-effect">
@@ -198,7 +198,7 @@
                         <li>
                             <a href="{{route('order.invoice')}}" class="waves-effect">
                                 <i class="zmdi zmdi-card-travel"></i>
-                                <span>Order Invoice </span>
+                                <span>Orders </span>
                                 <small class="badge float-right badge-light">
                                     <i class="zmdi zmdi-long-arrow-right"></i>
                                 </small>

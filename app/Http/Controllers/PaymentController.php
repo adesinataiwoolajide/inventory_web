@@ -30,8 +30,15 @@ class PaymentController extends Controller
         // )->get();
        
         $payment =Payments::orderBy('payment_id', 'desc')->get();
+        $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+        $ware_house_id = $inv->ware_house_id;
+        $pay =  Payments::where([
+            'ware_house_id'=> $inv->ware_house_id]
+        )->orderBy('payment_id', 'desc')->get();
         return view('administrator.payments.index')->with([
+            "pay" => $pay,
             "payment" => $payment,
+            "inv" => $inv,
             //"invoice" => $invoice,
         ]);
     }
@@ -69,13 +76,22 @@ class PaymentController extends Controller
      */
     public function create()
     {
+        $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+        $ware_house_id = $inv->ware_house_id;
+        $invoi =  OrderDetails::where(
+            ['order_status'=> 0,
+            'ware_house_id' => $ware_house_id, 
+        ])->orderBy('details_id', 'desc')->get();
         $invoice =  OrderDetails::where(
-            ['order_status'=> 0])->
-        orderBy('details_id', 'desc')->get();
+            ['order_status'=> 0,
+        ])->orderBy('details_id', 'desc')->get();
         $payment =Payments::orderBy('payment_id', 'desc')->get();
+
         return view('administrator.payments.create')->with([
             "invoice" => $invoice,
             "payment" => $payment,
+            "invoi" => $invoi,
+            "inv" => $inv,
         ]);
     }
 

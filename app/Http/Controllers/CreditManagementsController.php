@@ -23,24 +23,53 @@ class CreditManagementsController extends Controller
     public function index()
     {
         $credit =CreditManagement::orderBy('credit_id', 'desc')->get();
+        $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+        $ware_house_id = $inv->ware_house_id;
+        $cre =  CreditManagement::where([
+            'ware_house_id' => $ware_house_id, 
+        ])->orderBy('credit_id', 'desc')->get();
         return view('administrator.credits.index')->with([
             "credit" => $credit,
+            "cre" => $cre,
+            "inv" => $inv,
         ]);
     }
 
     public function paid()
     {
+        //$credit =CreditManagement::orderBy('credit_id', 'desc')->get();
+        $inv = WareHouseManagement::where([
+            'user_id'=> auth()->user()->user_id,
+        ])->first();
+        $ware_house_id = $inv->ware_house_id;
+        $cre =  CreditManagement::where([
+            'ware_house_id' => $ware_house_id, 
+            'paid_status' => 1,
+        ])->orderBy('credit_id', 'desc')->get();
         $credit =CreditManagement::where('paid_status', 1)->orderBy('credit_id', 'desc')->get();
         return view('administrator.credits.paid')->with([
             "credit" => $credit,
+            "cre" => $cre,
+            "inv" => $inv,
         ]);
+       
     }
 
     public function unpaid()
     {
+        $inv = WareHouseManagement::where([
+            'user_id'=> auth()->user()->user_id,
+        ])->first();
+        $ware_house_id = $inv->ware_house_id;
+        $cre =  CreditManagement::where([
+            'ware_house_id' => $ware_house_id, 
+            'paid_status' => 1,
+        ])->orderBy('credit_id', 'desc')->get();
         $credit =CreditManagement::where('paid_status', 0)->orderBy('credit_id', 'desc')->get();
         return view('administrator.credits.unpaid')->with([
             "credit" => $credit,
+            "cre" => $cre,
+            "inv" => $inv,
         ]);
     }
 

@@ -114,7 +114,8 @@ Route::group(["prefix" => "administrator", "middleware" => "verified"], function
 
     Route::group(["prefix" => "inventory"], function(){
         Route::get("/index", "InventoryStockController@index")->name("inventory.index"); 
-
+        Route::get("/in_stock", "InventoryStockController@instock")->name("inventory.instock"); 
+        Route::get("/out_of_stock", "InventoryStockController@outofstock")->name("inventory.outstock"); 
         Route::get("/recyclebin", "InventoryStockController@bin")->name("inventory.restore"); 
         Route::get("/restore/{strock_id}", "InventoryStockController@restore")->name("inventory.undelete");  
     });

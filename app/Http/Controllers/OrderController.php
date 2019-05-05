@@ -51,6 +51,11 @@ class OrderController extends Controller
         $inventory =  InventoryStock::orderBy('quantity', 'desc')->get();
         $distributor =  Distributors::all();
         $order= $this->model->all();
+        $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+        $ware_house_id = $inv->ware_house_id;
+        $invent =  InventoryStock::where([
+            'ware_house_id'=> $inv->ware_house_id]
+        )->orderBy('quantity', 'desc')->get();
         
         return view('administrator.orders.create')
             ->with([
@@ -62,6 +67,8 @@ class OrderController extends Controller
             "inventory" =>$inventory,
             "order" => $order,
             "distributor" => $distributor,
+            "invent" => $invent,
+            "inv" => $inv,
         ]);
     }
 
@@ -138,6 +145,7 @@ class OrderController extends Controller
                     }
                     
                 }
+
                 $dell = WareHouseManagement::where('user_id', Auth::user()->user_id)->first();
                 OrderDetails::create([
                     'transaction_number' => $transaction_number,
@@ -147,9 +155,9 @@ class OrderController extends Controller
                      "order_status" => 0
                      , 
                 ]);
-                return redirect()->route("order.invoice")->
-                with([
-                    "success" => "You Have Added Order Successfully, The Order Invoice Number is". " ". $invoice_number,
+                return redirect()->route("order.invoice")-> with([
+                    "success" => "You Have Added Order Successfully, The Order Invoice Number is
+                    $invoice_number",
                 ]);
             }else{
                 return redirect()->back()->with([
@@ -173,14 +181,17 @@ class OrderController extends Controller
     {
         if(auth()->user()->hasPermissionTo('order-invoice')){
 
-            $inv = WareHouseManagement::find(auth()->user()->user_id);
+            $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
             // $invoice =  OrderDetails::where([
             //     'ware_house_id'=> $inv->ware_house_id]
             // )->get();
             $invoice =  OrderDetails::orderBy('details_id', 'desc')->get();
+            $invo = OrderDetails::where('ware_house_id', $inv->ware_house_id)->orderBy('details_id', 'desc')->get();
             return view('administrator.orders.invoice')->with([
                 
                 "invoice" => $invoice,
+                "invo" => $invo,
+                "inv" => $inv,
             ]);
             
             return view('administrator.orders.invoice')
