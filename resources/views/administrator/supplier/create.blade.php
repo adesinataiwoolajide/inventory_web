@@ -262,9 +262,13 @@
 						                	<?php $number =1; ?>
 						                	@foreach($supplier as $suppliers)
 							                    <tr>
-							                        <td>{{$number}}
-                                                        <a href="{{route('supplier.delete', $suppliers->supplier_id)}}" 
-                                                            onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                                                    <td>{{$number}}
+                                                        @if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
+                                                            <a href="{{route('supplier.delete', $suppliers->supplier_id)}}" 
+                                                            onclick="return(confirmToDelete());" class="btn btn-danger">
+                                                            <i class="fa fa-trash-o"></i></a>
+                                                        @endif
                                                         <a href="{{route('supplier.edit', $suppliers->supplier_id)}}" 
                                                             onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i></a>
 							                        </td>

@@ -200,9 +200,12 @@
 						                	<?php $number =1; ?>
 						                	@foreach($distributor as $distributors)
 							                    <tr>
-							                        <td>{{$number}}
-                                                        <a href="{{route('distributor.delete', $distributors->distributor_id)}}" 
+                                                    <td>{{$number}}
+                                                        @if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
+                                                            <a href="{{route('distributor.delete', $distributors->distributor_id)}}" 
                                                             onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                                                        @endif
                                                         <a href="{{route('distributor.edit', $distributors->distributor_id)}}" 
                                                             onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i></a>
 							                        </td>

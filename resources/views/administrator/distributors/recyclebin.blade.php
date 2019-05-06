@@ -53,11 +53,15 @@
 						                	<?php $number =1; ?>
 						                	@foreach($distributor as $distributors)
 							                    <tr>
-							                        <td>{{$number}}
-                                                        <a href="{{route('distributor.undelete', $distributors->distributor_id)}}"
-                                                            onclick="return(confirmToRestore());" class="btn btn-success">
+													<td>{{$number}}
+														@if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
+                                                        	<a href="{{route('distributor.undelete', $distributors->distributor_id)}}"
+															onclick="return(confirmToRestore());"
+															 class="btn btn-success">
                                                             <i class="fa fa-trash-o"></i>Restore
-                                                        </a>
+														</a>
+														@endif
 							                        </td>
 							                        <td>{{$distributors->name}}</td> 
                                                     <td>{{$distributors->phone_one}}</td> 

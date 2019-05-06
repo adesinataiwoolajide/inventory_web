@@ -49,12 +49,14 @@
 						                	@foreach($category as $categories)
 							                    <tr>
 													<td>{{$number}}
-														@can('category-restore')
+														@if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
+														{{-- @can('category-restore') --}}
 															<a href="{{route('category.undelete', $categories->category_id)}}"
 																onclick="return(confirmToRestore());" class="btn btn-success">
 																<i class="fa fa-trash-o"></i>Restore
 															</a>
-														@endcan
+														@endif
 							                        	
 							                        </td>
 							                        <td>{{$categories->category_name}}</td>

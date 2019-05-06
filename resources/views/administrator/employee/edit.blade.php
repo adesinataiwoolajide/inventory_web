@@ -195,9 +195,13 @@
 						                	<?php $number =1; ?>
 						                	@foreach($employee as $employees)
 							                    <tr>
-							                        <td>{{$number}}
+                                                    <td>{{$number}}
+                                                        @if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
                                                         <a href="{{route('employee.delete', $employees->employee_id)}}" 
-                                                            onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                                                            onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o"></i>
+                                                        </a>
+                                                        @endif
                                                         <a href="{{route('employee.edit', $employees->employee_id)}}" 
                                                             onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i></a>
 							                        </td>

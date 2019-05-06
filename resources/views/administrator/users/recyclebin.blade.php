@@ -54,10 +54,13 @@
                                         <tr>
                                         
                                             <td>{{$y}}
+                                                @if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
                                                 <a href="{{route('user.undelete', $users->user_id)}}"
                                                     onclick="return(confirmToRestore());" class="btn btn-success">
                                                     <i class="fa fa-trash-o"></i>Restore
                                                 </a> 
+                                                @endif
                                             </td>
                                             <td>{{$users->name}}</td> 
                                             <td>{{$users->email}}</td> 

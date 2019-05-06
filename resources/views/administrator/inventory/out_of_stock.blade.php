@@ -146,11 +146,11 @@
                                                         <td>{{$number}}</td>
                                                         <td>{{$inven->product_name}}</td> 
                                                         <td>
-                                                                @if($inven->quantity < 5)
+                                                            @if($inven->quantity < 5)
                                                                 <p style="color: red"><?php echo number_format($inven->quantity) ?>
-                                                                @else
-                                                                    <p style="color: green"><?php echo number_format($inven->quantity) ?></p>
-                                                                @endif
+                                                            @else
+                                                                <p style="color: green"><?php echo number_format($inven->quantity) ?></p>
+                                                            @endif
                                                         </td> 
                                                         
                                                         <td>{{$inven->category->category_name}}

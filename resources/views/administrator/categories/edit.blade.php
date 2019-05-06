@@ -86,13 +86,15 @@
 						                	<?php $number =1; ?>
 						                	@foreach($category as $categories)
 							                    <tr>
-							                        <td>{{$number}}
-                                                        @can('category-delete')
+													<td>{{$number}}
+														@if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
+                                                        {{-- @can('category-delete') --}}
 															<a href="{{route('category.delete', $categories->category_id)}}" 
 																onclick="return(confirmToDelete());" class="btn btn-danger">
 																<i class="fa fa-trash-o"></i>
 															</a>
-														@endcan
+														@endif
 														@can('category-edit')
 															<a href="{{route('category.edit', $categories->category_id)}}" 
 																onclick="return(confirmToEdit());" class="btn btn-success">

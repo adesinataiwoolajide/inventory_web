@@ -56,12 +56,14 @@
 						                	@foreach($outlet as $outlets)
 							                    <tr>
 													<td>{{$number}}
-														@can('outlet-restore')
+														@if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
+														{{-- @can('outlet-restore') --}}
 															<a href="{{route('outlet.undelete', $outlets->outlet_id)}}"
 																onclick="return(confirmToRestore());" class="btn btn-success">
 																<i class="fa fa-trash-o"></i>Restore
 															</a>
-														@endcan
+														@endif
 							                        </td>
 							                        <td>{{$outlets->outlet_name}}</td>
 							                        

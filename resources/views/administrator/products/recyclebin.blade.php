@@ -61,13 +61,15 @@
 						                	<?php $number =1; ?>
 						                	@foreach($product as $products)
 							                    <tr>
-							                        <td>{{$number}}
-                                                        @can('product-delete')
+                                                    <td>{{$number}}
+                                                        @if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
+                                                        {{-- @can('product-delete') --}}
                                                             <a href="{{route('product.delete', $products->product_id)}}" 
                                                                 onclick="return(confirmToDelete());" class="btn btn-danger">
                                                                 <i class="fa fa-trash-o">
                                                             </i></a>
-                                                        @endcan
+                                                        @endif
                                                         @can('product-edit')
                                                             <a href="{{route('product.edit', $products->product_id)}}" 
                                                                 onclick="return(confirmToEdit());" class="btn btn-success">

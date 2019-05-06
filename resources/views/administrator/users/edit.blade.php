@@ -178,9 +178,12 @@
                                         <tr>
                                         
                                             <td>{{$y}}
+                                                @if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
                                                 <a href="{{route('user.delete', $users->user_id)}}" class="btn btn-danger" onclick="return(confirmToDelete());">
                                                 <i class="fa fa-trash-o"></i>
                                                 Delete</a>
+                                                @endif
                                                 <a href="" class="btn btn-success" onclick="return(confirmToEdit());">
                                                     <i class="fa fa-pencil"></i> 
                                                 Edit</a>  

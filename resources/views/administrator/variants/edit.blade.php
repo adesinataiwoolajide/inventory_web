@@ -153,9 +153,13 @@
 						                	<?php $number =1; ?>
 						                	@foreach($variant as $variants)
 							                    <tr>
-							                        <td>{{$number}}
-                                                        <a href="{{route('variant.delete', $variants->variant_id)}}" 
-                                                            onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                                                    <td>{{$number}}
+                                                        @if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
+                                                            <a href="{{route('variant.delete', $variants->variant_id)}}" 
+                                                            onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o">
+                                                                </i></a>
+                                                        @endif
                                                         <a href="{{route('variant.edit', $variants->variant_id)}}" 
                                                             onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i></a>
 							                        </td>

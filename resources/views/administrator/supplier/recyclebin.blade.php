@@ -52,11 +52,14 @@
 						                	<?php $number =1; ?>
 						                	@foreach($supplier as $suppliers)
 							                    <tr>
-							                        <td>{{$number}}
+													<td>{{$number}}
+														@if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
                                                          <a href="{{route('supplier.undelete', $suppliers->supplier_id)}}"
                                                             onclick="return(confirmToRestore());" class="btn btn-success">
                                                             <i class="fa fa-trash-o"></i>Restore
-                                                        </a>
+														</a>
+														@endif
 							                        </td>
 							                        <td>{{$suppliers->name}}</td> 
                                                     <td>{{$suppliers->phone_one}}</td> 

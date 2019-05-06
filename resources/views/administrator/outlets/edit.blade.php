@@ -89,12 +89,14 @@
 						                	<?php $number =1; ?>
 						                	@foreach($outlet as $outlets)
 							                    <tr>
-							                        <td>{{$number}}
-                                                        @can('outlet-delete')
+													<td>{{$number}}
+														@if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
+                                                        	{{-- @can('outlet-delete') --}}
                                                         	<a href="{{route('outlet.delete', $outlets->outlet_id)}}" 
 															class="btn btn-danger" onclick="return(confirmToDelete());">
 															<i class="fa fa-trash-o"></i></a>
-														@endcan
+														@endif
 														@can('outlet-edit')
                                                         <a href="{{route('outlet.edit', $outlets->outlet_id)}}" 
 															class="btn btn-success" onclick="return(confirmToEdit());">

@@ -51,11 +51,15 @@
 						                	<?php $number =1; ?>
 						                	@foreach($variant as $variants)
 							                    <tr>
-							                        <td>{{$number}}
+													<td>{{$number}}
+														@if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
                                                         <a href="{{route('variant.undelete', $variants->variant_id)}}"
                                                             onclick="return(confirmToRestore());" class="btn btn-success">
-                                                            <i class="fa fa-trash-o"></i>Restore
-                                                        </a>
+															<i class="fa fa-trash-o"></i>Restore
+															
+														</a>
+														@endif
 							                        </td>
 							                        <td>{{$variants->variant_name}}</td>
                                                     <td>{{$variants->variant_size}}</td>

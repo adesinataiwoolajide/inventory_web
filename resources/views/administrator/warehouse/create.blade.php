@@ -251,11 +251,13 @@
 						                	<?php $number =1; ?>
 						                	@foreach($warehouse as $warehouses)
 							                    <tr>
-							                        <td>{{$number}}
+                                                    <td>{{$number}}
+                                                        @if(auth()->user()->hasRole('Administrator'))
                                                         <a href="{{route('warehouse.delete', $warehouses->ware_house_id)}}" 
                                                             onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
                                                         <a href="{{route('warehouse.edit', $warehouses->ware_house_id)}}" 
                                                             onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i></a>
+                                                        @endif
 							                        </td>
 							                        <td>{{$warehouses->name}}</td> 
                                                     <td>{{$warehouses->state}}</td> 

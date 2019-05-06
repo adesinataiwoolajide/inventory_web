@@ -105,12 +105,14 @@
                                                     <tr>
                                                     
                                                         <td>{{$y}}
-                                                            @can('assign-delete')
-                                                            <a href="{{route('assign.outlet.delete', $assign_outleta->assign_id)}}" 
+                                                            @if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
+                                                                {{-- @can('assign-delete') --}}
+                                                                <a href="{{route('assign.outlet.delete', $assign_outleta->assign_id)}}" 
                                                                 class="btn btn-danger" onclick="return(confirmToDelete());">
                                                                 <i class="fa fa-trash-o"></i>
-                                                            Delete</a>
-                                                            @endcan
+                                                                Delete</a>
+                                                            @endif
                                                             @can('assign-edit')
                                                             <a href="" class="btn btn-primary" onclick="return(confirmToDelete());">
                                                                 <i class="fa fa-pencil"></i> 

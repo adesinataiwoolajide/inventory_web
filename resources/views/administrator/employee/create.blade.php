@@ -198,12 +198,14 @@
 						                	@foreach($employee as $employees)
 							                    <tr>
                                                     <td>{{$number}}
-                                                        @can('employee-delete')
+                                                        @if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
+                                                        {{-- @can('employee-delete') --}}
                                                             <a href="{{route('employee.delete', $employees->employee_id)}}" 
                                                                 onclick="return(confirmToDelete());" class="btn btn-danger">
                                                                 <i class="fa fa-trash-o"></i>
                                                             </a>
-                                                        @endcan
+                                                        @endif
                                                         @can('employee-edit')
                                                             <a href="{{route('employee.edit', $employees->employee_id)}}" 
                                                                 onclick="return(confirmToEdit());" class="btn btn-success">
