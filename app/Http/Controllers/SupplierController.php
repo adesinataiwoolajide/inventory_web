@@ -83,7 +83,7 @@ class SupplierController extends Controller
                 'name' =>'required|min:1|max:255',
                 'email' =>'required|min:1|max:255|unique:suppliers',
                 'phone_one' =>'required|min:1|max:11|unique:suppliers',
-                'phone_two' =>'required|min:1|max:11|unique:suppliers',
+               // 'phone_two' => 'min:1|max:11|unique:suppliers',
                 'city' =>'required|min:1|max:255',
                 'state' =>'required|min:1|max:255',
                 'country' =>'required|min:1|max:255',
@@ -94,10 +94,6 @@ class SupplierController extends Controller
                 return redirect()->back()->with("error", $request->input('phone_one'). " ". "Is in Use By 
                 Another Supplier");
 
-            }elseif(Suppliers::where("phone_two", $request->input("phone_two"))->exists()){
-                return redirect()->back()->with("error", $request->input('phone_two'). " ". 
-                "Is in Use By Another Supplier");
-
             }elseif(Suppliers::where("email", $request->input("email"))->exists()){
                 return redirect()->back()->with("error", $request->input('email'). " ". 
                 "Is in Use By Another Supplier");
@@ -107,12 +103,17 @@ class SupplierController extends Controller
                 "Is in Use By Another User");
 
             }else{
+                if(empty($request->input("phone_two"))){
+                    $phone_two = "Null";
+                }else{
+                    $phone_two = $request->input("phone_two");
+                }
                 $data = ([
                     "supplier" => new Suppliers,
                     "name" => $request->input("name"),
                     "email" => $request->input("email"),
                     "phone_one" => $request->input("phone_one"),
-                    "phone_two" => $request->input("phone_two"),
+                    "phone_two" => $phone_two,
                     "city" => $request->input("city"),
                     "state" => $request->input("state"),
                     "country" => $request->input("country"),
@@ -194,18 +195,22 @@ class SupplierController extends Controller
                 'name' =>'required|min:1|max:255',
                 'email' =>'required|min:1|max:255',
                 'phone_one' =>'required|min:1|max:11',
-                'phone_two' =>'required|min:1|max:11',
                 'city' =>'required|min:1|max:255',
                 'state' =>'required|min:1|max:255',
                 'country' =>'required|min:1|max:255',
                 'address' =>'required|min:1|max:255',
             ]);
+            if(empty($request->input("phone_two"))){
+                $phone_two = "Null";
+            }else{
+                $phone_two = $request->input("phone_two");
+            }
             $data = ([
                 "supplier" => $this->model->show($supplier_id),
                 "name" => $request->input("name"),
                 "email" => $request->input("email"),
                 "phone_one" => $request->input("phone_one"),
-                "phone_two" => $request->input("phone_two"),
+                "phone_two" => $phone_two,
                 "city" => $request->input("city"),
                 "state" => $request->input("state"),
                 "country" => $request->input("country"),

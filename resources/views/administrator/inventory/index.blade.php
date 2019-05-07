@@ -60,7 +60,7 @@
                                                 @foreach($inventory as $inventories)
                                                     <tr>
                                                         <td>{{$number}}</td>
-                                                        <td>{{$inventories->product_name}}</td> 
+                                                        <td><?php echo ucwords($inventories->product_name) ?></td> 
                                                         <td>
                                                             @if($inven->quantity < 5)
                                                                 <p style="color: red"><?php echo number_format($inven->quantity) ?>
@@ -69,26 +69,26 @@
                                                             @endif
                                                         </td> 
                                                         
-                                                        <td>{{$inventories->category->category_name}}
+                                                        <td><?php echo ucwords($inventories->category->category_name) ?>
                                                             {{-- @foreach(ProductCategory($inventories->category_id) as 
                                                                 $categories)
                                                                 {{$categories->category_name}}
                                                             @endforeach --}}
                                                         </td>
-                                                        <td>{{$inventories->invenvariant->variant_name}}
+                                                        <td><?php echo ucwords($inventories->invenvariant->variant_name) ?>
                                                             {{-- @foreach(ProductVariants($inventories->variant_id) 
                                                                 as $vari)
                                                                 {{$vari->variant_name. " ". $vari->variant_size}}
                                                             @endforeach --}}
                                                         </td> 
                                                         
-                                                        <td>{{$inventories->supplier->name}}
+                                                        <td><?php echo ucwords($inventories->supplier->name) ?>
                                                             {{-- @foreach(ProductSupplier($inventories->supplier_id) 
                                                             as $suppl)
                                                                 {{$suppl->name}}
                                                             @endforeach --}}
                                                         </td> 
-                                                        <td>{{$inventories->warehouse->name}}
+                                                        <td><?php echo ucwords($inventories->warehouse->name) ?>
                                                             {{-- @foreach(WareHouseDetails($inventories->ware_house_id) 
                                                             as $ware)
                                                                 {{$ware->name}}
@@ -144,7 +144,7 @@
                                                 @foreach($invent as $inven)
                                                     <tr>
                                                         <td>{{$number}}</td>
-                                                        <td>{{$inven->product_name}}</td> 
+                                                        <td><?php echo ucwords($inven->product_name) ?></td> 
                                                         <td>
                                                             @if($inven->quantity < 5)
                                                             <p style="color: red"><?php echo number_format($inven->quantity) ?>
@@ -154,26 +154,26 @@
                                                             
                                                         </td> 
                                                         
-                                                        <td>{{$inven->category->category_name}}
+                                                        <td><?php echo ucwords($inven->category->category_name) ?>
                                                             {{-- @foreach(ProductCategory($inventories->category_id) as 
                                                                 $categories)
                                                                 {{$categories->category_name}}
                                                             @endforeach --}}
                                                         </td>
-                                                        <td>{{$inven->invenvariant->variant_name}}
+                                                        <td><?php echo ucwords($inven->invenvariant->variant_name) ?>
                                                             {{-- @foreach(ProductVariants($inventories->variant_id) 
                                                                 as $vari)
                                                                 {{$vari->variant_name. " ". $vari->variant_size}}
                                                             @endforeach --}}
                                                         </td> 
                                                         
-                                                        <td>{{$inven->supplier->name}}
+                                                        <td><?php echo ucwords($inven->supplier->name) ?>
                                                             {{-- @foreach(ProductSupplier($inventories->supplier_id) 
                                                             as $suppl)
                                                                 {{$suppl->name}}
                                                             @endforeach --}}
                                                         </td> 
-                                                        <td>{{$inven->warehouse->name}}
+                                                        <td><?php echo ucwords($inven->warehouse->name) ?>
                                                             {{-- @foreach(WareHouseDetails($inventories->ware_house_id) 
                                                             as $ware)
                                                                 {{$ware->name}}

@@ -187,7 +187,7 @@
                                         <table id="default-datatable" class="table table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>S/N</th>
+                                                    
                                                     <th>Name</th>
                                                     <th>Qty </th>
                                                     <th>Price </th>
@@ -195,12 +195,14 @@
                                                     <th>Variants </th>
                                                     <th>Supplier </th>
                                                     <th>Ware House </th>
+                                                    <th>Time Added </th>
+                                                    <th> Operations </th>
                                                 </tr>
                                             </thead>
 
                                             <tfoot>
                                                 <tr>
-                                                    <<th>S/N</th>
+                                                    <
                                                     <th>Name</th>
                                                     <th>Qty </th>
                                                     <th>Price </th>
@@ -208,29 +210,18 @@
                                                     <th>Variants </th>
                                                     <th>Supplier </th>
                                                     <th>Ware House </th>
+                                                    <th>Time Added </th>
+                                                    <th> Operations </th>
                                                 </tr>
                                             </tfoot>
                                             <tbody>
                                                 <?php $number =1; ?>
                                                 @foreach($product as $products)
                                                     <tr>
-                                                        <td>{{$number}}
-                                                            @can('product-delete')
-                                                                <a href="{{route('product.delete', $products->product_id)}}" 
-                                                                    onclick="return(confirmToDelete());" class="btn btn-danger">
-                                                                    <i class="fa fa-trash-o">
-                                                                </i></a>
-                                                            @endcan
-                                                            @can('product-edit')
-                                                                <a href="{{route('product.edit', $products->product_id)}}" 
-                                                                    onclick="return(confirmToEdit());" class="btn btn-success">
-                                                                    <i class="fa fa-pencil">
-                                                                </i></a>
-                                                            @endcan
-                                                        </td>
+                                                        
                                                         <td>{{$products->product_name}}</td> 
                                                         <td><?php echo number_format($products->quantity) ?></td> 
-                                                        <td>&#8358;<?php echo number_format($products->amount)  ?></td> 
+                                                        <td>&#8358;<?php echo number_format($products->amount) ?></td> 
                                                         
                                                         <td>{{$products->category->category_name}}
                                                             {{-- @foreach(ProductCategory($products->category_id) as $categories)
@@ -254,6 +245,21 @@
                                                                 {{$wareh->name}}
                                                             @endforeach --}}
                                                         </td> 
+                                                        <td>{{$products->created_at }}</td>
+                                                        <td>
+                                                            @can('product-delete')
+                                                                <a href="{{route('product.delete', $products->product_id)}}" 
+                                                                    onclick="return(confirmToDelete());" class="btn btn-danger">
+                                                                    <i class="fa fa-trash-o">
+                                                                </i></a>
+                                                            @endcan
+                                                            @can('product-edit')
+                                                                <a href="{{route('product.edit', $products->product_id)}}" 
+                                                                    onclick="return(confirmToEdit());" class="btn btn-success">
+                                                                    <i class="fa fa-pencil">
+                                                                </i></a>
+                                                            @endcan
+                                                        </td>
                                                     </tr><?php
                                                     $number++; ?>
                                                 @endforeach
@@ -277,7 +283,7 @@
                                         <table id="default-datatable" class="table table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>S/N</th>
+                                                    
                                                     <th>Name</th>
                                                     <th>Qty </th>
                                                     <th>Price </th>
@@ -285,12 +291,14 @@
                                                     <th>Variants </th>
                                                     <th>Supplier </th>
                                                     <th>Ware House </th>
+                                                    <th> Time Added </th>
+                                                    <th> Operations </th>
                                                 </tr>
                                             </thead>
 
                                             <tfoot>
                                                 <tr>
-                                                    <<th>S/N</th>
+                                                    <
                                                     <th>Name</th>
                                                     <th>Qty </th>
                                                     <th>Price </th>
@@ -298,31 +306,18 @@
                                                     <th>Variants </th>
                                                     <th>Supplier </th>
                                                     <th>Ware House </th>
+                                                    <th> Time Added </th>
+                                                    <th> Operations </th>
                                                 </tr>
                                             </tfoot>
                                             <tbody>
                                                 <?php $number =1; ?>
                                                 @foreach($prod as $prods)
                                                     <tr>
-                                                        <td>{{$number}}
-                                                            @if(auth()->user()->hasRole('Administrator') OR(
-															auth()->user()->hasRole('Admin')))
-                                                            {{-- @can('product-delete') --}}
-                                                                <a href="{{route('product.delete', $prods->product_id)}}" 
-                                                                    onclick="return(confirmToDelete());" class="btn btn-danger">
-                                                                    <i class="fa fa-trash-o">
-                                                                </i></a>
-                                                            @endif
-                                                            @can('product-edit')
-                                                                <a href="{{route('product.edit', $prods->product_id)}}" 
-                                                                    onclick="return(confirmToEdit());" class="btn btn-success">
-                                                                    <i class="fa fa-pencil">
-                                                                </i></a>
-                                                            @endcan
-                                                        </td>
+                                                        
                                                         <td>{{$prods->product_name}}</td> 
                                                         <td><?php echo number_format($prods->quantity) ?></td> 
-                                                        <td>&#8358;<?php echo number_format($prods->amount)  ?></td> 
+                                                        <td>&#8358;<?php echo number_format($prods->amount) ?></td> 
                                                         
                                                         <td>{{$prods->category->category_name}}
                                                             {{-- @foreach(ProductCategory($products->category_id) as $categories)
@@ -346,6 +341,23 @@
                                                                 {{$wareh->name}}
                                                             @endforeach --}}
                                                         </td> 
+                                                        <td>{{$prods->created_at }}</td>
+                                                        <td>
+                                                            @if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
+                                                            {{-- @can('product-delete') --}}
+                                                                <a href="{{route('product.delete', $prods->product_id)}}" 
+                                                                    onclick="return(confirmToDelete());" class="btn btn-danger">
+                                                                    <i class="fa fa-trash-o">
+                                                                </i>Delete</a>
+                                                            @endif
+                                                            @can('product-edit')
+                                                                <a href="{{route('product.edit', $prods->product_id)}}" 
+                                                                    onclick="return(confirmToEdit());" class="btn btn-success">
+                                                                    <i class="fa fa-pencil">
+                                                                </i>Edit </a>
+                                                            @endcan
+                                                        </td>
                                                     </tr><?php
                                                     $number++; ?>
                                                 @endforeach

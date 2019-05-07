@@ -67,42 +67,47 @@
                                     <table id="default-datatable" class="table table-bordered">
 		              					<thead>
 						                    <tr>
-						                        <th>S/N</th>
-						                        <th>Category Name</th>
+						                        {{-- <th>S/N</th> --}}
+												<th>Category Name</th>
 												<th>Time Added</th>
+												<th>Operations </th>
 						                    </tr>
 						                </thead>
 
 						                <tfoot>
 						                    <tr>
-												<th>S/N</th>
+												{{-- <th>S/N</th> --}}
 												<th>Category Name</th>
+												
 												<th>Time Added</th>
+												<th>Operations </th>
 						                    </tr>
 						                </tfoot>
 						                <tbody>
 						                	<?php $number =1; ?>
 						                	@foreach($category as $categories)
 							                    <tr>
-													<td>{{$number}}
-														@if(auth()->user()->hasRole('Administrator') OR(
-															auth()->user()->hasRole('Admin')))
+													{{-- <td>{{$number}}
+														
+							                        </td> --}}
+							                        <td>{{$categories->category_name}}</td>
+							                        
+													<td>{{$categories->created_at}}</td>
+													<td>@if(auth()->user()->hasRole('Administrator') OR(
+														auth()->user()->hasRole('Admin')))
 														{{-- @can('category-delete') --}}
 															<a href="{{route('category.delete', $categories->category_id)}}" 
 																onclick="return(confirmToDelete());" class="btn btn-danger">
-																<i class="fa fa-trash-o"></i>
+																<i class="fa fa-trash-o"></i> Delete
 															</a>
 														@endif
 														@can('category-edit')
 															<a href="{{route('category.edit', $categories->category_id)}}" 
 																onclick="return(confirmToEdit());" class="btn btn-success">
-																<i class="fa fa-pencil"></i>
+																<i class="fa fa-pencil"></i>Edit
 															</a>
-														@endcan
-							                        </td>
-							                        <td>{{$categories->category_name}}</td>
-							                        
-													<td>{{$categories->created_at}}</td>
+														@endcan 
+													</td>
 							                    </tr><?php
 							                    $number++; ?>
 							                @endforeach

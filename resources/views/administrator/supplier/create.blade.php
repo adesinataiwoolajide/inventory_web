@@ -59,9 +59,9 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <label>Phone Two</label>
-                                        <input type="number" name="phone_two" class="form-control form-control-rounded" required 
+                                        <input type="number" name="phone_two" class="form-control form-control-rounded" 
                                         placeholder="Enter The Phone Two">
-                                        <span style="color: red">** This Field is Required **</span>
+                                        <span style="color: green">** This Field is Optional **</span>
                                             @if ($errors->has('phone_two'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -240,7 +240,7 @@
                                     <table id="default-datatable" class="table table-bordered">
 		              					<thead>
 						                    <tr>
-                                                <th>S/N</th>
+                                               
                                                 <th> Name</th>
                                                 <th>Phone Number</th>
                                                 <th> Email </th>
@@ -250,7 +250,7 @@
 
 						                <tfoot>
 						                    <tr>
-                                                <th>S/N</th>
+                                                
                                                 <th> Name</th>
                                                 <th>Phone Number</th>
                                                 <th> Email </th>
@@ -262,21 +262,20 @@
 						                	<?php $number =1; ?>
 						                	@foreach($supplier as $suppliers)
 							                    <tr>
-                                                    <td>{{$number}}
+                                                    
+							                        <td>{{$suppliers->name}}</td> 
+                                                    <td>{{$suppliers->phone_one}}</td> 
+                                                    <td>{{$suppliers->email}}</td> 
+                                                    
+                                                    <td>
                                                         @if(auth()->user()->hasRole('Administrator') OR(
-															auth()->user()->hasRole('Admin')))
+                                                            auth()->user()->hasRole('Admin')))
                                                             <a href="{{route('supplier.delete', $suppliers->supplier_id)}}" 
                                                             onclick="return(confirmToDelete());" class="btn btn-danger">
                                                             <i class="fa fa-trash-o"></i></a>
                                                         @endif
                                                         <a href="{{route('supplier.edit', $suppliers->supplier_id)}}" 
                                                             onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-							                        </td>
-							                        <td>{{$suppliers->name}}</td> 
-                                                    <td>{{$suppliers->phone_one}}</td> 
-                                                    <td>{{$suppliers->email}}</td> 
-                                                    
-                                                    <td>
                                                         <a href="" class="btn btn-danger"><i class="far fa-trash-o"></i>
                                                          Supplied Products
                                                         </a>

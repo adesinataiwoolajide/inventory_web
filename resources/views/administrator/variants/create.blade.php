@@ -129,42 +129,48 @@
                                     <table id="default-datatable" class="table table-bordered">
 		              					<thead>
 						                    <tr>
-                                                <th>S/N</th>
+                                                {{-- <th>S/N</th> --}}
 						                        <th>Variant Name</th>
                                                 <th>Variant Size</th>
                                                 <th>Category</th>
+                                                <th> Time Added </th>
+                                                <th> Operations </th>
 						                    </tr>
 						                </thead>
 
 						                <tfoot>
 						                    <tr>
-												<th>S/N</th>
+												{{-- <th>S/N</th> --}}
                                                 <th>Variant Name</th>
                                                 <th>Variant Size</th>
                                                 <th>Category</th>
-												
+                                                <th> Time Added </th>
+                                                <th> Operations </th>
 						                    </tr>
 						                </tfoot>
 						                <tbody>
 						                	<?php $number =1; ?>
 						                	@foreach($variant as $variants)
 							                    <tr>
-                                                    <td>{{$number}}
-                                                        @if(auth()->user()->hasRole('Administrator') OR(
-															auth()->user()->hasRole('Admin')))
-                                                        <a href="{{route('variant.delete', $variants->variant_id)}}" 
-                                                            onclick="return(confirmToDelete());" 
-                                                            class="btn btn-danger">
-                                                            <i class="fa fa-trash-o"></i></a>
-                                                        @endif
-                                                        <a href="{{route('variant.edit', $variants->variant_id)}}" 
-                                                            onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-							                        </td>
+                                                    
 							                        <td>{{$variants->variant_name}}</td>
                                                     <td>{{$variants->variant_size}}</td>
                                                     <td>
                                                         {{$variants->category->category_name}}
                                                         
+                                                    </td>
+                                                    <td>{{$variants->created_at}} </td>
+                                                    <td>@if(auth()->user()->hasRole('Administrator') OR(
+                                                        auth()->user()->hasRole('Admin')))
+                                                        <a href="{{route('variant.delete', $variants->variant_id)}}" 
+                                                            onclick="return(confirmToDelete());" 
+                                                            class="btn btn-danger">
+                                                            <i class="fa fa-trash-o"></i>Delete</a>
+                                                        @endif
+                                                        <a href="{{route('variant.edit', $variants->variant_id)}}" 
+                                                            onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i>
+                                                            Edit
+                                                        </a>
                                                     </td>
 							                    </tr><?php
 							                    $number++; ?>

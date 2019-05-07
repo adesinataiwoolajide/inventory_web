@@ -78,10 +78,12 @@ class CategoryController extends Controller
             $this->validate($request, [
                 'category_name' =>'required|min:1|max:255|unique:categories',
             ]);
+            // $category = new Categories;
+            // $category->category_name = $request->input("category_name");
+            //$saveCategory = $category->save();
             $data = ([
                 "category" => new Categories,
                 "category_name" => $request->input("category_name"),
-                "user_id" => Auth::user()->user_id,  
             ]);
 
             $log = new ActivityLog([

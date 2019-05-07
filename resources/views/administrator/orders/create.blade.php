@@ -218,20 +218,20 @@
                                                     @foreach($invent as $invento)
                                                         <tr>
                                                             <td>{{$number}}</td>
-                                                            <td>{{$invento->product_name}}</td> 
+                                                            <td><?php echo ucwords($invento->product_name) ?></td> 
                                                             <input type="hidden" name="product_name<?php echo $number ?>"
                                                                 value="{{$invento->product_name}}">
                                                             <td>
                                                                 
                                                                 @foreach(ProductCategory($invento->category_id) as 
                                                                     $categories)
-                                                                    {{$categories->category_name}}
+                                                                    <?php echo ucwords($categories->category_name); ?>
                                                                 @endforeach
                                                             </td>
                                                             <td>
                                                                 @foreach(ProductVariants($invento->variant_id) 
                                                                     as $vari)
-                                                                    {{$vari->variant_name. " ". $vari->variant_size}}
+                                                                    <?php echo ucwords($vari->variant_name. " ". $vari->variant_size) ?>
                                                                 @endforeach
                                                             </td> 
                                                             
@@ -239,7 +239,7 @@
                                                             <td>
                                                                 @foreach(WareHouseDetails($invento->ware_house_id) 
                                                                 as $ware)
-                                                                    {{$ware->name}}
+                                                                    <?php echo ucwords($ware->name) ?>
                                                                 @endforeach
                                                             </td>
                                                             <td><?php

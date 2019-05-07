@@ -244,7 +244,12 @@ class ProductController extends Controller
             $product =  $this->model->all();
             $warehouse =  WareHouseManagement::all();
             $supplier =  Suppliers::all();
-            $prod = $this->model->show($product_id); 
+            $pro = $this->model->show($product_id);
+            $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+            $ware_house_id = $inv->ware_house_id;
+            $prod =  Products::where([
+                'ware_house_id'=> $inv->ware_house_id]
+            )->orderBy('product_id', 'desc')->get(); 
             return view('administrator.products.edit')
                 ->with([
                 "category" => $category,
@@ -253,6 +258,8 @@ class ProductController extends Controller
                 "warehouse"=> $warehouse,
                 "supplier" => $supplier,
                 "prod" => $prod,
+                "pro" => $pro,
+                "inv" => $inv,
             ]);
         } else{
             return redirect()->back()->with([

@@ -7,7 +7,7 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('product.edit', $prod->product_id)}}">Edit  Product</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('product.edit', $pro->product_id)}}">Edit  Product</a></li>
                         <li class="breadcrumb-item"><a href="{{route('product.create')}}">Add Product</a></li>
                         @if(auth()->user()->hasRole('Administrator') OR auth()->user()->hasRole('Admin'))
                             <li class="breadcrumb-item"><a href="{{route('product.restore')}}">Restore Deleted Products</a></li>
@@ -25,14 +25,14 @@
                         <div class="card-header"><i class="fa fa-table"></i> Please Fill The Below Form To Update 
                             The Product Details</div>
 	            		<div class="card-body">
-	            			<form action="{{route('product.update', $prod->product_id)}}" method="POST" enctype="multipart/form-data">
+	            			<form action="{{route('product.update', $pro->product_id)}}" method="POST" enctype="multipart/form-data">
 	            				{{ csrf_field() }}
 		            			<div class="form-group row ">
 		            				<div class="col-sm-4">
                                         <label>Name</label>
                                         <input type="text" name="product_name" class="form-control 
                                         form-control-rounded" required placeholder="Enter The Product Name" 
-                                        value="{{$prod->product_name}}">
+                                        value="{{$pro->product_name}}">
 					                    <span style="color: red">** This Field is Required **</span>
 					                     @if ($errors->has('product_name'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -49,7 +49,7 @@
                                     <div class="col-sm-4">
                                         <label>Amount</label>
                                         <input type="number" name="amount" class="form-control 
-                                        form-control-rounded" required placeholder="Enter The Amount" value="{{$prod->amount}}">
+                                        form-control-rounded" required placeholder="Enter The Amount" value="{{$pro->amount}}">
                                         <span style="color: red">** This Field is Required **</span>
                                             @if ($errors->has('amount'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -65,9 +65,9 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <label>Quantity</label>
-                                        <input type="hidden" value="{{$prod->quantity}}" name="previous">
+                                        <input type="hidden" value="{{$pro->quantity}}" name="previous">
                                         <input type="number" name="quantity" class="form-control 
-                                        form-control-rounded" required placeholder="Enter The Quantity" value="{{$prod->quantity}}">
+                                        form-control-rounded" required placeholder="Enter The Quantity" value="{{$pro->quantity}}">
                                         <span style="color: red">** This Field is Required **</span>
                                             @if ($errors->has('quantity'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -85,8 +85,8 @@
                                         <label>Supplier</label>
                                         <select name="supplier_id" class="form-control 
                                         form-control-rounded" required>
-                                            <option value="{{$prod->supplier->supplier_id}}">
-                                                    {{$prod->supplier->name}}
+                                            <option value="{{$pro->supplier->supplier_id}}">
+                                                    {{$pro->supplier->name}}
                                             </option>
                                             {{-- @foreach(ProductSupplier($prod->supplier_id) as $supl)      
                                                 <option value="{{$prod->supplier_id}}">{{$supl->name}}</option>
@@ -114,8 +114,8 @@
                                         <label>Category & Variant</label>
                                         <select name="variant_id" class="form-control 
                                         form-control-rounded" required>
-                                        <option value="{{$prod->variant->variant_id}}">
-                                                {{$prod->variant->variant_name}}
+                                        <option value="{{$pro->variant->variant_id}}">
+                                                {{$pro->variant->variant_name}}
                                         </option>
                                             <option value=""> </option>
                                             @foreach($variant as $variants)
@@ -143,8 +143,8 @@
                                         <label>Ware House</label>
                                         <select name="ware_house_id" class="form-control 
                                         form-control-rounded" required>
-                                            <option value="{{$prod->warehouse->ware_house_id}}">
-                                                    {{$prod->warehouse->name}}
+                                            <option value="{{$pro->warehouse->ware_house_id}}">
+                                                    {{$pro->warehouse->name}}
                                             </option>
                                             {{-- @foreach(WareHouseDetails($prod->ware_house_id) as $wareh)
                                               
@@ -185,96 +185,200 @@
 			 <div class="row">
 		    	<div class="col-lg-12">
 		          	<div class="card">
-		          		@if(count($product) ==0)
-                            <div class="card-header" align="center" style="color: red">
-                                <i class="fa fa-table"></i> The List is Empty
-			            	</div>
+                        @role('Administrator')
+                            @if(count($product) ==0)
+                                <div class="card-header" align="center" style="color: red">
+                                    <i class="fa fa-table"></i> The List is Empty In All Ware Houses
+                                </div>
 
-			            @else
-			            	<div class="card-header"><i class="fa fa-table"></i> List of Saved Products</div>
-		            		<div class="card-body">
-		              			<div class="table-responsive">
-                                    <table id="default-datatable" class="table table-bordered">
-		              					<thead>
-						                    <tr>
-                                                <<th>S/N</th>
-                                                <th>Name</th>
-                                                <th>Qty </th>
-                                                <th>Price </th>
-                                                <th>Category</th>
-                                                <th>Variants </th>
-                                                <th>Supplier </th>
-                                                <th>Ware House </th>
-						                    </tr>
-						                </thead>
+                            @else
+                                <div class="card-header"><i class="fa fa-table"></i> List of Saved Products In All Ware Houses</div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="default-datatable" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    
+                                                    <th>Name</th>
+                                                    <th>Qty </th>
+                                                    <th>Price </th>
+                                                    <th>Category</th>
+                                                    <th>Variants </th>
+                                                    <th>Supplier </th>
+                                                    <th>Ware House </th>
+                                                    <th>Time Added </th>
+                                                    <th> Operations </th>
+                                                </tr>
+                                            </thead>
 
-						                <tfoot>
-						                    <tr>
-                                                <<th>S/N</th>
-                                                <th>Name</th>
-                                                <th>Qty </th>
-                                                <th>Price </th>
-                                                <th>Category</th>
-                                                <th>Variants </th>
-                                                <th>Supplier </th>
-                                                <th>Ware House </th>
-						                    </tr>
-						                </tfoot>
-						                <tbody>
-						                	<?php $number =1; ?>
-						                	@foreach($product as $products)
-							                    <tr>
-                                                    <td>{{$number}}
-                                                        @if(auth()->user()->hasRole('Administrator') OR(
+                                            <tfoot>
+                                                <tr>
+                                                    <
+                                                    <th>Name</th>
+                                                    <th>Qty </th>
+                                                    <th>Price </th>
+                                                    <th>Category</th>
+                                                    <th>Variants </th>
+                                                    <th>Supplier </th>
+                                                    <th>Ware House </th>
+                                                    <th>Time Added </th>
+                                                    <th> Operations </th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <?php $number =1; ?>
+                                                @foreach($product as $products)
+                                                    <tr>
+                                                        
+                                                        <td>{{$products->product_name}}</td> 
+                                                        <td><?php echo number_format($products->quantity) ?></td> 
+                                                        <td>&#8358;<?php echo number_format($products->amount) ?></td> 
+                                                        
+                                                        <td>{{$products->category->category_name}}
+                                                            {{-- @foreach(ProductCategory($products->category_id) as $categories)
+                                                                {{$categories->category_name}}
+                                                            @endforeach --}}
+                                                        </td>
+                                                        <td>{{$products->variant->variant_name}}
+                                                            {{-- @foreach(ProductVariants($products->variant_id) as $vari)
+                                                                {{$vari->variant_name}}
+                                                            @endforeach --}}
+                                                        </td> 
+                                                        
+                                                        <td>{{$products->supplier->name}}
+                                                            {{-- @foreach(ProductSupplier($products->supplier_id) as $suppl)
+                                                                {{$suppl->name}}
+                                                            @endforeach --}}
+                                                        </td> 
+                                                    
+                                                        <td>{{$products->warehouse->name}}
+                                                            {{-- @foreach(WareHouseDetails($products->ware_house_id) as $wareh)
+                                                                {{$wareh->name}}
+                                                            @endforeach --}}
+                                                        </td> 
+                                                        <td>{{$products->created_at }}</td>
+                                                        <td>
+                                                            @can('product-delete')
+                                                                <a href="{{route('product.delete', $products->product_id)}}" 
+                                                                    onclick="return(confirmToDelete());" class="btn btn-danger">
+                                                                    <i class="fa fa-trash-o">
+                                                                </i></a>
+                                                            @endcan
+                                                            @can('product-edit')
+                                                                <a href="{{route('product.edit', $products->product_id)}}" 
+                                                                    onclick="return(confirmToEdit());" class="btn btn-success">
+                                                                    <i class="fa fa-pencil">
+                                                                </i></a>
+                                                            @endcan
+                                                        </td>
+                                                    </tr><?php
+                                                    $number++; ?>
+                                                @endforeach
+                                            </tbody>
+                                        
+                                        </table>
+                                    </div>
+                                </div>
+                            @endif
+                       
+                        @else
+                            @if(count($prod) ==0)
+                                <div class="card-header" align="center" style="color: red">
+                                    <i class="fa fa-table"></i> The List is Empty in {{$inv->name}} Ware House
+                                </div>
+
+                            @else
+                                <div class="card-header"><i class="fa fa-table"></i> List of Saved Products In {{$inv->name}} Ware House</div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="default-datatable" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    
+                                                    <th>Name</th>
+                                                    <th>Qty </th>
+                                                    <th>Price </th>
+                                                    <th>Category</th>
+                                                    <th>Variants </th>
+                                                    <th>Supplier </th>
+                                                    <th>Ware House </th>
+                                                    <th> Time Added </th>
+                                                    <th> Operations </th>
+                                                </tr>
+                                            </thead>
+
+                                            <tfoot>
+                                                <tr>
+                                                    <
+                                                    <th>Name</th>
+                                                    <th>Qty </th>
+                                                    <th>Price </th>
+                                                    <th>Category</th>
+                                                    <th>Variants </th>
+                                                    <th>Supplier </th>
+                                                    <th>Ware House </th>
+                                                    <th> Time Added </th>
+                                                    <th> Operations </th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <?php $number =1; ?>
+                                                @foreach($prod as $prods)
+                                                    <tr>
+                                                        
+                                                        <td>{{$prods->product_name}}</td> 
+                                                        <td><?php echo number_format($prods->quantity) ?></td> 
+                                                        <td>&#8358;<?php echo number_format($prods->amount) ?></td> 
+                                                        
+                                                        <td>{{$prods->category->category_name}}
+                                                            {{-- @foreach(ProductCategory($products->category_id) as $categories)
+                                                                {{$categories->category_name}}
+                                                            @endforeach --}}
+                                                        </td>
+                                                        <td>{{$prods->variant->variant_name}}
+                                                            {{-- @foreach(ProductVariants($products->variant_id) as $vari)
+                                                                {{$vari->variant_name}}
+                                                            @endforeach --}}
+                                                        </td> 
+                                                        
+                                                        <td>{{$prods->supplier->name}}
+                                                            {{-- @foreach(ProductSupplier($products->supplier_id) as $suppl)
+                                                                {{$suppl->name}}
+                                                            @endforeach --}}
+                                                        </td> 
+                                                    
+                                                        <td>{{$prods->warehouse->name}}
+                                                            {{-- @foreach(WareHouseDetails($products->ware_house_id) as $wareh)
+                                                                {{$wareh->name}}
+                                                            @endforeach --}}
+                                                        </td> 
+                                                        <td>{{$prods->created_at }}</td>
+                                                        <td>
+                                                            @if(auth()->user()->hasRole('Administrator') OR(
 															auth()->user()->hasRole('Admin')))
-                                                        {{-- @can('product-delete') --}}
-                                                            <a href="{{route('product.delete', $products->product_id)}}" 
-                                                                onclick="return(confirmToDelete());" class="btn btn-danger">
-                                                                <i class="fa fa-trash-o">
-                                                            </i></a>
-                                                        @endif
-                                                        @can('product-edit')
-                                                        <a href="{{route('product.edit', $products->product_id)}}" 
-                                                            onclick="return(confirmToEdit());" class="btn btn-success">
-                                                            <i class="fa fa-pencil">
-                                                        </i></a>
-                                                        @endcan
-							                        </td>
-                                                    <td>{{$products->product_name}}</td> 
-                                                    <td><?php echo number_format($products->quantity) ?></td> 
-                                                    <td>&#8358;<?php echo number_format($products->amount)  ?></td> 
-                                                    
-                                                    <td>{{$products->category->category_name}}
-                                                        {{-- @foreach(ProductCategory($products->category_id) as $categories)
-                                                            {{$categories->category_name}}
-                                                        @endforeach --}}
-                                                    </td>
-                                                    <td>{{$products->variant->variant_name}}
-                                                        {{-- @foreach(ProductVariants($products->variant_id) as $vari)
-                                                            {{$vari->variant_name}}
-                                                        @endforeach --}}
-                                                    </td> 
-                                                    
-                                                    <td>{{$products->supplier->name}}
-                                                        {{-- @foreach(ProductSupplier($products->supplier_id) as $suppl)
-                                                            {{$suppl->name}}
-                                                        @endforeach --}}
-                                                    </td> 
-                                                
-                                                    <td>{{$products->warehouse->name}}
-                                                        {{-- @foreach(WareHouseDetails($products->ware_house_id) as $wareh)
-                                                            {{$wareh->name}}
-                                                        @endforeach --}}
-                                                    </td> 
-							                    </tr><?php
-							                    $number++; ?>
-							                @endforeach
-						                </tbody>
-						               
-		              				</table>
-		              			</div>
-		              		</div>
-		             	@endif
+                                                            {{-- @can('product-delete') --}}
+                                                                <a href="{{route('product.delete', $prods->product_id)}}" 
+                                                                    onclick="return(confirmToDelete());" class="btn btn-danger">
+                                                                    <i class="fa fa-trash-o">
+                                                                </i>Delete</a>
+                                                            @endif
+                                                            @can('product-edit')
+                                                                <a href="{{route('product.edit', $prods->product_id)}}" 
+                                                                    onclick="return(confirmToEdit());" class="btn btn-success">
+                                                                    <i class="fa fa-pencil">
+                                                                </i>Edit </a>
+                                                            @endcan
+                                                        </td>
+                                                    </tr><?php
+                                                    $number++; ?>
+                                                @endforeach
+                                            </tbody>
+                                        
+                                        </table>
+                                    </div>
+                                </div>
+                            @endif
+                        @endrole
 	              	</div>
 	            </div>
 	        </div>

@@ -13,6 +13,51 @@ class InventoryStock extends Model
         'category_id', 'variant_id'
     ];
 
+    public function getProductNameAttribute($value){
+        return ucwords($value);
+    }
+
+    public function getQuantityAttribute($value){
+        return $value;
+    }
+
+    public function getCreatedAtAttribute($value){
+        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function getDeletedAtAttribute($value){
+        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function getUpdatedAtAttribute($value){
+        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function setProductNameAttribute($value){
+        return $this->attributes['product_name'] = strtolower($value);
+    }
+    
+    public function setSupplierIdAttribute($value){
+        return $this->attributes['supplier_id'] = $value;
+    }
+
+    public function setVariantIdAttribute($value){
+        return $this->attributes['variant_id'] = $value;
+    }
+
+    public function setCategoryIdIdAttribute($value){
+        return $this->attributes['category_id'] = $value;
+    }
+
+    public function setWareHouseIdAttribute($value){
+        return $this->attributes['ware_house_id'] = $value;
+    }
+
+    public function setQuantityAttribute($value){
+        return $this->attributes['quantity'] = $value;
+
+    }
+
     public function category(){
         return $this->belongsTo('App\Categories', 'category_id');
     }

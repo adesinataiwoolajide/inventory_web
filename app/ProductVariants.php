@@ -14,6 +14,34 @@ class ProductVariants extends Model
         'variant_name', 'category_id', 'variant_size',
     ];
 
+    public function getVariantNameAttribute($value){
+        return ucwords($value);
+    }
+
+    public function getVariantSizeAttribute($value){
+        return ucwords($value);
+    }
+
+    public function getCreatedAtAttribute($value){
+        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function getDeletedAtAttribute($value){
+        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function getUpdatedAtAttribute($value){
+        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function setVariantNameAttribute($value){
+        return $this->attributes['variant_name'] = strtolower($value);
+    }
+    public function setVariantSizeAttribute($value){
+        return $this->attributes['variant_size'] = strtolower($value);
+
+    }
+
     //Working perfectly
     public function category(){
         return $this->belongsTo('App\Categories', 'category_id');

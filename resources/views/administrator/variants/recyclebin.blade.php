@@ -29,52 +29,58 @@
 		            		<div class="card-body">
 		              			<div class="table-responsive">
                                     <table id="default-datatable" class="table table-bordered">
-		              					<thead>
-						                    <tr>
-                                                <th>S/N</th>
-						                        <th>Variant Name</th>
-                                                <th>Variant Size</th>
-                                                <th>Category</th>
-						                    </tr>
-						                </thead>
+										<thead>
+										  <tr>
+											  {{-- <th>S/N</th> --}}
+											  <th>Variant Name</th>
+											  <th>Variant Size</th>
+											  <th>Category</th>
+											  <th> Time Added </th>
+											  <th> Operations </th>
+										  </tr>
+									  </thead>
 
-						                <tfoot>
-						                    <tr>
-												<th>S/N</th>
-                                                <th>Variant Name</th>
-                                                <th>Variant Size</th>
-                                                <th>Category</th>
-												
-						                    </tr>
-						                </tfoot>
-						                <tbody>
-						                	<?php $number =1; ?>
-						                	@foreach($variant as $variants)
-							                    <tr>
-													<td>{{$number}}
-														@if(auth()->user()->hasRole('Administrator') OR(
-															auth()->user()->hasRole('Admin')))
-                                                        <a href="{{route('variant.undelete', $variants->variant_id)}}"
-                                                            onclick="return(confirmToRestore());" class="btn btn-success">
+									  <tfoot>
+										  <tr>
+											  {{-- <th>S/N</th> --}}
+											  <th>Variant Name</th>
+											  <th>Variant Size</th>
+											  <th>Category</th>
+											  <th> Time Added </th>
+											  <th> Operations </th>
+										  </tr>
+									  </tfoot>
+									  <tbody>
+										  <?php $number =1; ?>
+										  @foreach($variant as $variants)
+											  <tr>
+												  
+												  <td>{{$variants->variant_name}}</td>
+												  <td>{{$variants->variant_size}}</td>
+												  <td>
+													  {{$variants->category->category_name}}
+													  
+												  </td>
+												  <td>{{$variants->created_at}} </td>
+												  <td>@if(auth()->user()->hasRole('Administrator') OR(
+														auth()->user()->hasRole('Admin')))
+														<a href="{{route('variant.undelete', $variants->variant_id)}}"
+															onclick="return(confirmToRestore());" class="btn btn-success">
 															<i class="fa fa-trash-o"></i>Restore
 															
 														</a>
-														@endif
-							                        </td>
-							                        <td>{{$variants->variant_name}}</td>
-                                                    <td>{{$variants->variant_size}}</td>
-                                                    <td>
-															{{$variants->category->category_name}}
-                                                    </td>
-							                    </tr><?php
-							                    $number++; ?>
-							                @endforeach
-						                </tbody>
-						               
-		              				</table>
+													@endif
+												  </td>
+											  </tr><?php
+											  $number++; ?>
+										  @endforeach
+									  </tbody>
+									 
+									</table>
 		              			</div>
 		              		</div>
-		             	@endif
+						 @endif
+						 
 	              	</div>
 	            </div>
 	        </div>
@@ -86,3 +92,4 @@
     <!--End Back To Top Button-->
 	
 @endsection
+

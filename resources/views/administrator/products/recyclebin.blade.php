@@ -34,7 +34,6 @@
                                     <table id="default-datatable" class="table table-bordered">
 		              					<thead>
 						                    <tr>
-                                                <<th>S/N</th>
                                                 <th>Name</th>
                                                 <th>Qty </th>
                                                 <th>Price </th>
@@ -42,12 +41,13 @@
                                                 <th>Variants </th>
                                                 <th>Supplier </th>
                                                 <th>Ware House </th>
+                                                <th>Time Added </th>
+                                                <th> Operations </th>
 						                    </tr>
 						                </thead>
 
 						                <tfoot>
 						                    <tr>
-                                                <<th>S/N</th>
                                                 <th>Name</th>
                                                 <th>Qty </th>
                                                 <th>Price </th>
@@ -55,28 +55,15 @@
                                                 <th>Variants </th>
                                                 <th>Supplier </th>
                                                 <th>Ware House </th>
+                                                <th>Time Added </th>
+                                                <th> Operations </th>
 						                    </tr>
 						                </tfoot>
 						                <tbody>
 						                	<?php $number =1; ?>
 						                	@foreach($product as $products)
 							                    <tr>
-                                                    <td>{{$number}}
-                                                        @if(auth()->user()->hasRole('Administrator') OR(
-															auth()->user()->hasRole('Admin')))
-                                                        {{-- @can('product-delete') --}}
-                                                            <a href="{{route('product.delete', $products->product_id)}}" 
-                                                                onclick="return(confirmToDelete());" class="btn btn-danger">
-                                                                <i class="fa fa-trash-o">
-                                                            </i></a>
-                                                        @endif
-                                                        @can('product-edit')
-                                                            <a href="{{route('product.edit', $products->product_id)}}" 
-                                                                onclick="return(confirmToEdit());" class="btn btn-success">
-                                                                <i class="fa fa-pencil">
-                                                            </i></a>
-                                                        @endcan
-							                        </td>
+                                                    
                                                     <td>{{$products->product_name}}</td> 
                                                     <td><?php echo number_format($products->quantity) ?></td> 
                                                     <td>&#8358;<?php echo number_format($products->amount)  ?></td> 
@@ -103,6 +90,20 @@
                                                             {{$wareh->name}}
                                                         @endforeach --}}
                                                     </td> 
+                                                    <td>
+                                                        {{$products->deleted_at}}
+							                        </td>
+                                                    <td>
+                                                        @if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
+                                                        {{-- @can('product-delete') --}}
+                                                            <a href="{{route('product.undelete', $products->product_id)}}" 
+                                                                onclick="return(confirmToRestore());" class="btn btn-success">
+                                                                <i class="fa fa-trash-o">
+                                                            </i>Restore</a>
+                                                        @endif
+                                                        
+							                        </td>
 							                    </tr><?php
 							                    $number++; ?>
 							                @endforeach
