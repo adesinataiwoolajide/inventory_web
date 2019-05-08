@@ -7,14 +7,18 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('payment.details', $payment->payment_number)}}"> Payment Details</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('order.details', $payment->transaction_number)}}"> Order Details</a></li>
                         @if(auth()->user()->hasRole('Administrator') OR (auth()->user()->hasRole('Admin'))
                             OR (auth()->user()->hasRole('Accountant')))
-                            <li class="breadcrumb-item"><a href="{{route('payment.update', $payment->payment_number)}}">Edit Payment</a></li>
-                            <li class="breadcrumb-item"><a href="{{route('payment.create')}}">Add Payment</a></li>
-                            <li class="breadcrumb-item"><a href="{{route('payment.index')}}">View Payments</a></li>
+                            
                         @endif
-                        <li class="breadcrumb-item active" aria-current="page">View The Payment Details</li>
+                        @can('order-invoice')
+                            <li class="breadcrumb-item"><a href="{{route('order.invoice')}}">Order Invoice</a></li>
+                        @endcan
+                        @can('order-create')
+                            <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
+                        @endcan
+                        <li class="breadcrumb-item active" aria-current="page">View The Ordrer Details</li>
                         
 			         </ol>
 			   	</div>

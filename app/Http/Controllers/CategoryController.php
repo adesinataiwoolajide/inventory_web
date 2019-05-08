@@ -23,7 +23,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category= $this->model->all();
+        $category= Categories::orderBy('category_name', 'asc')->get();
         return view('administrator.categories.create')->with([
             'category' => $category,
         ]);
@@ -145,7 +145,6 @@ class CategoryController extends Controller
             $data = ([
                 "category" => $this->model->show($category_id),
                 "category_name" => $request->input("category_name"),
-                "user_id" => Auth::user()->user_id,  
             ]);
 
             $log = new ActivityLog([
@@ -156,7 +155,7 @@ class CategoryController extends Controller
 
             if($log->save() AND ($this->model->update($data, $category_id))){
                 return redirect()->route("category.create")->with("success", "You Have Changed The Category name From ". " ".
-                $request->input('prev_name') ." ". " To" .$request->input("category_name"). " ". "Successfully");
+                $request->input('prev_name') ." ". " To " .$request->input("category_name"). " ". "Successfully");
             }
         } else{
             return redirect()->back()->with([

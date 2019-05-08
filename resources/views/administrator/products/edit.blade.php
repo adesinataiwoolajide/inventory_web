@@ -182,10 +182,11 @@
 		            </div>
 		        </div>
 		    </div>
-			 <div class="row">
+            <div class="row">
 		    	<div class="col-lg-12">
 		          	<div class="card">
-                        @role('Administrator')
+                        @if(auth()->user()->hasRole('Administrator') OR(
+                            auth()->user()->hasRole('Admin')))
                             @if(count($product) ==0)
                                 <div class="card-header" align="center" style="color: red">
                                     <i class="fa fa-table"></i> The List is Empty In All Ware Houses
@@ -258,12 +259,13 @@
                                                         </td> 
                                                         <td>{{$products->created_at }}</td>
                                                         <td>
-                                                            @can('product-delete')
+                                                            @if(auth()->user()->hasRole('Administrator') OR(
+                                                                auth()->user()->hasRole('Admin')))
                                                                 <a href="{{route('product.delete', $products->product_id)}}" 
                                                                     onclick="return(confirmToDelete());" class="btn btn-danger">
                                                                     <i class="fa fa-trash-o">
                                                                 </i></a>
-                                                            @endcan
+                                                            @endif
                                                             @can('product-edit')
                                                                 <a href="{{route('product.edit', $products->product_id)}}" 
                                                                     onclick="return(confirmToEdit());" class="btn btn-success">
@@ -378,7 +380,7 @@
                                     </div>
                                 </div>
                             @endif
-                        @endrole
+                        @endif
 	              	</div>
 	            </div>
 	        </div>

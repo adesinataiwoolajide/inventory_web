@@ -67,7 +67,6 @@
                                     <table id="default-datatable" class="table table-bordered">
 		              					<thead>
 						                    <tr>
-						                        {{-- <th>S/N</th> --}}
 												<th>Category Name</th>
 												<th>Time Added</th>
 												<th>Operations </th>
@@ -76,9 +75,7 @@
 
 						                <tfoot>
 						                    <tr>
-												{{-- <th>S/N</th> --}}
 												<th>Category Name</th>
-												
 												<th>Time Added</th>
 												<th>Operations </th>
 						                    </tr>
@@ -87,15 +84,10 @@
 						                	<?php $number =1; ?>
 						                	@foreach($category as $categories)
 							                    <tr>
-													{{-- <td>{{$number}}
-														
-							                        </td> --}}
 							                        <td>{{$categories->category_name}}</td>
-							                        
 													<td>{{$categories->created_at}}</td>
 													<td>@if(auth()->user()->hasRole('Administrator') OR(
 														auth()->user()->hasRole('Admin')))
-														{{-- @can('category-delete') --}}
 															<a href="{{route('category.delete', $categories->category_id)}}" 
 																onclick="return(confirmToDelete());" class="btn btn-danger">
 																<i class="fa fa-trash-o"></i> Delete
@@ -112,7 +104,6 @@
 							                    $number++; ?>
 							                @endforeach
 						                </tbody>
-						               
 		              				</table>
 		              			</div>
 		              		</div>
@@ -122,8 +113,6 @@
 	        </div>
 	     </div>
 	</div>
-
-
     <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
     <!--End Back To Top Button-->
 	

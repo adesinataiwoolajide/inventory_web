@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\{Order,OrderDetails, Distributors, Products, ProductVariants, Categories, User, 
-    ActivityLog, Suppliers, WareHouseManagement, InventoryStock};
+    ActivityLog, Suppliers, WareHouseManagement, InventoryStock, Payments, CreditManagement};
 use App\Repositories\OrderRepository;
 use DB;
 use Str;
@@ -177,6 +177,69 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function details($transaction_number)
+    {
+        if(auth()->user()->hasPermissionTo('payment-edit')){
+            $viewOrder = Order::where([
+                "transaction_number"=> $transaction_number
+            ])->get();
+            $orderDetails = OrderDetails::where([
+                "transaction_number"=> $transaction_number
+            ])->first();
+            $category= Categories::all();
+            $variant = ProductVariants::all();
+            $product =  Products::all();
+            $warehouse =  WareHouseManagement::all();
+            $supplier =  Suppliers::all();
+            $inventory =  InventoryStock::all();
+            $distributor =  Distributors::all();
+            $price = Order::where([
+                "transaction_number" => $transaction_number, 
+            ])->sum('total_amount');
+
+            $distributor_id = $orderDetails->distributor_id;
+            $buyers = Distributors::where([
+                "distributor_id" => $distributor_id, 
+            ])->get();
+            $credit = CreditManagement::where([
+                "distributor_id" => $distributor_id, 
+            ])->get();
+            // $pay = Payments::where([
+            //     "payment_number"=> $transaction_number
+            // ])->get();
+            // if(count($pay) ==0){
+            //     return redirect()->back()->with([
+            //         'error' => "The Distributor Have Not Paid For The Order",
+            //     ]); 
+            // }else{
+
+            $payment = Order::where([
+                "transaction_number"=> $transaction_number
+            ])->first();
+        
+            return view('administrator.orders.details')->with([
+                "payment"=> $payment,
+                "price"=> $price,
+                "buyers" => $buyers,
+                "viewOrder" => $viewOrder,
+                "category" => $category,
+                "variant" => $variant,
+                "product" => $product,
+                "warehouse"=> $warehouse,
+                "supplier" => $supplier,
+                "inventory" =>$inventory,
+                "distributor" => $distributor,
+                "orderDetails" => $orderDetails,
+                
+                "credit" => $credit,
+            ]);
+            
+        } else{
+            return redirect()->back()->with([
+                'error' => "You Dont have Access To View A Payment Details",
+            ]);
+        }
+    }
     public function invoice()
     {
         if(auth()->user()->hasPermissionTo('order-invoice')){

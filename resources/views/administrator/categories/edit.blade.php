@@ -56,47 +56,40 @@
 		    </div>
 			 <div class="row">
 		    	<div class="col-lg-12">
-		          	<div class="card">
-		          		@if(count($category) ==0)
-                            <div class="card-header" align="center" style="color: red">
-                                <i class="fa fa-table"></i> The List is Empty
-			            	</div>
+					<div class="card">
+						@if(count($category) ==0)
+						  <div class="card-header" align="center" style="color: red">
+							  <i class="fa fa-table"></i> The List is Empty
+						  </div>
 
-			            @else
-			            	<div class="card-header"><i class="fa fa-table"></i> List of Saved Product Categories</div>
-		            		<div class="card-body">
-		              			<div class="table-responsive">
-                                    <table id="default-datatable" class="table table-bordered">
+					  @else
+						  <div class="card-header"><i class="fa fa-table"></i> List of Saved Product Categories</div>
+						  <div class="card-body">
+								<div class="table-responsive">
+								  <table id="default-datatable" class="table table-bordered">
 										<thead>
 										  <tr>
-											  	{{-- <th>S/N</th> --}}
-												<th>Category Name</th>
-												<th>Time Added</th>
-												<th>Operations </th>
-										  </tr>
-										</thead>
-
-										<tfoot>
-										  <tr>
-											  {{-- <th>S/N</th> --}}
 											  <th>Category Name</th>
 											  <th>Time Added</th>
 											  <th>Operations </th>
 										  </tr>
-									  	</tfoot>
-									  	<tbody>
+									  </thead>
+
+									  <tfoot>
+										  <tr>
+											  <th>Category Name</th>
+											  <th>Time Added</th>
+											  <th>Operations </th>
+										  </tr>
+									  </tfoot>
+									  <tbody>
 										  <?php $number =1; ?>
 										  @foreach($category as $categories)
 											  <tr>
-												  {{-- <td>{{$number}}
-													  
-												  </td> --}}
 												  <td>{{$categories->category_name}}</td>
-												  
 												  <td>{{$categories->created_at}}</td>
 												  <td>@if(auth()->user()->hasRole('Administrator') OR(
 													  auth()->user()->hasRole('Admin')))
-													  {{-- @can('category-delete') --}}
 														  <a href="{{route('category.delete', $categories->category_id)}}" 
 															  onclick="return(confirmToDelete());" class="btn btn-danger">
 															  <i class="fa fa-trash-o"></i> Delete
@@ -113,12 +106,11 @@
 											  $number++; ?>
 										  @endforeach
 									  </tbody>
-									 
 									</table>
-		              			</div>
-		              		</div>
-		             	@endif
-	              	</div>
+								</div>
+							</div>
+					   @endif
+					</div>
 	            </div>
 	        </div>
 	     </div>

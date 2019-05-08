@@ -14,6 +14,74 @@ class Distributors extends Model
         'credit_reduction_per_month'
     ];
 
+    public function getNameAttribute($value){
+        return ucwords($value);
+    }
+    public function getPhoneOneAttribute($value){
+        return $value;
+    }
+
+    public function getPhoneTwoAttribute($value){
+        return $value;
+    }
+    public function getEmailAttribute($value){
+        return $value;
+    }
+
+    public function getAddressAttribute($value){
+        return ucfirst($value);
+    }
+
+    public function getCreditLimitAttribute($value){
+        return $value;
+    }
+
+    public function getCreditReductionPerMonthAttribute($value){
+        return $value;
+    }
+
+    public function getCreatedAtAttribute($value){
+        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function getDeletedAtAttribute($value){
+        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function getUpdatedAtAttribute($value){
+        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
+
+    public function setNameAttribute($value){
+        return $this->attributes['name'] = strtolower($value);
+    }
+    public function setPhoneOneAttribute($value){
+        return $this->attributes['phone_one'] = $value;
+    }
+
+    public function setPhoneTwoAttribute($value){
+        return $this->attributes['phone_two'] = $value;
+    }
+    public function setEmailAttribute($value){
+        return $this->attributes['email'] = $value;
+    }
+
+    public function setAddressAttribute($value){
+        return $this->attributes['address'] = $value;
+    }
+
+    public function setCreditLimitAttribute($value){
+        return $this->attributes['credit_limit'] = $value;
+    }
+
+    public function setCreditReductionPerMonthAttribute($value){
+        return $this->attributes['credit_reduction_per_month'] = $value;
+    }
+
+
+
+
     public function order(){
         return $this->hasMany('App\OrderDetails', 'distributor_id');
     }

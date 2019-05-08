@@ -8,7 +8,10 @@
 				    <ol class="breadcrumb">
 				    	<li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{route('supplier.create')}}">Add Supplier</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('supplier.restore')}}">Restore Deleted Suppliers</a></li>
+                        @if(auth()->user()->hasRole('Administrator') OR(
+                            auth()->user()->hasRole('Admin')))
+                            <li class="breadcrumb-item"><a href="{{route('supplier.restore')}}">Restore Deleted Suppliers</a></li>
+                        @endif
 			            <li class="breadcrumb-item active" aria-current="page">Saved Product Suppliers</li>
 			         </ol>
 			   	</div>
@@ -244,6 +247,7 @@
                                                 <th> Name</th>
                                                 <th>Phone Number</th>
                                                 <th> Email </th>
+                                                <th> Address </th>
                                                 <th>Options </th>
 						                    </tr>
 						                </thead>
@@ -264,8 +268,10 @@
 							                    <tr>
                                                     
 							                        <td>{{$suppliers->name}}</td> 
-                                                    <td>{{$suppliers->phone_one}}</td> 
+                                                    <td>{{$suppliers->phone_one. " ". $suppliers->phone_two}}</td> 
                                                     <td>{{$suppliers->email}}</td> 
+                                                    <td>{{$suppliers->address . " ". $suppliers->city. " ".
+                                                        $suppliers->state. " ". $suppliers->country}}</td> 
                                                     
                                                     <td>
                                                         @if(auth()->user()->hasRole('Administrator') OR(
@@ -276,8 +282,8 @@
                                                         @endif
                                                         <a href="{{route('supplier.edit', $suppliers->supplier_id)}}" 
                                                             onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-                                                        <a href="" class="btn btn-danger"><i class="far fa-trash-o"></i>
-                                                         Supplied Products
+                                                        <a href="{{route('supplier.product', $suppliers->supplier_id)}}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>
+                                                          
                                                         </a>
                                                             
                                                     </td> 

@@ -36,20 +36,22 @@
                                 <table id="default-datatable" class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th> S/N</th>
+                                            
                                             <th> Transaction ID</th>
                                             <th> Distributor </th>
                                             <th> Ware House </th>
+                                            <th> Operation</th>
                                             
                                         </tr>
                                     </thead>
 
                                     <tfoot>
                                         <tr>
-                                            <th> S/N</th>
+                                           
                                             <th> Distributor </th>
                                             <th> Ware House </th>
                                             <th> Transaction ID</th>
+                                            <th> Operation</th>
                                             
                                         </tr>
                                     </tfoot>
@@ -57,17 +59,17 @@
                                         <?php $number =1; ?>
                                         @foreach($dist_order as $orders)
                                             <tr>
-                                                <td>{{$number}}
+                                                
+                                                
+                                                <td>{{$orders->transaction_number}}</td>
+                                                <td>{{$orders->distributor->name}}</td>
+                                                <td>{{$orders->warehouse->name}}</td>
+                                                <td>
                                                     
                                                     <a href="{{route('payment.details', $orders->transaction_number)}}" 
                                                             class="btn btn-primary">
                                                         <i class="fa fa-list"></i></a>  
                                                 </td>
-                                                
-                                                <td>{{$orders->transaction_number}}</td>
-                                                <td>{{$orders->distributor->name}}</td>
-                                                <td>{{$orders->warehouse->name}}</td>
-                                                {{--  --}}
                                                 
                                             </tr>
                                             

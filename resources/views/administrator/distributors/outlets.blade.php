@@ -4,15 +4,26 @@
     <div class="content-wrapper">
    		<div class="container-fluid">
    			<div class="row pt-2 pb-2">
-		        <div class="col-sm-9">
+		        <div class="col-sm-12">
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('assign.outlet.create')}}">Assign An Outlet</a></li>
-				    	<li class="breadcrumb-item"><a href="{{route('outlet.create')}}">Add Outlet</a></li>
-			            <li class="breadcrumb-item active" aria-current="page">Save Assigned Outlet</li>
+                        <li class="breadcrumb-item"><a href="{{route('distributor.create')}}">Add Distributor</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('distributor.outlet', $distributor->distributor_id)}}">
+                            
+                            {{$distributor->name}} Outlet
+                        </a></li>
+                        @if(auth()->user()->hasRole('Administrator') OR(
+                            auth()->user()->hasRole('Admin')))
+                            <li class="breadcrumb-item"><a href="{{route('distributor.restore')}}">Restore Deleted 
+                            Distributors</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('assign.outlet.create')}}">Assign An Outlet</a></li>
+				    	    <li class="breadcrumb-item"><a href="{{route('outlet.create')}}">Add Outlet</a></li>
+                        @endif
+                        
+			            <li class="breadcrumb-item active" aria-current="page">Save Assigned Outlet for {{$distributor->name}}</li>
 			         </ol>
 			   	</div>
-			</div>
+            </div>
             @include('partials._message')
             @if(auth()->user()->hasRole('Administrator') OR(
                 auth()->user()->hasRole('Admin')))
@@ -84,30 +95,31 @@
 			 <div class="row">
 		    	<div class="col-lg-12">
 		          	<div class="card">
-		          		@if(count($assign_outlet) ==0)
+		          		@if(count($assign) ==0)
                             <div class="card-header" align="center" style="color: red">
-                                <i class="fa fa-table"></i> The List is Empty
+                                <i class="fa fa-table"></i> No Outlet is Found
 			            	</div>
 
 			            @else
-			            	<div class="card-header"><i class="fa fa-table"></i> List of Saved Assigned Outlets</div>
+			            	<div class="card-header"><i class="fa fa-table"></i> List of {{$distributor->name}} Assigned Outlets </div>
 		            		<div class="card-body">
 		              			<div class="table-responsive">
                                     <table id="default-datatable" class="table table-bordered">
                                         <thead>
                                             <tr>
+                                                
                                                 <th>Outlet Name</th>
                                                 <th> Distributor Name </th>
                                                 <th> Time Added </th>
                                                 @if(auth()->user()->hasRole('Administrator') OR(
                                                     auth()->user()->hasRole('Admin')))
                                                     <th>Operations</th>
-                                                @endif  
+                                                @endif                                                
                                             </tr>
                                         </thead>
                                         <tbody><?php
                                             $y=1; ?>
-                                            @foreach($assign_outlet as $assign_outleta)
+                                            @foreach($assign as $assign_outleta)
                                                 <tr>
                                                     <td><?php echo ucwords($assign_outleta->outlet->outlet_name) ?>
                                                         {{-- @foreach(OutletDetails($assign_outleta->outlet_id) as $outlet_details)
@@ -123,10 +135,11 @@
                                                     <td>
                                                         {{$assign_outleta->created_at}}
                                                     </td>
-                                                    <td>
-                                                        @if(auth()->user()->hasRole('Administrator') OR(
-                                                            auth()->user()->hasRole('Admin')))
-                                                                {{-- @can('assign-delete') --}}
+                                                
+                                                    @if(auth()->user()->hasRole('Administrator') OR(
+                                                        auth()->user()->hasRole('Admin')))
+                                                            {{-- @can('assign-delete') --}}
+                                                        <td>
                                                             <a href="{{route('assign.outlet.delete', $assign_outleta->assign_id)}}" 
                                                             class="btn btn-danger" onclick="return(confirmToDelete());">
                                                             <i class="fa fa-trash-o"></i>
@@ -134,9 +147,10 @@
                                                             <a href="" class="btn btn-primary" onclick="return(confirmToDelete());">
                                                                 <i class="fa fa-pencil"></i> 
                                                             Edit</a>  
-                                                            
-                                                        @endif
-                                                    </td>
+                                                        </td>
+                                                        
+                                                    @endif
+                                                    
                                                     
                                                 </tr><?php $y++; ?>
                                             @endforeach

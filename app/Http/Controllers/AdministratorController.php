@@ -127,17 +127,18 @@ class AdministratorController extends Controller
             }elseif(auth()->user()->hasRole('Editor')){
                 auth()->user()->givePermissionTo([
                     'product-edit','product-create', 'product-update',
-                    'category-edit', 'category-delete', 'category-create',
-                    'variant-create', 'variant-delete', 'variant-edit',
+                    'category-edit', 'category-update', 'category-create',
+                    'variant-create', 'variant-update', 'variant-edit',
                     'distributor-create', 'distributor-edit', 'distributor-update', 
                     'supplier-create', 'supplier-edit', 'supplier-update', 
+                    'order-create', 'order-update', 'order-edit', 'order-invoice', 'print-invoice',
                 ]);
                 $message = 'Editor';
             }elseif(auth()->user()->hasRole('Accountant')){
                 auth()->user()->givePermissionTo([
                     'salary-create',  'salary-update', 'salary-edit',
                     'account-create',  'account-update', 'account-edit',
-                    'order-create',  'order-edit', 'order-update', 'order-invoice',
+                    'order-create',  'order-edit', 'order-update', 'order-invoice', 'print-invoice',
                     'payment-create', 'payment-edit', 'payment-update', 'credit-payment', 
                     'credit-payment-edit', 'credit-payment-update', 'credit-payment-delete'
                 ]);
@@ -145,13 +146,11 @@ class AdministratorController extends Controller
             }elseif(auth()->user()->hasRole('Receptionist')){
                 auth()->user()->givePermissionTo([
                     'product-edit','product-create', 'product-update',
-                    'category-edit', 'category-delete', 'category-create',
-                    'variant-create', 'variant-delete', 'variant-edit',
+                    'category-edit', 'category-update', 'category-create',
+                    'variant-create', 'variant-update', 'variant-edit',
                     'distributor-create', 'distributor-edit', 'distributor-update', 
-                    'supplier-create', 'supplier-edit', 'supplier-update',
-                    'payment-create', 'payment-edit', 'payment-update', 
-                    'print-invoice', 'credit-payment', 'credit-payment-edit', 
-                    'credit-payment-update',
+                    'supplier-create', 'supplier-edit', 'supplier-update', 
+                    'order-create', 'order-update', 'order-edit', 'order-invoice', 'print-invoice',
                 ]);
                 $message = 'Receptionist';
             }else{

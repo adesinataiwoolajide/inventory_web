@@ -320,7 +320,7 @@
                                             <div class="col-sm-6" align="center">
                                                 <input type="hidden" name="show" value="<?php echo $number; ?>">
                                                 <button type="submit" class="btn btn-success btn-lg btn-block">
-                                                    ADD THE ORDER 
+                                                    UPDATE THE ORDER 
                                                 </button>
                                             </div>
                                         </div> 

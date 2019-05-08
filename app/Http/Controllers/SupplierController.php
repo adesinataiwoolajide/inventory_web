@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Suppliers, User, ActivityLog};
+use App\{Suppliers, User, ActivityLog, Products, WareHouseManagement};
 use App\Repositories\SupplierRepository;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -56,11 +56,9 @@ class SupplierController extends Controller
         $categ= $this->model->show($supplier_id);
         $supplier_name = $categ->name;
         $email = $categ->email;
-        User::withTrashed()
-        ->where('email', $email)
-        ->restore();
+        
         $log = new ActivityLog([
-            "operations" => "Restored  ". " ".$email. " " . " To The Supplier List",
+            "operations" => "Restored  ". " ".$email. " " . " To The Supplier's List",
             "user_id" => Auth::user()->user_id,
         ]);
         $log->save();
@@ -83,7 +81,6 @@ class SupplierController extends Controller
                 'name' =>'required|min:1|max:255',
                 'email' =>'required|min:1|max:255|unique:suppliers',
                 'phone_one' =>'required|min:1|max:11|unique:suppliers',
-               // 'phone_two' => 'min:1|max:11|unique:suppliers',
                 'city' =>'required|min:1|max:255',
                 'state' =>'required|min:1|max:255',
                 'country' =>'required|min:1|max:255',
@@ -97,10 +94,6 @@ class SupplierController extends Controller
             }elseif(Suppliers::where("email", $request->input("email"))->exists()){
                 return redirect()->back()->with("error", $request->input('email'). " ". 
                 "Is in Use By Another Supplier");
-
-            }elseif(User::where("email", $request->input("email"))->exists()){
-                return redirect()->back()->with("error", $request->input('email'). " ". 
-                "Is in Use By Another User");
 
             }else{
                 if(empty($request->input("phone_two"))){
@@ -120,21 +113,21 @@ class SupplierController extends Controller
                     "address" => $request->input("address"), 
                 ]);
                 
-                $use = new User([
-                    "email" => $request->input("email"),
-                    "name" => $request->input("name"),
-                    "password" => Hash::make($request->input("email")),
-                    "role" => 'Supplier',
-                    "status" => 1,
-                    //"registration_number" => rand(0001, 1000),
-                ]);
+                // $use = new User([
+                //     "email" => $request->input("email"),
+                //     "name" => $request->input("name"),
+                //     "password" => Hash::make($request->input("email")),
+                //     "role" => 'Supplier',
+                //     "status" => 1,
+                //     //"registration_number" => rand(0001, 1000),
+                // ]);
 
                 $log = new ActivityLog([
                     "operations" => "Added ".$request->input("name"). " To The Supplier List",
                     "user_id" => Auth::user()->user_id,
                 ]);
 
-                if($log->save() AND ($this->model->create($data)) AND $use->save()){
+                if($log->save() AND ($this->model->create($data))){
                     $addRole = $use->assignRole('Supplier');
                     return redirect()->route("supplier.create")->with("success", "You Have Added " 
                     .$request->input("name"). " To The Supplier List Successfully");
@@ -181,6 +174,37 @@ class SupplierController extends Controller
         }
     }
 
+    public function product($supplier_id)
+    {
+        if(auth()->user()->hasPermissionTo('supplier-edit')){
+            $sup = $this->model->show($supplier_id);
+            $product = Products::where('supplier_id', $supplier_id)->get();
+            $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+            $ware_house_id = $inv->ware_house_id;
+            $prod =  Products::where([
+                'ware_house_id'=> $inv->ware_house_id,
+                'supplier_id' => $supplier_id ]
+            )->orderBy('product_id', 'desc')->get();
+            if(count($prod) ==0){
+                return redirect()->back()->with([
+                    'error' => "No Product Was Supplied By {{$sup->name}} to {{$inv->name}} Ware House",
+                ]);
+            }else{
+                return view('administrator.supplier.products')->with([
+                    'product' => $product,
+                    'sup' => $sup,
+                    'inv' => $inv,
+                    'prod' => $prod,
+                ]);
+                }
+
+        } else{
+            return redirect()->back()->with([
+                'error' => "You Dont have Access To View The Supplier;s Product",
+            ]);
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -220,20 +244,20 @@ class SupplierController extends Controller
             $sup = Suppliers::where([
                 "supplier_id" => $supplier_id, 
             ])->first();
-            $details = $sup->email;
-            $upda =  User::where([
-                "email" => $details, 
-            ])->first();
-           $user_id = $upda->user_id;
-            $user = DB::table('users')->where([
-                'user_id' =>$user_id,
-            ])->update([
-                "email" => $request->input("email"),
-                "name" => $request->input("name"),
-                "password" => Hash::make($request->input("email")),
-                "role" => 'Supplier',
-                "status" => 1,
-            ]);
+        //     $details = $sup->email;
+        //     $upda =  User::where([
+        //         "email" => $details, 
+        //     ])->first();
+        //    $user_id = $upda->user_id;
+        //     $user = DB::table('users')->where([
+        //         'user_id' =>$user_id,
+        //     ])->update([
+        //         "email" => $request->input("email"),
+        //         "name" => $request->input("name"),
+        //         "password" => Hash::make($request->input("email")),
+        //         "role" => 'Supplier',
+        //         "status" => 1,
+        //     ]);
 
             $log = new ActivityLog([
                 "operations" => "Changed The Supplier E-Mail From ". " ".
@@ -242,7 +266,7 @@ class SupplierController extends Controller
             ]);
 
             if($log->save() AND ($this->model->update($data, $supplier_id))){
-                $addRole = $upda->assignRole('Supplier');
+                //$addRole = $upda->assignRole('Supplier');
                 return redirect()->route("supplier.create")->with("success", 
                 "You Have Updated The Supplier Details Successfully");
             }
@@ -261,24 +285,21 @@ class SupplierController extends Controller
      */
     public function destroy($supplier_id)
     {
-        if(auth()->user()->hasPermissionTo('supplier-delete')){
+        if(auth()->user()->hasPermissionTo('supplier-delete'))
+        {
             $supplier =  $this->model->show($supplier_id); 
             $sup = Suppliers::where([
                 "supplier_id" => $supplier_id, 
             ])->first();
 
             $details= $sup->supplier_name; 
-            $email = $sup->email;
-            $user = User::where([
-                "email" => $email, 
-            ])->first();
-            $user_id = $user->user_id;
+            
             $log = new ActivityLog([
                 "operations" => "Deleted ". $details. " From The Supplier List",
                 "user_id" => Auth::user()->user_id,
             ]);
-            if (($supplier->delete($supplier_id)) AND ($supplier->trashed()) 
-                AND($user->delete()) AND ($user->trashed()) AND ($log->save())) {
+            if (($supplier->delete($supplier_id)) AND ($supplier->trashed())) 
+            {
                 return redirect()->back()->with([
                     'success' => "You Have Deleted". $details. " ". "From The Supplier Details Successfully",
                 ]);

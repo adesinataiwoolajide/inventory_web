@@ -248,7 +248,8 @@
                                                                 if($current < 1){ ?>
                                                                     <p style="color:red">Out of Stock</p><?php
                                                                 }else{ ?>
-                                                                    <select class ="form-control form-control-rounded" name ="quantity<?php echo $number; ?>">
+                                                                    <select class ="form-control form-control-rounded" style="width: 70px" 
+                                                                        name="quantity<?php echo $number; ?>">
                                                                         <option value="">Qty  </option>
 
                                                                         <option value=""> </option><?php

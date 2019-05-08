@@ -10,53 +10,56 @@
 						@can('outlet-create')
 							<li class="breadcrumb-item"><a href="{{route('outlet.create')}}">Add Outlet</a></li>
 						@endcan
-						@can('outlet-restore')
+						@if(auth()->user()->hasRole('Administrator') OR(
+							auth()->user()->hasRole('Admin')))
 							<li class="breadcrumb-item"><a href="{{route('outlet.restore')}}">Restore Deleted Outlets</a></li>	
-						@endcan
-						@can('assign-create')
+						
 							<li class="breadcrumb-item"><a href="{{route('assign.outlet.create')}}">
 								Assign An Outlet</a></li>
-						@endcan
+						@endif
 			            <li class="breadcrumb-item active" aria-current="page">Saved Outlets</li>
 			         </ol>
 			   	</div>
 			</div>
-   			<div class="row">
-		    	<div class="col-lg-12">
+			@include('partials._message')
+			@if(auth()->user()->hasRole('Administrator') OR(
+				auth()->user()->hasRole('Admin')))
+				<div class="row">
+					<div class="col-lg-12">
 
-		    		@include('partials._message')
-		          	<div class="card">
-		            	<div class="card-header"><i class="fa fa-table"></i> Please Fill The Below Form To Add New Outlet Details</div>
-	            		<div class="card-body">
-	            			<form action="{{route('outlet.save')}}" method="POST" enctype="multipart/form-data">
-	            				{{ csrf_field() }}
-		            			<div class="form-group row ">
-		            				<div class="col-sm-6">
-					                    <input type="text" class="form-control form-control-rounded" name="outlet_name" required placeholder="Enter The Outlet Name">
-					                    <span style="color: red">** This Field is Required **</span>
-					                     @if ($errors->has('outlet_name'))
-                                            <div class="alert alert-danger alert-dismissible" role="alert">
-										        <button type="button" class="close" data-dismiss="alert">&times;</button>
-										        <div class="alert-icon contrast-alert">
-										            <i class="fa fa-check"></i>
-										        </div>
-										        <div class="alert-message">
-										            <span><strong>Error!</strong> {{ $errors->first('outlet_name') }} !</span>
-										        </div>
-										    </div>
-                                        @endif  
-					                </div>
+						<div class="card">
+							<div class="card-header"><i class="fa fa-table"></i> Please Fill The Below Form To Add New Outlet Details</div>
+							<div class="card-body">
+								<form action="{{route('outlet.save')}}" method="POST" enctype="multipart/form-data">
+									{{ csrf_field() }}
+									<div class="form-group row ">
+										<div class="col-sm-6">
+											<input type="text" class="form-control form-control-rounded" name="outlet_name" required placeholder="Enter The Outlet Name">
+											<span style="color: red">** This Field is Required **</span>
+											@if ($errors->has('outlet_name'))
+												<div class="alert alert-danger alert-dismissible" role="alert">
+													<button type="button" class="close" data-dismiss="alert">&times;</button>
+													<div class="alert-icon contrast-alert">
+														<i class="fa fa-check"></i>
+													</div>
+													<div class="alert-message">
+														<span><strong>Error!</strong> {{ $errors->first('outlet_name') }} !</span>
+													</div>
+												</div>
+											@endif  
+										</div>
 
-					                <div class="col-sm-6" align="center">
-					                    <button type="submit" class="btn btn-success btn-lg btn-block">ADD THE OUTLET </button>
-					                </div>
-						            
-					            </div>
-				            </form>
-		            	</div>
-		            </div>
-		        </div>
-		    </div>
+										<div class="col-sm-6" align="center">
+											<button type="submit" class="btn btn-success btn-lg btn-block">ADD THE OUTLET </button>
+										</div>
+										
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			@endif
 			 <div class="row">
 		    	<div class="col-lg-12">
 		          	<div class="card">
@@ -72,40 +75,42 @@
                                     <table id="default-datatable" class="table table-bordered">
 		              					<thead>
 						                    <tr>
-						                        <th>S/N</th>
+						                        
 						                        <th>Outlet Name</th>
 												<th>Time Added</th>
+												<th>Operations</th>
 						                    </tr>
 						                </thead>
 
 						                <tfoot>
 						                    <tr>
-												<th>S/N</th>
+												
 												<th>Outlet Name</th>
 												<th>Time Added</th>
+												<th>Operations</th>
 						                    </tr>
 						                </tfoot>
 						                <tbody>
 						                	<?php $number =1; ?>
 						                	@foreach($outlet as $outlets)
 							                    <tr>
-													<td>{{$number}}
-														@if(auth()->user()->hasRole('Administrator') OR(
-															auth()->user()->hasRole('Admin')))
-														{{-- @can('outlet-delete') --}}
-                                                        	<a href="{{route('outlet.delete', $outlets->outlet_id)}}" 
-															class="btn btn-danger" onclick="return(confirmToDelete());">
-															<i class="fa fa-trash-o"></i></a>
-														@endif
-														@can('outlet-edit')
-                                                        <a href="{{route('outlet.edit', $outlets->outlet_id)}}" 
-															class="btn btn-success" onclick="return(confirmToEdit());">
-															<i class="fa fa-pencil"></i></a>
-														@endcan
-							                        </td>
+													
 							                        <td>{{$outlets->outlet_name}}</td>
 							                        
 													<td>{{$outlets->created_at}}</td>
+													<td>
+														@if(auth()->user()->hasRole('Administrator') OR(
+															auth()->user()->hasRole('Admin')))
+														{{-- @can('outlet-delete') --}}
+															<a href="{{route('outlet.delete', $outlets->outlet_id)}}" 
+															class="btn btn-danger" onclick="return(confirmToDelete());">
+															<i class="fa fa-trash-o"></i></a>
+														
+															<a href="{{route('outlet.edit', $outlets->outlet_id)}}" 
+															class="btn btn-success" onclick="return(confirmToEdit());">
+															<i class="fa fa-pencil"></i></a>
+														@endif
+													</td>
 							                    </tr><?php
 							                    $number++; ?>
 							                @endforeach

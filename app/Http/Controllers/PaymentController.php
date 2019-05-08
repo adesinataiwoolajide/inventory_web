@@ -383,27 +383,36 @@ class PaymentController extends Controller
             $credit = CreditManagement::where([
                 "distributor_id" => $distributor_id, 
             ])->get();
-            $payment = Payments::where([
+            $pay = Payments::where([
                 "payment_number"=> $transaction_number
-            ])->first();
+            ])->get();
+            if(count($pay) ==0){
+                return redirect()->back()->with([
+                    'error' => "The Distributor Have Not Paid For The Order",
+                ]); 
+            }else{
 
-            
-            return view('administrator.payments.details')->with([
-                "payment"=> $payment,
-                "price"=> $price,
-                "buyers" => $buyers,
-                "viewOrder" => $viewOrder,
-                "category" => $category,
-                "variant" => $variant,
-                "product" => $product,
-                "warehouse"=> $warehouse,
-                "supplier" => $supplier,
-                "inventory" =>$inventory,
-                "distributor" => $distributor,
-                "orderDetails" => $orderDetails,
-                
-                "credit" => $credit,
-            ]);
+                $payment = Payments::where([
+                    "payment_number"=> $transaction_number
+                ])->first();
+        
+                return view('administrator.payments.details')->with([
+                    "payment"=> $payment,
+                    "price"=> $price,
+                    "buyers" => $buyers,
+                    "viewOrder" => $viewOrder,
+                    "category" => $category,
+                    "variant" => $variant,
+                    "product" => $product,
+                    "warehouse"=> $warehouse,
+                    "supplier" => $supplier,
+                    "inventory" =>$inventory,
+                    "distributor" => $distributor,
+                    "orderDetails" => $orderDetails,
+                    
+                    "credit" => $credit,
+                ]);
+            }
         } else{
             return redirect()->back()->with([
                 'error' => "You Dont have Access To View A Payment Details",

@@ -47,7 +47,8 @@ Route::group(["prefix" => "administrator", "middleware" => "verified"], function
         Route::get("/edit/{distributor_id}", "DistributorController@edit")->name("distributor.edit");   
         Route::get("/delete/{distributor_id}", "DistributorController@destroy")->name("distributor.delete");
         Route::post("/update/{distributor_id}", "DistributorController@update")->name("distributor.update");
-        Route::get("/payment/{distributor_id}", "DistributorController@payment")->name("distributor.payment");   
+        Route::get("/payment/{distributor_id}", "DistributorController@payment")->name("distributor.payment"); 
+        Route::get("/outlet/{distributor_id}", "DistributorController@assignedoutlet")->name("distributor.outlet");     
         Route::get("/order/{distributor_id}", "DistributorController@order")->name("distributor.order");
         Route::get("/assign_outlet", "AssignOutletController@index")->name("assign.outlet.create");  
         Route::post("/save_assign_outlet", "AssignOutletController@store")->name("assign.outlet.save"); 
@@ -74,7 +75,7 @@ Route::group(["prefix" => "administrator", "middleware" => "verified"], function
         Route::get("/edit/{supplier_id}", "SupplierController@edit")->name("supplier.edit");   
         Route::get("/delete/{supplier_id}", "SupplierController@destroy")->name("supplier.delete");
         Route::post("/update/{supplier_id}", "SupplierController@update")->name("supplier.update");  
-        
+        Route::get("/product/{supplier_id}", "SupplierController@product")->name("supplier.product");   
         Route::get("/recyclebin", "SupplierController@bin")->name("supplier.restore"); 
         Route::get("/restore/{supplier_id}", "SupplierController@restore")->name("supplier.undelete");  
     });
@@ -136,7 +137,7 @@ Route::group(["prefix" => "administrator", "middleware" => "verified"], function
          name("print.invoice");
          Route::get("/print_invoice/{transaction_number}", "OrderController@generateprintinvoice")->
          name("print.the.invoice"); 
-         
+         Route::get("/details/{transaction_number}", "OrderController@details")->name("order.details");   
         Route::post("/save", "OrderController@store")->name("order.save");
         Route::get("/edit/{order_id}", "OrderController@edit")->name("order.edit");   
         Route::get("/delete/{order_id}", "OrderController@destroy")->name("order.delete");

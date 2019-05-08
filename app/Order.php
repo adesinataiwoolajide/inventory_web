@@ -29,22 +29,22 @@ class Order extends Model
     }
 
     public function setTransactionNumberAttribute($value){
-        return $value;
+        return $this->attributes['transaction_number'] = $value;
     }
 
     public function setQuantityAttribute($value){
-        return $value;
+        return $this->attributes['quantity'] = $value;
     }
     public function setUnitAmountAttribute($value){
-        return $value;
+        return $this->attributes['unit_amount'] = $value;
     }
 
     public function setTotalAmountAttribute($value){
-        return $value;
+        return $this->attributes['total_amount'] = $value;
     }
 
     public function setDistributorIdAttribute($value){
-        return $value;
+        return $this->attributes['distributor_id'] = $value;
     }
 
     public function distributor(){

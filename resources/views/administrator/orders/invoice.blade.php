@@ -86,9 +86,11 @@
                                                         </td>
                                                         @can('print-invoice')
                                                             <td>
-                                                        
-                                                                <a href="{{route('print.invoice', $orders->transaction_number)}}" class="btn btn-success">
-                                                                    <i class="fa fa-book"></i> See Invoice
+                                                                <a href="{{route('order.details',$orders->transaction_number)}}" 
+                                                                    class="btn btn-primary">
+                                                                    <i class="fa fa-list"></i></a>  
+                                                                <a href="{{route('print.invoice',$orders->transaction_number)}}" class="btn btn-success">
+                                                                    <i class="fa fa-book"></i> 
                                                                 </a>
                                                             
                                                             </td>
@@ -129,9 +131,9 @@
                                                     <th> Invoice </th>
                                                     <th> Ware House </th>
                                                     <th>TIme Added</th>
-                                                    @can('print-invoice')
+                                                    {{-- @can('print-invoice') --}}
                                                         <th>Action </th>
-                                                    @endcan
+                                                    {{-- @endcan --}}
                                                 </tr>
                                             </thead>
 
@@ -144,9 +146,9 @@
                                                     <th> Invoice </th>
                                                     <th> Ware House </th>
                                                     <th>TIme Added</th>
-                                                    @can('print-invoice')
+                                                    {{-- @can('print-invoice') --}}
                                                         <th>Action </th>
-                                                    @endcan
+                                                    {{-- @endcan --}}
                                                     
                                                 </tr>
                                             </tfoot>
@@ -166,15 +168,17 @@
                                                         <td>{{$oers->created_at}}
                                                             
                                                         </td>
-                                                        @can('print-invoice')
+                                                        {{-- @can('print-invoice') --}}
                                                             <td>
-                                                        
+                                                                <a href="{{route('order.details',$oers->transaction_number)}}" 
+                                                                    class="btn btn-primary">
+                                                                    <i class="fa fa-list"></i></a>  
                                                                 <a href="{{route('print.invoice', $oers->transaction_number)}}" class="btn btn-success">
                                                                     <i class="fa fa-book"></i> See Invoice
                                                                 </a>
                                                             
                                                             </td>
-                                                        @endcan
+                                                        {{-- @endcan --}}
                                                     </tr>
                                                     
                                                     <?php

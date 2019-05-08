@@ -7,8 +7,12 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
 				    	<li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-				    	<li class="breadcrumb-item"><a href="{{route('distributor.create')}}">Add Distributor</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('distributor.restore')}}">Restore Deleted Distributors</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('distributor.create')}}">Add Distributor</a></li>
+                        @if(auth()->user()->hasRole('Administrator') OR(
+                            auth()->user()->hasRole('Admin')))
+                            <li class="breadcrumb-item"><a href="{{route('distributor.restore')}}">Restore Deleted 
+                            Distributors</a></li>
+                        @endif
                         <li class="breadcrumb-item active" aria-current="page">Saved Product Distributors</li>
 			         </ol>
 			   	</div>
@@ -58,9 +62,9 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <label>Phone Two</label>
-                                        <input type="number" name="phone_two" class="form-control form-control-rounded" required 
+                                        <input type="number" name="phone_two" class="form-control form-control-rounded"  
                                         placeholder="Enter The Phone Two">
-                                        <span style="color: red">** This Field is Required **</span>
+                                        <span style="color: green">** This Field is Optional **</span>
                                             @if ($errors->has('phone_two'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -172,58 +176,68 @@
 			            	</div>
 
 			            @else
-			            	<div class="card-header"><i class="fa fa-table"></i> List of Saved Product distributors</div>
+			            	<div class="card-header"><i class="fa fa-table"></i> List of Saved Product Distributors</div>
 		            		<div class="card-body">
 		              			<div class="table-responsive">
                                     <table id="default-datatable" class="table table-bordered">
 		              					<thead>
 						                    <tr>
-                                                <th>S/N</th>
                                                 <th> Name</th>
                                                 <th>Phone Number</th>
                                                 <th> Email </th>
+                                                <th> Credit Limit </th>
+                                                <th> Credit RPM </th>
+                                                <th>Time Added</th>
                                                 <th>Options </th>
 						                    </tr>
 						                </thead>
 
 						                <tfoot>
 						                    <tr>
-                                                <th>S/N</th>
                                                 <th> Name</th>
                                                 <th>Phone Number</th>
                                                 <th> Email </th>
+                                                <th> Credit Limit </th>
+                                                <th> Credit RPM </th>
+                                                <th>Time Added</th>
                                                 <th>Options </th>
-												
 						                    </tr>
 						                </tfoot>
 						                <tbody>
 						                	<?php $number =1; ?>
 						                	@foreach($distributor as $distributors)
 							                    <tr>
-                                                    <td>{{$number}}
+                                                    
+							                        <td>{{$distributors->name}}</td> 
+                                                    <td>{{$distributors->phone_one. ", ". $distributors->phone_two}}</td> 
+                                                    <td>{{$distributors->email}}</td>
+                                                    <td>&#8358;<?php echo number_format($distributors->credit_limit); ?></td> 
+                                                    <td>&#8358;<?php echo number_format($distributors->credit_reduction_per_month) ?></td> 
+                                                    <td>{{$distributors->created_at}}</td>
+                                                    <td>    
                                                         @if(auth()->user()->hasRole('Administrator') OR(
-															auth()->user()->hasRole('Admin')))
+                                                            auth()->user()->hasRole('Admin')))
                                                             <a href="{{route('distributor.delete', $distributors->distributor_id)}}" 
-                                                            onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                                                            onclick="return(confirmToDelete());" class=""><i class="fa fa-trash-o"></i></a>
                                                         @endif
                                                         <a href="{{route('distributor.edit', $distributors->distributor_id)}}" 
-                                                            onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-							                        </td>
-							                        <td>{{$distributors->name}}</td> 
-                                                    <td>{{$distributors->phone_one}}</td> 
-                                                    <td>{{$distributors->email}}</td> 
-                                                    
-                                                    <td>
-                                                        <a href="{{route('distributor.payment', $distributors->distributor_id)}}"><i class="fa fa-money"></i>
-                                                            Payment
+                                                            onclick="return(confirmToEdit());" class=""><i class="fa fa-pencil"></i> 
+                                                            Edit
                                                         </a>
                                                         <a href="{{route('distributor.order', $distributors->distributor_id)}}"><i class="fa fa-shopping-cart"></i>
                                                             Order
                                                         </a>
-                                                        <a href="{{route('distributor.payment', $distributors->distributor_id)}}"><i class="fa fa-list"></i>
-                                                            Credit
-                                                        </a>
-                                                        <a href="{{route('distributor.payment', $distributors->distributor_id)}}"><i class="fa fa-building"></i>
+                                                         @if(auth()->user()->hasRole('Administrator') OR (auth()->user()->hasRole('Admin'))
+                                                            OR (auth()->user()->hasRole('Accountant')))        
+                                                            <a href="{{route('distributor.payment', $distributors->distributor_id)}}"><i class="fa fa-money"></i>
+                                                                Payment
+                                                            </a>
+                                                            
+                                                            <a href="{{route('distributor.payment', $distributors->distributor_id)}}"><i class="fa fa-list"></i>
+                                                                Credit
+                                                            </a>
+                                                        @endif
+                                                        <a href="{{route('distributor.outlet', $distributors->distributor_id)}}"><i class="fa fa-building"></i>
                                                             Outlet
                                                         </a>
                                                        

@@ -69,49 +69,51 @@
 			            	<div class="card-header"><i class="fa fa-table"></i> List of Saved Outlets</div>
 		            		<div class="card-body">
 		              			<div class="table-responsive">
-                                    <table id="default-datatable" class="table table-bordered">
-		              					<thead>
-						                    <tr>
-						                        <th>S/N</th>
-						                        <th>Outlet Name</th>
-												<th>Time Added</th>
-						                    </tr>
-						                </thead>
-
-						                <tfoot>
-						                    <tr>
-												<th>S/N</th>
+									<table id="default-datatable" class="table table-bordered">
+										<thead>
+											<tr>
+												
 												<th>Outlet Name</th>
 												<th>Time Added</th>
-						                    </tr>
-						                </tfoot>
-						                <tbody>
-						                	<?php $number =1; ?>
-						                	@foreach($outlet as $outlets)
-							                    <tr>
-													<td>{{$number}}
+												<th>Operations</th>
+											</tr>
+										</thead>
+
+										<tfoot>
+											<tr>
+												
+												<th>Outlet Name</th>
+												<th>Time Added</th>
+												<th>Operations</th>
+											</tr>
+										</tfoot>
+										<tbody>
+											<?php $number =1; ?>
+											@foreach($outlet as $outlets)
+												<tr>
+													
+													<td>{{$outlets->outlet_name}}</td>
+													
+													<td>{{$outlets->created_at}}</td>
+													<td>
 														@if(auth()->user()->hasRole('Administrator') OR(
 															auth()->user()->hasRole('Admin')))
-                                                        	{{-- @can('outlet-delete') --}}
-                                                        	<a href="{{route('outlet.delete', $outlets->outlet_id)}}" 
+														{{-- @can('outlet-delete') --}}
+															<a href="{{route('outlet.delete', $outlets->outlet_id)}}" 
 															class="btn btn-danger" onclick="return(confirmToDelete());">
 															<i class="fa fa-trash-o"></i></a>
-														@endif
-														@can('outlet-edit')
-                                                        <a href="{{route('outlet.edit', $outlets->outlet_id)}}" 
+														
+															<a href="{{route('outlet.edit', $outlets->outlet_id)}}" 
 															class="btn btn-success" onclick="return(confirmToEdit());">
 															<i class="fa fa-pencil"></i></a>
-														@endcan
-							                        </td>
-							                        <td>{{$outlets->outlet_name}}</td>
-							                        
-													<td>{{$outlets->created_at}}</td>
-							                    </tr><?php
-							                    $number++; ?>
-							                @endforeach
-						                </tbody>
-						               
-		              				</table>
+														@endif
+													</td>
+												</tr><?php
+												$number++; ?>
+											@endforeach
+										</tbody>
+										
+									</table>
 		              			</div>
 		              		</div>
 		             	@endif
