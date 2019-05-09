@@ -80,7 +80,7 @@ Route::group(["prefix" => "administrator", "middleware" => "verified"], function
         Route::get("/restore/{supplier_id}", "SupplierController@restore")->name("supplier.undelete");  
     });
 
-    Route::group(["prefix" => "variants"], function(){
+    Route::group(["prefix" => "production_material"], function(){
         Route::get("/create", "ProductVariantController@index")->name("variant.create");
         Route::post("/save", "ProductVariantController@store")->name("variant.save");
         Route::get("/edit/{variant_id}", "ProductVariantController@edit")->name("variant.edit");   

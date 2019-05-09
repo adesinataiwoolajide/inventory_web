@@ -173,49 +173,58 @@
 		            		<div class="card-body">
 		              			<div class="table-responsive">
                                     <table id="default-datatable" class="table table-bordered">
-		              					<thead>
-						                    <tr>
-                                                <th>S/N</th>
-                                                <th> Name</th>
-                                                <th>Phone</th>
-                                                <th> Email </th>
-                                                <th>Type </th>
-						                    </tr>
-						                </thead>
+                                        <thead>
+                                          <tr>
+                                              
+                                              <th> Name</th>
+                                              <th>Phone</th>
+                                              <th> Email </th>
+                                              <th>Type </th>
+                                              <th>Action</th>
+                                          </tr>
+                                      </thead>
 
-						                <tfoot>
-						                    <tr>
-                                                <th>S/N</th>
-                                                <th> Name</th>
-                                                <th>Phone</th>
-                                                <th> Email </th>
-                                                <th>Type </th>
-						                    </tr>
-						                </tfoot>
-						                <tbody>
-						                	<?php $number =1; ?>
-						                	@foreach($employee as $employees)
-							                    <tr>
-                                                    <td>{{$number}}
-                                                        @if(auth()->user()->hasRole('Administrator') OR(
-															auth()->user()->hasRole('Admin')))
-                                                        <a href="{{route('employee.delete', $employees->employee_id)}}" 
-                                                            onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o"></i>
-                                                        </a>
-                                                        @endif
-                                                        <a href="{{route('employee.edit', $employees->employee_id)}}" 
-                                                            onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-							                        </td>
-							                        <td>{{$employees->full_name}}</td> 
-                                                    <td>{{$employees->phone_number}}</td> 
-                                                    <td>{{$employees->email}}</td> 
-                                                    <td>{{$employees->contract_type}}</td> 
-							                    </tr><?php
-							                    $number++; ?>
-							                @endforeach
-						                </tbody>
-						               
-		              				</table>
+                                      <tfoot>
+                                          <tr>
+                                              
+                                              <th> Name</th>
+                                              <th>Phone</th>
+                                              <th> Email </th>
+                                              <th>Type </th>
+                                              <th>Action</th>
+                                          </tr>
+                                      </tfoot>
+                                      <tbody>
+                                          <?php $number =1; ?>
+                                          @foreach($employee as $employees)
+                                              <tr>
+                                                  
+                                                  <td>{{$employees->full_name}}</td> 
+                                                  <td>{{$employees->phone_number}}</td> 
+                                                  <td>{{$employees->email}}</td> 
+                                                  <td>{{$employees->contract_type}}</td> 
+                                                  <td>
+                                                      @if(auth()->user()->hasRole('Administrator') OR(
+                                                          auth()->user()->hasRole('Admin')))
+                                                      {{-- @can('employee-delete') --}}
+                                                          <a href="{{route('employee.delete', $employees->employee_id)}}" 
+                                                              onclick="return(confirmToDelete());" class="btn btn-danger">
+                                                              <i class="fa fa-trash-o"></i>
+                                                          </a>
+                                                      @endif
+                                                      @can('employee-edit')
+                                                          <a href="{{route('employee.edit', $employees->employee_id)}}" 
+                                                              onclick="return(confirmToEdit());" class="btn btn-success">
+                                                              <i class="fa fa-pencil"></i>
+                                                          </a>
+                                                      @endcan
+                                                  </td>
+                                              </tr><?php
+                                              $number++; ?>
+                                          @endforeach
+                                      </tbody>
+                                     
+                                    </table>
 		              			</div>
 		              		</div>
 		             	@endif

@@ -7,9 +7,11 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
 				    	<li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('variant.create')}}">Add Variant</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('variant.restore')}}">Restore Deleted Variants</a></li>
-			            <li class="breadcrumb-item active" aria-current="page">Saved Product Variants</li>
+                        <li class="breadcrumb-item"><a href="{{route('variant.create')}}">Add Production Material</a></li>
+                        @if(auth()->user()->hasRole('Administrator') OR auth()->user()->hasRole('Admin'))
+                            <li class="breadcrumb-item"><a href="{{route('variant.restore')}}">Restore Product Material</a></li>
+                        @endif
+			            <li class="breadcrumb-item active" aria-current="page">Saved Product Materials</li>
 			         </ol>
 			   	</div>
 			</div>
@@ -19,15 +21,16 @@
 		    		@include('partials._message')
 		          	<div class="card">
                         <div class="card-header"><i class="fa fa-table"></i> Please Fill The Below Form To Add 
-                            New Product Variant Details</div>
+                            New Production Material Details</div>
 	            		<div class="card-body">
 	            			<form action="{{route('variant.save')}}" method="POST" enctype="multipart/form-data">
 	            				{{ csrf_field() }}
 		            			<div class="form-group row ">
 		            				<div class="col-sm-4">
-                                        <label>Variant Name</label>
+                                        <label>Material Name</label>
 					                    <select class="form-control form-control-rounded" name="variant_name" required>
-                                            <option value=""> -- Select The Variant Name -- </option>
+                                            <option value=""> -- Select The Material </option>
+                                            
                                             <option value=""> </option>
                                             <option value="Cap seal (Small and Big)">Cap seal (Small and Big) </option>
                                             <option value="Celotapes">Celotapes </option>
@@ -58,16 +61,17 @@
                                         @endif  
                                     </div>
                                     <div class="col-sm-4">
-                                        <label>Variant Size</label>
+                                        <label>Material Size</label>
                                         <select class="form-control form-control-rounded" name="variant_size" required>
-                                            <option value=""> -- Select The Variant Size -- </option>
+                                            <option value=""> -- Select The Material Size -- </option>
+                                            <option value="{{ old('variant_size') }}"> {{ old('variant_size') }} </option>
                                             <option value=""> </option>
                                             <option value="20 Litres"> 20 Ltrs</option>
                                             <option value="25 Litres"> 25 Ltrs</option>
                                             <option value="Null">Null </option>
                                         <select>
                                         <span style="color: red">** This Field is Required **</span>
-                                            @if ($errors->has('variant_size'))
+                                            @if ($errors->has('Material_size'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                                                 <div class="alert-icon contrast-alert">
@@ -82,11 +86,13 @@
                                     <div class="col-sm-4">
                                         <label>Category Name</label>
                                         <select class="form-control form-control-rounded" name="category_id" required>
-                                            <option value=""> -- Select The Variant Category -- </option>
+                                            <option value=""> -- Select The Material Category -- </option>
+                                            {{-- <option value="{{ old('category_id') }}"> {{ old('category_id') }} </option> --}}
                                             <option value=""> </option>
                                             @foreach($category as $categories)
                                                 <option value="{{$categories->category_id}}">
-                                                    {{$categories->category_name}} </option>
+                                                    {{$categories->category_name}} 
+                                                </option>
                                             @endforeach
                                         <select>
                                         <span style="color: red">** This Field is Required **</span>
@@ -105,7 +111,7 @@
 
 					                <div class="col-sm-12" align="center">
 					                    <button type="submit" class="btn btn-success btn-lg btn-block">ADD THE 
-                                            VARIANT </button>
+                                            PRODUCTION MATERIAL </button>
 					                </div>
 						            
 					            </div>
@@ -123,15 +129,15 @@
 			            	</div>
 
 			            @else
-			            	<div class="card-header"><i class="fa fa-table"></i> List of Saved Product Variants</div>
+			            	<div class="card-header"><i class="fa fa-table"></i> List of Saved Product Materials</div>
 		            		<div class="card-body">
 		              			<div class="table-responsive">
                                     <table id="default-datatable" class="table table-bordered">
 		              					<thead>
 						                    <tr>
                                                 {{-- <th>S/N</th> --}}
-						                        <th>Variant Name</th>
-                                                <th>Variant Size</th>
+						                        <th>Material Name</th>
+                                                <th>Material Size</th>
                                                 <th>Category</th>
                                                 <th> Time Added </th>
                                                 <th> Operations </th>
@@ -141,8 +147,8 @@
 						                <tfoot>
 						                    <tr>
 												{{-- <th>S/N</th> --}}
-                                                <th>Variant Name</th>
-                                                <th>Variant Size</th>
+                                                <th>Material Name</th>
+                                                <th>Material Size</th>
                                                 <th>Category</th>
                                                 <th> Time Added </th>
                                                 <th> Operations </th>

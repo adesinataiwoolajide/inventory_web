@@ -20,7 +20,8 @@
 		    		@include('partials._message')
 		          	<div class="card">
                         <div class="card-header"><i class="fa fa-table"></i> Please Fill The Below Form To Update 
-                            The Warehouse Details</div>
+                            The Warehouse Details
+                        </div>
 	            		<div class="card-body">
 	            			<form action="{{route('warehouse.update', $ware->ware_house_id)}}" method="POST" enctype="multipart/form-data">
 	            				{{ csrf_field() }}
@@ -230,51 +231,54 @@
 		            		<div class="card-body">
 		              			<div class="table-responsive">
                                     <table id="default-datatable" class="table table-bordered">
-		              					<thead>
-						                    <tr>
-                                                <<th>S/N</th>
-                                                <th>Ware House</th>
-                                                <th>State</th>
-                                                <th>Country </th>
-                                                <th>Manager </th>
-                                                <th>Start Date </th>
-                                                <th>Address </th>
-						                    </tr>
-						                </thead>
+                                        <thead>
+                                          <tr>
+                                              <th>Ware House</th>
+                                              <th>State</th>
+                                              <th>Country </th>
+                                              <th>Manager </th>
+                                              <th>Start Date </th>
+                                              <th>Address </th>
+                                              <th>Opt </th>
+                                          </tr>
+                                      </thead>
 
-						                <tfoot>
-						                    <tr>
-                                                <th>S/N</th>
-                                                <th>Ware House</th>
-                                                <th>State</th>
-                                                <th>Country </th>
-                                                <th>Manager </th>
-                                                <th>Start Date </th>
-                                                <th>Address </th>
-						                    </tr>
-						                </tfoot>
-						                <tbody>
-						                	<?php $number =1; ?>
-						                	@foreach($warehouse as $warehouses)
-							                    <tr>
-							                        <td>{{$number}}
-                                                        <a href="{{route('warehouse.delete', $warehouses->ware_house_id)}}" 
-                                                            onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
-                                                        <a href="{{route('warehouse.edit', $warehouses->ware_house_id)}}" 
-                                                            onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i></a>
-							                        </td>
-							                        <td>{{$warehouses->name}}</td> 
-                                                    <td>{{$warehouses->state}}</td> 
-                                                    <td>{{$warehouses->country}}</td> 
-                                                    <td>{{$warehouses->user->name}}</td> 
-                                                    <td>{{$warehouses->start_date}}</td> 
-                                                    <td>{{$warehouses->address}}</td> 
-							                    </tr><?php
-							                    $number++; ?>
-							                @endforeach
-						                </tbody>
-						               
-		              				</table>
+                                      <tfoot>
+                                          <tr>
+                                              <th>Ware House</th>
+                                              <th>State</th>
+                                              <th>Country </th>
+                                              <th>Manager </th>
+                                              <th>Start Date </th>
+                                              <th>Address </th>
+                                              <th>Opt </th>
+                                          </tr>
+                                      </tfoot>
+                                      <tbody>
+                                          <?php $number =1; ?>
+                                          @foreach($warehouse as $warehouses)
+                                              <tr>
+                                                  
+                                                  <td>{{$warehouses->name}}</td> 
+                                                  <td>{{$warehouses->state}}</td> 
+                                                  <td>{{$warehouses->country}}</td> 
+                                                  <td>{{$warehouses->user->name}}</td> 
+                                                  <td>{{$warehouses->start_date}}</td> 
+                                                  <td>{{$warehouses->address}}</td> 
+                                                  <td>
+                                                      @if(auth()->user()->hasRole('Administrator'))
+                                                      <a href="{{route('warehouse.delete', $warehouses->ware_house_id)}}" 
+                                                          onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                                                      <a href="{{route('warehouse.edit', $warehouses->ware_house_id)}}" 
+                                                          onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i></a>
+                                                      @endif
+                                                  </td>
+                                              </tr><?php
+                                              $number++; ?>
+                                          @endforeach
+                                      </tbody>
+                                     
+                                    </table>
 		              			</div>
 		              		</div>
 		             	@endif

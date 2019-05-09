@@ -7,10 +7,14 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('credit.index')}}">View All Credits</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('credit.paid')}}">Paid Credit</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('credit.unpaid')}}">UnPaid Credit</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('credit.payment')}}">Credit Payment</a></li>
+                        @if(auth()->user()->hasRole('Administrator') OR(
+                            auth()->user()->hasRole('Admin')) OR(
+                            auth()->user()->hasRole('Accountant')))
+                            <li class="breadcrumb-item"><a href="{{route('credit.index')}}">View All Credits</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('credit.paid')}}">Paid Credit</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('credit.unpaid')}}">UnPaid Credit</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('credit.payment')}}">Credit Payment</a></li>
+                        @endif
                         <li class="breadcrumb-item active" aria-current="page">List of Credit</li>
                         
 			         </ol>
@@ -21,7 +25,8 @@
 		    	<div class="col-lg-12">
                     @include('partials._message')
 		          	<div class="card">
-                        @role('Administrator')
+                        @if(auth()->user()->hasRole('Administrator') OR(
+                            auth()->user()->hasRole('Admin')))
                             @if(count($credit) ==0)
                                 <div class="card-header" align="center" style="color: red">
                                     <i class="fa fa-table"></i> The List is Empty
@@ -188,7 +193,7 @@
                                 </div> 
                                     
                             @endif
-                        @endrole
+                        @endif
                     </div>
 	            </div>
 	        </div>

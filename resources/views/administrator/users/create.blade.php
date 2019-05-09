@@ -30,10 +30,10 @@
                             {{ csrf_field() }}
                             
                             <div class="form-group row ">
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <label>Full Name</label>
                                     <input type="text" name="name" class="form-control form-control-rounded" required 
-                                    placeholder="Enter The Full Name">
+                                    placeholder="Enter The Full Name" value="{{ old('name') }}">
                                     <span style="color: red">** This Field is Required **</span>
                                     @if ($errors->has('name'))
                                         <div class="alert alert-danger alert-dismissible" role="alert">
@@ -48,11 +48,10 @@
                                     @endif
                                 </div>
                                 
-                                
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <label>Staff Role</label>
                                     <select class="form-control form-control-rounded" name="role" required>
-                                        <option value=""> -- Select The Role -- </option>
+                                        <option value="{{ old('role') }}"> -- Select The Role -- </option>
                                         <option value=""> </option>
                                         @foreach($user_roles as $list_roles)
                                             <option value="{{$list_roles->name}}"> {{$list_roles->name}}  </option> 
@@ -72,10 +71,10 @@
                                     @endif  
 
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <label>E-Mail</label>
                                     <input type="email" name="email" required placeholder="Please Enter The E-Mail" 
-                                    class="form-control form-control-rounded">
+                                    class="form-control form-control-rounded" value="{{ old('email') }}">
                             
                                     </textarea>
                                     <span style="color: red">** This Field is Required **</span>
@@ -91,7 +90,7 @@
                                         </div>
                                     @endif  
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-6">
                                     <label>Password</label>
                                     <input type="password" name="password" required placeholder="Please Enter The Password" 
                                     class="form-control form-control-rounded"
@@ -110,24 +109,24 @@
                                         </div>
                                     @endif  
                                 </div>
-                                {{-- <div class="col-sm-3">
+                                <div class="col-sm-6">
                                     <label>Repeat Password</label>
-                                    <input type="password" name="confirm_password" required placeholder="Please Re-Enter The Password" 
-                                    class="form-control form-control-rounded">
-                                    </textarea>
+                                    <input type="password" name="password_confirmation" required placeholder="Please Re-Enter The Password" 
+                                    class="form-control form-control-rounded" value="{{ old('password_confirmation') }}">
+                                    
                                     <span style="color: red">** This Field is Required **</span>
-                                    @if ($errors->has('confirm_password'))
+                                    @if ($errors->has('password_confirmation'))
                                         <div class="alert alert-danger alert-dismissible" role="alert">
                                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                                             <div class="alert-icon contrast-alert">
                                                 <i class="fa fa-check"></i>
                                             </div>
                                             <div class="alert-message">
-                                                <span><strong>Error!</strong> {{ $errors->first('confirm_password') }} !</span>
+                                                <span><strong>Error!</strong> {{ $errors->first('password_confirmation') }} !</span>
                                             </div>
                                         </div>
                                     @endif  
-                                </div> --}}
+                                </div>
                                 
                                 
                                 
@@ -157,18 +156,20 @@
                                 <table id="default-datatable" class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>S/N</th>
+                                            
                                             <th>Full Name</th>
                                             <th>Email</th>
                                             <th>Role</th>
+                                            <th>Opt</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>S/N</th>
+                                            
                                             <th>Full Name</th>
                                             <th>Email</th>
                                             <th>Role</th>
+                                            <th>Opt</th>
                                         </tr>
                                     </ttfoothead>
                                     <tbody><?php
@@ -176,7 +177,11 @@
                                         @foreach($user as $users)
                                         <tr>
                                         
-                                            <td>{{$y}}
+                                            
+                                            <td>{{$users->name}}</td> 
+                                            <td>{{$users->email}}</td> 
+                                            <td>{{$users->roles()->first()->name}}</td> 
+                                            <td>
                                                 @if(auth()->user()->hasRole('Administrator') OR(
 															auth()->user()->hasRole('Admin')))
                                                 <a href="{{route('user.delete', $users->user_id)}}" class="btn btn-danger" onclick="return(confirmToDelete());">
@@ -187,9 +192,6 @@
                                                     <i class="fa fa-pencil"></i> 
                                                 Edit</a>  
                                             </td>
-                                            <td>{{$users->name}}</td> 
-                                            <td>{{$users->email}}</td> 
-                                            <td>{{$users->role}}</td> 
                                             
                                         </tr><?php $y++; ?>
                                     @endforeach

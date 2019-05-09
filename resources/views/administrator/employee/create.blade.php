@@ -31,7 +31,8 @@
 		            			<div class="form-group row ">
 		            				<div class="col-sm-4">
                                         <label>Full Name</label>
-					                    <input type="text" name="full_name" class="form-control form-control-rounded" required placeholder="Enter The employee Name">
+                                        <input type="text" name="full_name" class="form-control form-control-rounded" 
+                                        value="{{ old('full_name') }}" required placeholder="Enter The employee Name">
 					                    <span style="color: red">** This Field is Required **</span>
 					                     @if ($errors->has('full_name'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -48,7 +49,7 @@
                                     <div class="col-sm-4">
                                         <label>E-Mail</label>
                                         <input type="email" name="email" class="form-control 
-                                        form-control-rounded" required placeholder="Enter The Employee Email">
+                                        form-control-rounded" required value="{{ old('email') }}" placeholder="Enter The Employee Email">
                                         <span style="color: red">** This Field is Required **</span>
                                             @if ($errors->has('email'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -65,7 +66,7 @@
                                     <div class="col-sm-4">
                                         <label>Phone Number</label>
                                         <input type="number" name="phone_number" class="form-control 
-                                        form-control-rounded" required placeholder="Enter The Phone Number">
+                                        form-control-rounded" required placeholder="Enter The Phone Number" value="{{ old('phone_number') }}">
                                         <span style="color: red">** This Field is Required **</span>
                                             @if ($errors->has('phone_number'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -105,8 +106,9 @@
                                     <div class="col-sm-4">
                                         <label>Category</label>
                                         <select name="role" required class="form-control form-control-rounded">
-                                            <option value="">-- Contract Type --</option>
-                                            <option value=""> </option>
+                                            
+                                            <option value="{{old('role') }}">{{old('role')}} </option>
+                                            <option value="">-- Role --</option>
                                             <option value="Accountant">Accountant </option>
                                             <option value="Admin">Admin </option>
                                             <option value="Administrator">Administrator </option>
@@ -133,7 +135,7 @@
                                     <div class="col-sm-4">
                                         <label>Address</label>
                                         <textarea class="form-control form-control-rounded" required 
-                                        placeholder="Enter The Address" name="address"></textarea>
+                                        placeholder="Enter The Address" name="address">{{old('address')}}</textarea>
                                         <span style="color: red">** This Field is Required **</span>
                                         @if ($errors->has('address'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -177,28 +179,35 @@
                                     <table id="default-datatable" class="table table-bordered">
 		              					<thead>
 						                    <tr>
-                                                <th>S/N</th>
+                                                
                                                 <th> Name</th>
                                                 <th>Phone</th>
                                                 <th> Email </th>
                                                 <th>Type </th>
+                                                <th>Action</th>
 						                    </tr>
 						                </thead>
 
 						                <tfoot>
 						                    <tr>
-                                                <th>S/N</th>
+                                                
                                                 <th> Name</th>
                                                 <th>Phone</th>
                                                 <th> Email </th>
                                                 <th>Type </th>
+                                                <th>Action</th>
 						                    </tr>
 						                </tfoot>
 						                <tbody>
 						                	<?php $number =1; ?>
 						                	@foreach($employee as $employees)
 							                    <tr>
-                                                    <td>{{$number}}
+                                                    
+							                        <td>{{$employees->full_name}}</td> 
+                                                    <td>{{$employees->phone_number}}</td> 
+                                                    <td>{{$employees->email}}</td> 
+                                                    <td>{{$employees->contract_type}}</td> 
+                                                    <td>
                                                         @if(auth()->user()->hasRole('Administrator') OR(
 															auth()->user()->hasRole('Admin')))
                                                         {{-- @can('employee-delete') --}}
@@ -214,10 +223,6 @@
                                                             </a>
                                                         @endcan
 							                        </td>
-							                        <td>{{$employees->full_name}}</td> 
-                                                    <td>{{$employees->phone_number}}</td> 
-                                                    <td>{{$employees->email}}</td> 
-                                                    <td>{{$employees->contract_type}}</td> 
 							                    </tr><?php
 							                    $number++; ?>
 							                @endforeach

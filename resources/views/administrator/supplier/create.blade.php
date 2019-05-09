@@ -29,7 +29,7 @@
 		            			<div class="form-group row ">
 		            				<div class="col-sm-3">
                                         <label>Supplier Name</label>
-					                    <input type="text" name="name" class="form-control form-control-rounded" required placeholder="Enter The Supplier Name">
+					                    <input type="text" name="name" class="form-control form-control-rounded" value="{{ old('supplier_name') }}" required placeholder="Enter The Supplier Name">
 					                    <span style="color: red">** This Field is Required **</span>
 					                     @if ($errors->has('name'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -46,7 +46,7 @@
                                     
                                     <div class="col-sm-3">
                                         <label>Phone One</label>
-                                        <input type="number" name="phone_one" class="form-control form-control-rounded" required placeholder="Enter The Phone One">
+                                        <input type="number" name="phone_one" class="form-control form-control-rounded" value="{{ old('phone_one') }}" required placeholder="Enter The Phone One">
                                         <span style="color: red">** This Field is Required **</span>
                                             @if ($errors->has('phone_one'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -63,7 +63,7 @@
                                     <div class="col-sm-3">
                                         <label>Phone Two</label>
                                         <input type="number" name="phone_two" class="form-control form-control-rounded" 
-                                        placeholder="Enter The Phone Two">
+                                        placeholder="Enter The Phone Two" value="{{ old('phone_two') }}">
                                         <span style="color: green">** This Field is Optional **</span>
                                             @if ($errors->has('phone_two'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -82,7 +82,7 @@
                                     <div class="col-sm-3">
                                         <label>E-Mail</label>
                                         <input type="email" name="email" class="form-control form-control-rounded" required 
-                                        placeholder="Enter The E-mail">
+                                        placeholder="Enter The E-mail" value="{{ old('email') }}">
                                         <span style="color: red">** This Field is Required **</span>
                                         @if ($errors->has('email'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -102,7 +102,7 @@
                                         <label>State</label>
                                         <select class="form-control form-control-rounded" name="state" required>
                                             <option value=""> -- Select The State -- </option>
-                                            
+                                            <option value="{{ old('state') }}"> {{ old('state') }} </option>
                                             <option value=""> </option>
                                             <option value="Abuja FCT">Abuja FCT</option>
                                             <option value="Abia">Abia</option>
@@ -161,7 +161,7 @@
                                     <div class="col-sm-3">
                                         <label>City</label>
                                         <input type="text" name="city" class="form-control form-control-rounded" required 
-                                        placeholder="Enter The City">
+                                        placeholder="Enter The City" value="{{ old('city') }}"">
                                         <span style="color: red">** This Field is Required **</span>
                                         @if ($errors->has('city'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -181,6 +181,7 @@
                                         <label>Country</label>
                                         <select class="form-control form-control-rounded" name="country" required>
                                             <option value=""> -- Select The Country -- </option>
+                                            <option value="{{ old('country') }}"> {{ old('country') }} </option>
                                             <option value=""> </option>
                                             <option value="Nigeria"> Nigeria</option>
                                             <option value="Others"> Others</option>
@@ -201,7 +202,8 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <label>Address</label>
-                                        <textarea class="form-control form-control-rounded" required name="address" placeholder="Enter The Supplier Address"></textarea>
+                                        <textarea class="form-control form-control-rounded" required name="address" 
+                                        placeholder="Enter The Supplier Address">{{old('address') }}</textarea>
                                         <span style="color: red">** This Field is Required **</span>
                                         @if ($errors->has('address'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">

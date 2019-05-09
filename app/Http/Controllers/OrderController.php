@@ -50,7 +50,8 @@ class OrderController extends Controller
         $supplier =  Suppliers::all();
         $inventory =  InventoryStock::orderBy('quantity', 'desc')->get();
         $distributor =  Distributors::all();
-        if(auth()->user()->hasRole('Administrator')){
+        if(auth()->user()->hasRole('Administrator') OR(
+            auth()->user()->hasRole('Admin'))){
             $order= $this->model->all();
             return view('administrator.orders.create')
             ->with([
@@ -63,7 +64,7 @@ class OrderController extends Controller
             "order" => $order,
             "distributor" => $distributor,
             
-        ]);
+            ]);
         }else{
             $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
             $ware_house_id = $inv->ware_house_id;
@@ -259,7 +260,8 @@ class OrderController extends Controller
     {
         if(auth()->user()->hasPermissionTo('order-invoice')){
             
-            if(auth()->user()->hasRole('Administrator')){
+            if(auth()->user()->hasRole('Administrator') OR(
+                auth()->user()->hasRole('Admin'))){
                 $invoice =  OrderDetails::orderBy('details_id', 'desc')->get();
                 return view('administrator.orders.invoice')->with([
                     "invoice" => $invoice,

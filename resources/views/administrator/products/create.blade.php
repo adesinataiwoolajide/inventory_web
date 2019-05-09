@@ -22,7 +22,8 @@
 		    		@include('partials._message')
 		          	<div class="card">
                         <div class="card-header"><i class="fa fa-table"></i> Please Fill The Below Form To Add 
-                            New Product Details</div>
+                            New Product Details
+                        </div>
 	            		<div class="card-body">
 	            			<form action="{{route('product.save')}}" method="POST" enctype="multipart/form-data">
 	            				{{ csrf_field() }}
@@ -30,7 +31,7 @@
 		            				<div class="col-sm-4">
                                         <label>Name</label>
                                         <input type="text" name="product_name" class="form-control 
-                                        form-control-rounded" required placeholder="Enter The Product Name">
+                                        form-control-rounded" required placeholder="Enter The Product Name" value="{{ old('product_name') }}">
 					                    <span style="color: red">** This Field is Required **</span>
 					                     @if ($errors->has('product_name'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -47,7 +48,7 @@
                                     <div class="col-sm-4">
                                         <label>Amount</label>
                                         <input type="number" name="amount" class="form-control 
-                                        form-control-rounded" required placeholder="Enter The Amount">
+                                        form-control-rounded" required placeholder="Enter The Amount" value="{{ old('amount') }}">
                                         <span style="color: red">** This Field is Required **</span>
                                             @if ($errors->has('amount'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -64,7 +65,7 @@
                                     <div class="col-sm-4">
                                         <label>Quantity</label>
                                         <input type="number" name="quantity" class="form-control 
-                                        form-control-rounded" required placeholder="Enter The Quantity">
+                                        form-control-rounded" required placeholder="Enter The Quantity" value="{{ old('quantity') }}">
                                         <span style="color: red">** This Field is Required **</span>
                                             @if ($errors->has('quantity'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -135,14 +136,14 @@
                                         form-control-rounded" required>
                                             <option value=""> -- Select Ware House -- </option>
                                             <option value=""> </option>
-                                            @role('Administrator')
+                                            @if(auth()->user()->hasRole('Admininistrator')OR auth()->user()->hasRole('Admin'))
                                                 @foreach($warehouse as $warehouses)
                                                     <option value="{{$warehouses->ware_house_id}}">
                                                         {{$warehouses->name}} </option>
                                                 @endforeach
                                             @else
                                                 <option value="{{$inv->ware_house_id}}">{{$inv->name}} </option>
-                                            @endrole
+                                            @endif
                                            
                                         </select>
                                         <span style="color: red">** This Field is Required **</span>
@@ -162,7 +163,8 @@
 					                <div class="col-sm-12" align="center">
 					                    <button type="submit" class="btn btn-success btn-lg btn-block">
                                             ADD THE 
-                                            PRODUCT </button>
+                                            PRODUCT 
+                                        </button>
 					                </div>
 						            
 					            </div>

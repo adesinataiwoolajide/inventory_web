@@ -30,7 +30,7 @@
 		            			<div class="form-group row ">
 		            				<div class="col-sm-3">
                                         <label>Distributor Name</label>
-					                    <input type="text" name="name" class="form-control form-control-rounded" required placeholder="Enter The distributor Name">
+					                    <input type="text" name="name" class="form-control form-control-rounded" value="{{ old('name') }}" required placeholder="Enter The distributor Name">
 					                    <span style="color: red">** This Field is Required **</span>
 					                     @if ($errors->has('name'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <label>Phone One</label>
-                                        <input type="number" name="phone_one" class="form-control form-control-rounded" required placeholder="Enter The Phone One">
+                                        <input type="number" name="phone_one" class="form-control form-control-rounded" value="{{ old('phone_one') }}" required placeholder="Enter The Phone One">
                                         <span style="color: red">** This Field is Required **</span>
                                             @if ($errors->has('phone_one'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -63,7 +63,7 @@
                                     <div class="col-sm-3">
                                         <label>Phone Two</label>
                                         <input type="number" name="phone_two" class="form-control form-control-rounded"  
-                                        placeholder="Enter The Phone Two">
+                                        placeholder="Enter The Phone Two" value="{{ old('phone_two') }}">
                                         <span style="color: green">** This Field is Optional **</span>
                                             @if ($errors->has('phone_two'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -82,7 +82,7 @@
                                     <div class="col-sm-3">
                                         <label>E-Mail</label>
                                         <input type="email" name="email" class="form-control form-control-rounded" required 
-                                        placeholder="Enter The E-mail">
+                                        placeholder="Enter The E-mail" value="{{ old('email') }}">
                                         <span style="color: red">** This Field is Required **</span>
                                         @if ($errors->has('email'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -101,7 +101,7 @@
                                     <div class="col-sm-3">
                                         <label>Credit Limit</label>
                                         <input type="number" name="credit_limit" class="form-control form-control-rounded" 
-                                        required placeholder="Enter The Credit Limit">
+                                        required placeholder="Enter The Credit Limit" value="{{ old('credit_limit') }}">
                                         <span style="color: red">** This Field is Required **</span>
                                         @if ($errors->has('credit_limit'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -120,7 +120,7 @@
                                     <div class="col-sm-3">
                                         <label>Credit Reduction</label>
                                         <input type="number" name="credit_reduction_per_month" class="form-control form-control-rounded" required 
-                                                    placeholder="Enter The Credit Reduction">
+                                        value="{{ old('credit_reduction_per_month') }}"  placeholder="Enter The Credit Reduction">
                                         <span style="color: red">** This Field is Required **</span>
                                         @if ($errors->has('credit_reduction_per_month'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -139,7 +139,8 @@
                                     
                                     <div class="col-sm-6">
                                         <label>Address</label>
-                                        <textarea class="form-control form-control-rounded" required name="address" placeholder="Enter The distributor Address"></textarea>
+                                        <textarea class="form-control form-control-rounded" required name="address" 
+                                        placeholder="Enter The distributor Address">{{old('address') }}</textarea>
                                         <span style="color: red">** This Field is Required **</span>
                                         @if ($errors->has('address'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">

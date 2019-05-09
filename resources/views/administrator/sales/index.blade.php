@@ -20,7 +20,8 @@
 		    	<div class="col-lg-12">
                     @include('partials._message')
 		          	<div class="card">
-                        @role('Administrator')
+                        @if(auth()->user()->hasRole('Administrator') OR(
+                                auth()->user()->hasRole('Admin'))){
                             @if(count($payment) ==0)
                                 <div class="card-header" align="center" style="color: red">
                                     <i class="fa fa-table"></i> The List is Empty in All Ware House
@@ -28,7 +29,7 @@
 
                             @else
                                 <div class="card-header"><i class="fa fa-table"></i> 
-                                    List of Sales n All Ware House
+                                    List of Sales in All Ware House
                                 </div>
                                 
                                 <div class="card-body">
@@ -37,7 +38,7 @@
                                         <table id="default-datatable" class="table table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th> S/N</th>
+                                                    <th>Opt</th>
                                                     <th> Transaction ID</th>
                                                     <th> Distributor </th>
                                                     <th> Ware House </th>
@@ -50,7 +51,7 @@
 
                                             <tfoot>
                                                 <tr>
-                                                    <th> S/N</th>
+                                                    <th> Opt</th>
                                                     <th> Distributor </th>
                                                     <th> Ware House </th>
                                                     <th> Transaction ID</th>
@@ -64,7 +65,7 @@
                                                 <?php $number =1; ?>
                                                 @foreach($payment as $orders)
                                                     <tr>
-                                                        <td>{{$number}}
+                                                        <td>
                                                             {{-- @can('payment-delete')
                                                                 <a href="{{route('payment.delete', $orders->order->transaction_number)}}" 
                                                                 onclick="return(confirmToDelete());" class="btn btn-danger">
@@ -124,7 +125,7 @@
                                         <table id="default-datatable" class="table table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th> S/N</th>
+                                                    <th> Opt</th>
                                                     <th> Transaction ID</th>
                                                     <th> Distributor </th>
                                                     <th> Ware House </th>
@@ -137,7 +138,7 @@
 
                                             <tfoot>
                                                 <tr>
-                                                    <th> S/N</th>
+                                                    <th> Opt</th>
                                                     <th> Distributor </th>
                                                     <th> Ware House </th>
                                                     <th> Transaction ID</th>
@@ -151,7 +152,7 @@
                                                 <?php $number =1; ?>
                                                 @foreach($pay as $orders)
                                                     <tr>
-                                                        <td>{{$number}}
+                                                        <td>
                                                             {{-- @can('payment-delete')
                                                                 <a href="{{route('payment.delete', $orders->order->transaction_number)}}" 
                                                                 onclick="return(confirmToDelete());" class="btn btn-danger">

@@ -27,7 +27,7 @@
 		            				<div class="col-sm-4">
                                         <label>Name</label>
                                         <input type="text" name="name" class="form-control 
-                                        form-control-rounded" required placeholder="Enter The Warehouse Name">
+                                        form-control-rounded" required placeholder="Enter The Warehouse Name" value="{{ old('name') }}">
 					                    <span style="color: red">** This Field is Required **</span>
 					                     @if ($errors->has('name'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -67,7 +67,7 @@
                                     <div class="col-sm-4">
                                         <label>Start Date</label>
                                         <input type="date" name="start_date" class="form-control 
-                                        form-control-rounded" required placeholder="Enter The Start Date">
+                                        form-control-rounded" required placeholder="Enter The Start Date" value="{{ old('start_date') }}">
                                         <span style="color: red">** This Field is Required **</span>
                                             @if ($errors->has('start_date'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -85,7 +85,7 @@
                                         <label>State</label>
                                         <select class="form-control form-control-rounded" name="state" required>
                                             <option value=""> -- Select The State -- </option>
-                                            
+                                            <option value="{{ old('state') }}"> {{old('state')}}</option>
                                             <option value=""> </option>
                                             <option value="Abuja FCT">Abuja FCT</option>
                                             <option value="Abia">Abia</option>
@@ -144,7 +144,7 @@
                                     <div class="col-sm-3">
                                         <label>City</label>
                                         <input type="text" name="city" class="form-control form-control-rounded" required 
-                                        placeholder="Enter The City">
+                                        placeholder="Enter The City" value="{{ old('city') }}">
                                         <span style="color: red">** This Field is Required **</span>
                                         @if ($errors->has('city'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -164,6 +164,7 @@
                                         <label>Country</label>
                                         <select class="form-control form-control-rounded" name="country" required>
                                             <option value=""> -- Select The Country -- </option>
+                                            <option value="{{ old('country') }}"> {{old('country') }}</option>
                                             <option value=""> </option>
                                             <option value="Nigeria"> Nigeria</option>
                                             <option value="Others"> Others</option>
@@ -184,7 +185,8 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <label>Address</label>
-                                        <textarea class="form-control form-control-rounded" required name="address" placeholder="Enter The Supplier Address"></textarea>
+                                        <textarea class="form-control form-control-rounded" required name="address" 
+                                        placeholder="Enter The Supplier Address">{{old('address') }}</textarea>
                                         <span style="color: red">** This Field is Required **</span>
                                         @if ($errors->has('address'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -226,32 +228,39 @@
                                     <table id="default-datatable" class="table table-bordered">
 		              					<thead>
 						                    <tr>
-                                                <<th>S/N</th>
                                                 <th>Ware House</th>
                                                 <th>State</th>
                                                 <th>Country </th>
                                                 <th>Manager </th>
                                                 <th>Start Date </th>
                                                 <th>Address </th>
+                                                <th>Opt </th>
 						                    </tr>
 						                </thead>
 
 						                <tfoot>
 						                    <tr>
-                                                <th>S/N</th>
                                                 <th>Ware House</th>
                                                 <th>State</th>
                                                 <th>Country </th>
                                                 <th>Manager </th>
                                                 <th>Start Date </th>
                                                 <th>Address </th>
+                                                <th>Opt </th>
 						                    </tr>
 						                </tfoot>
 						                <tbody>
 						                	<?php $number =1; ?>
 						                	@foreach($warehouse as $warehouses)
 							                    <tr>
-                                                    <td>{{$number}}
+                                                    
+							                        <td>{{$warehouses->name}}</td> 
+                                                    <td>{{$warehouses->state}}</td> 
+                                                    <td>{{$warehouses->country}}</td> 
+                                                    <td>{{$warehouses->user->name}}</td> 
+                                                    <td>{{$warehouses->start_date}}</td> 
+                                                    <td>{{$warehouses->address}}</td> 
+                                                    <td>
                                                         @if(auth()->user()->hasRole('Administrator'))
                                                         <a href="{{route('warehouse.delete', $warehouses->ware_house_id)}}" 
                                                             onclick="return(confirmToDelete());" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
@@ -259,12 +268,6 @@
                                                             onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i></a>
                                                         @endif
 							                        </td>
-							                        <td>{{$warehouses->name}}</td> 
-                                                    <td>{{$warehouses->state}}</td> 
-                                                    <td>{{$warehouses->country}}</td> 
-                                                    <td>{{$warehouses->user->name}}</td> 
-                                                    <td>{{$warehouses->start_date}}</td> 
-                                                    <td>{{$warehouses->address}}</td> 
 							                    </tr><?php
 							                    $number++; ?>
 							                @endforeach

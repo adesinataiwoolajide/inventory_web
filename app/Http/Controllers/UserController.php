@@ -84,14 +84,13 @@ class UserController extends Controller
     public function store(Request $request)
     {
         if(auth()->user()->hasPermissionTo('user-create')){
-            $this->validate($request, [
+            $validate = $this->validate($request, [
                 'name' => 'required|min:1|max:255|',
                 'email' => 'required||min:1|max:255|unique:users',
-                'password' => 'required|min:1|max:255',
+                'password' => 'required|confirmed|min:1|max:255',
                 'role' => 'required|min:1|max:255'
             ]);
 
-            
             
             if(User::where("email", $request->input("email"))->exists()){
                 return redirect()->back()->with("error", "The E-Mail is In Use By Another User");
@@ -115,6 +114,7 @@ class UserController extends Controller
             }else{
                 return redirect()->back()->with("error", "Network Failure");
             } 
+
         } else{
             return redirect()->back()->with([
                 'error' => "You Dont have Access To Create A User",

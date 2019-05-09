@@ -19,7 +19,8 @@
 			 <div class="row">
 		    	<div class="col-lg-12">
 		          	<div class="card">
-                        @role('Administrator')
+                        @if(auth()->user()->hasRole('Administrator') OR(
+                            auth()->user()->hasRole('Admin')))
                             @if(count($inventory) ==0)
                                 <div class="card-header" align="center" style="color: red">
                                     <i class="fa fa-table"></i> The List is Empty in All THe Ware House
@@ -188,7 +189,7 @@
                                     </div>
                                 </div>
                             @endif
-                        @endrole
+                        @endif
 		          		
 	              	</div>
 	            </div>

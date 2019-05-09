@@ -34,7 +34,7 @@
 									{{ csrf_field() }}
 									<div class="form-group row ">
 										<div class="col-sm-6">
-											<input type="text" class="form-control form-control-rounded" name="outlet_name" required placeholder="Enter The Outlet Name">
+											<input type="text" class="form-control form-control-rounded" value="{{ old('outlet_name') }}" name="outlet_name" required placeholder="Enter The Outlet Name">
 											<span style="color: red">** This Field is Required **</span>
 											@if ($errors->has('outlet_name'))
 												<div class="alert alert-danger alert-dismissible" role="alert">
@@ -78,6 +78,7 @@
 						                        
 						                        <th>Outlet Name</th>
 												<th>Time Added</th>
+
 												<th>Operations</th>
 						                    </tr>
 						                </thead>

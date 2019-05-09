@@ -27,7 +27,7 @@
 	            				{{ csrf_field() }}
 		            			<div class="form-group row ">
 		            				<div class="col-sm-6">
-					                    <input type="text" class="form-control form-control-rounded" name="category_name" required placeholder="Enter The Category Name">
+					                    <input type="text" class="form-control form-control-rounded" value="{{ old('category_name') }}" name="category_name" required placeholder="Enter The Category Name">
 					                    <span style="color: red">** This Field is Required **</span>
 					                     @if ($errors->has('category_name'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">

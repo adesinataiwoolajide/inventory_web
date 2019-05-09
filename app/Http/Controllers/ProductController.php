@@ -31,7 +31,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->hasRole('Administrator')){
+        if(auth()->user()->hasRole('Administrator') 
+        OR auth()->user()->hasRole('Admin')){
             $category= Categories::all();
             $variant = ProductVariants::all();
             $product =  Products::orderBy('product_id', 'desc')->get();

@@ -17,13 +17,12 @@ class SalesController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->hasRole('Administrator')){
+        if(auth()->user()->hasRole('Administrator') OR(
+            auth()->user()->hasRole('Admin'))){
             $payment =  Payments::orderBy('payment_id', 'desc')->get();
             return view('administrator.sales.index')->with([
                 "payment" => $payment,
-                // "pay" => $pay,
-                // "inv" => $inv,
-                //"invoice" => $invoice,
+                
             ]);
         }else{
             $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();

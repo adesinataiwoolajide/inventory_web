@@ -7,9 +7,13 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('payment.add', $orderDetails->transaction_number)}}">Adding Payment</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('payment.create')}}">Add Payment</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('payment.index')}}">View Payments</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('payment.add', $orderDetails->transaction_number)}}">Make Payment</a></li>
+                        @if(auth()->user()->hasRole('Administrator') OR(
+                        auth()->user()->hasRole('Admin')) OR(
+                        auth()->user()->hasRole('Admin')))
+                            <li class="breadcrumb-item"><a href="{{route('payment.create')}}">Add Payment</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('payment.index')}}">View Payments</a></li>
+                        @endif
                         <li class="breadcrumb-item active" aria-current="page">List of Order Invoice</li>
                         
 			         </ol>
@@ -70,7 +74,7 @@
                                         <label>Amount Paid</label>
                                         <input type="number" name="paid_amount" class="form-control form-control-rounded" 
                                         required 
-                                        placeholder="Enter Amount Paid">
+                                        placeholder="Enter Amount Paid" value="{{old('paid_amount')}}">
                                         <span style="color: red">** This Field is Required **</span>
                                             @if ($errors->has('paid_amount'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -88,10 +92,18 @@
                                     <input type="hidden" name="details_id" value="{{$orderDetails->details_id}}">
                                     <input type="hidden" name="transaction_number" 
                                         value="{{$orderDetails->transaction_number}}">
-                                    <div class="col-sm-12" align="center">
-                                        <button type="submit" class="btn btn-success btn-lg btn-block">ADD THE 
-                                            PAYMENT </button>
-                                    </div>
+                                    @if(auth()->user()->hasRole('Administrator') OR(
+                                        auth()->user()->hasRole('Admin')))
+                                        <div class="col-sm-12" align="center">
+                                            <p> YOU MUST BELONG TO A WARE HOUSE TO ADD PAYMENT </p>
+                                        </div>
+                                    @else
+                                        <div class="col-sm-12" align="center">
+                                            <button type="submit" class="btn btn-success btn-lg btn-block">
+                                                ADD THE PAYMENT 
+                                            </button>
+                                        </div>
+                                    @endif
                                     
                                 </div>
                             </form>

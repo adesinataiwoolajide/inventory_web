@@ -24,7 +24,8 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->hasRole('Administrator')){
+        if(auth()->user()->hasRole('Administrator') OR(
+            auth()->user()->hasRole('Admin'))){
             $payment =Payments::orderBy('payment_id', 'desc')->get();
             return view('administrator.payments.index')->with([
                 "payment" => $payment,
@@ -76,23 +77,34 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
-        $ware_house_id = $inv->ware_house_id;
-        $invoi =  OrderDetails::where(
-            ['order_status'=> 0,
-            'ware_house_id' => $ware_house_id, 
-        ])->orderBy('details_id', 'desc')->get();
-        $invoice =  OrderDetails::where(
-            ['order_status'=> 0,
-        ])->orderBy('details_id', 'desc')->get();
-        $payment =Payments::orderBy('payment_id', 'desc')->get();
+        if(auth()->user()->hasRole('Administrator') OR(
+            auth()->user()->hasRole('Admin'))){
+            $payment =Payments::orderBy('payment_id', 'desc')->get();
+            $invoi =  OrderDetails::where(
+                ['order_status'=> 0, 
+            ])->orderBy('details_id', 'desc')->get();
+            $invoice =  OrderDetails::where(
+                ['order_status'=> 0,
+            ])->orderBy('details_id', 'desc')->get();
+            
 
-        return view('administrator.payments.create')->with([
-            "invoice" => $invoice,
-            "payment" => $payment,
-            "invoi" => $invoi,
-            "inv" => $inv,
-        ]);
+            return view('administrator.payments.create')->with([
+                "invoice" => $invoice,
+                "payment" => $payment,
+                "invoi" => $invoi,
+                
+            ]);
+        }else{
+            $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+            $ware_house_id = $inv->ware_house_id;
+            $invoi =  OrderDetails::where(
+                ['order_status'=> 0,
+                'ware_house_id' => $ware_house_id, 
+            ])->orderBy('details_id', 'desc')->get();
+            $invoice =  OrderDetails::where(
+                ['order_status'=> 0,
+            ])->orderBy('details_id', 'desc')->get();
+        }
     }
 
     public function makepayment($transaction_number)

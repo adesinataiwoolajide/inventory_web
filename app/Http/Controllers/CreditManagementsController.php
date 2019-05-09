@@ -23,7 +23,8 @@ class CreditManagementsController extends Controller
     public function index()
 
     {
-        if(auth()->user()->hasRole('Administrator')){
+        if(auth()->user()->hasRole('Administrator') OR(
+            auth()->user()->hasRole('Admin'))){
             $credit =CreditManagement::orderBy('credit_id', 'desc')->get();
             return view('administrator.credits.index')->with([
                 "credit" => $credit,
@@ -46,7 +47,8 @@ class CreditManagementsController extends Controller
 
     public function paid()
     {
-        if(auth()->user()->hasRole('Administrator')){
+        if(auth()->user()->hasRole('Administrator') OR(
+            auth()->user()->hasRole('Admin'))){
             $credit =CreditManagement::where('paid_status', 1)->orderBy('credit_id', 'desc')->get();
             return view('administrator.credits.paid')->with([
                 "credit" => $credit,
@@ -72,7 +74,8 @@ class CreditManagementsController extends Controller
 
     public function unpaid()
     {
-        if(auth()->user()->hasRole('Administrator')){
+        if(auth()->user()->hasRole('Administrator') OR(
+            auth()->user()->hasRole('Admin'))){
             $credit =CreditManagement::where('paid_status', 0)->orderBy('credit_id', 'desc')->get();
             return view('administrator.credits.unpaid')->with([
                 "credit" => $credit,

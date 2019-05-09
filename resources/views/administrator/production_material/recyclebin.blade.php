@@ -7,9 +7,11 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
 				    	<li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('variant.restore')}}">Restore Deleted Variants</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('variant.create')}}">Add Variant</a></li>
-			            <li class="breadcrumb-item active" aria-current="page">Deleted Product Variants</li>
+							@if(auth()->user()->hasRole('Administrator') OR auth()->user()->hasRole('Admin'))
+								<li class="breadcrumb-item"><a href="{{route('variant.restore')}}">Restore Deleted Product Material</a></li>
+							@endif
+                <li class="breadcrumb-item"><a href="{{route('variant.create')}}">Add Product Material</a></li>
+			          <li class="breadcrumb-item active" aria-current="page">Deleted Product Material</li>
 			         </ol>
 			   	</div>
 			</div>
@@ -25,7 +27,7 @@
 			            	</div>
 
 			            @else
-			            	<div class="card-header"><i class="fa fa-table"></i> List of Deleted Product Variants</div>
+			            	<div class="card-header"><i class="fa fa-table"></i> List of Deleted Product Material</div>
 		            		<div class="card-body">
 		              			<div class="table-responsive">
                                     <table id="default-datatable" class="table table-bordered">

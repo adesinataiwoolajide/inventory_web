@@ -19,7 +19,8 @@
                 <div class="col-lg-12">
                     @include('partials._message')
                         <div class="card">
-                            @role('Administrator')
+                            @if(auth()->user()->hasRole('Administrator') OR(
+                                    auth()->user()->hasRole('Admin'))){
                                 @if(count($invoice) ==0)
                                     <div class="card-header" align="center" style="color: red">
                                         <i class="fa fa-table"></i> The List is Empty
@@ -171,7 +172,7 @@
                                     </div> 
                                     
                                 @endif
-                            @endrole
+                            @endif
                         </div>
                 </div>
             </div>

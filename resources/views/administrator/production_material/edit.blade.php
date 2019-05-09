@@ -7,10 +7,12 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('variant.edit', $var->variant_id)}}">Edit  Variant</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('variant.create')}}">Add Variant</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('variant.restore')}}">Restore Deleted Variants</a></li>
-			            <li class="breadcrumb-item active" aria-current="page">Save Product Variants</li>
+                        <li class="breadcrumb-item"><a href="{{route('variant.edit', $var->variant_id)}}">Edit Production Material</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('variant.create')}}">Add Product Material</a></li>
+                        @if(auth()->user()->hasRole('Administrator') OR auth()->user()->hasRole('Admin'))
+                            <li class="breadcrumb-item"><a href="{{route('variant.restore')}}">Restore Product Material</a></li>
+                        @endif
+			            <li class="breadcrumb-item active" aria-current="page">Editing Product Material</li>
 			         </ol>
 			   	</div>
 			</div>
@@ -119,74 +121,74 @@
 		        </div>
 		    </div>
 			 <div class="row">
-		    	<div class="col-lg-12">
-		          	<div class="card">
-		          		@if(count($variant) ==0)
+                <div class="col-lg-12">
+                    <div class="card">
+                        @if(count($variant) ==0)
                             <div class="card-header" align="center" style="color: red">
                                 <i class="fa fa-table"></i> The List is Empty
-			            	</div>
+                            </div>
 
-			            @else
-			            	<div class="card-header"><i class="fa fa-table"></i> List of Saved Product Variants</div>
-		            		<div class="card-body">
-		              			<div class="table-responsive">
+                        @else
+                            <div class="card-header"><i class="fa fa-table"></i> List of Saved Product Materials</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
                                     <table id="default-datatable" class="table table-bordered">
                                         <thead>
-                                          <tr>
-                                              {{-- <th>S/N</th> --}}
-                                              <th>Variant Name</th>
-                                              <th>Variant Size</th>
-                                              <th>Category</th>
-                                              <th> Time Added </th>
-                                              <th> Operations </th>
-                                          </tr>
-                                      </thead>
+                                            <tr>
+                                                {{-- <th>S/N</th> --}}
+                                                <th>Material Name</th>
+                                                <th>Material Size</th>
+                                                <th>Category</th>
+                                                <th> Time Added </th>
+                                                <th> Operations </th>
+                                            </tr>
+                                        </thead>
 
-                                      <tfoot>
-                                          <tr>
-                                              {{-- <th>S/N</th> --}}
-                                              <th>Variant Name</th>
-                                              <th>Variant Size</th>
-                                              <th>Category</th>
-                                              <th> Time Added </th>
-                                              <th> Operations </th>
-                                          </tr>
-                                      </tfoot>
-                                      <tbody>
-                                          <?php $number =1; ?>
-                                          @foreach($variant as $variants)
-                                              <tr>
-                                                  
-                                                  <td>{{$variants->variant_name}}</td>
-                                                  <td>{{$variants->variant_size}}</td>
-                                                  <td>
-                                                      {{$variants->category->category_name}}
-                                                      
-                                                  </td>
-                                                  <td>{{$variants->created_at}} </td>
-                                                  <td>@if(auth()->user()->hasRole('Administrator') OR(
-                                                      auth()->user()->hasRole('Admin')))
-                                                      <a href="{{route('variant.delete', $variants->variant_id)}}" 
-                                                          onclick="return(confirmToDelete());" 
-                                                          class="btn btn-danger">
-                                                          <i class="fa fa-trash-o"></i>Delete</a>
-                                                      @endif
-                                                      <a href="{{route('variant.edit', $variants->variant_id)}}" 
-                                                          onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i>
-                                                          Edit
-                                                      </a>
-                                                  </td>
-                                              </tr><?php
-                                              $number++; ?>
-                                          @endforeach
-                                      </tbody>
-                                     
+                                        <tfoot>
+                                            <tr>
+                                                {{-- <th>S/N</th> --}}
+                                                <th>Material Name</th>
+                                                <th>Material Size</th>
+                                                <th>Category</th>
+                                                <th> Time Added </th>
+                                                <th> Operations </th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <?php $number =1; ?>
+                                            @foreach($variant as $variants)
+                                                <tr>
+                                                    
+                                                    <td>{{$variants->variant_name}}</td>
+                                                    <td>{{$variants->variant_size}}</td>
+                                                    <td>
+                                                        {{$variants->category->category_name}}
+                                                        
+                                                    </td>
+                                                    <td>{{$variants->created_at}} </td>
+                                                    <td>@if(auth()->user()->hasRole('Administrator') OR(
+                                                        auth()->user()->hasRole('Admin')))
+                                                        <a href="{{route('variant.delete', $variants->variant_id)}}" 
+                                                            onclick="return(confirmToDelete());" 
+                                                            class="btn btn-danger">
+                                                            <i class="fa fa-trash-o"></i>Delete</a>
+                                                        @endif
+                                                        <a href="{{route('variant.edit', $variants->variant_id)}}" 
+                                                            onclick="return(confirmToEdit());" class="btn btn-success"><i class="fa fa-pencil"></i>
+                                                            Edit
+                                                        </a>
+                                                    </td>
+                                                </tr><?php
+                                                $number++; ?>
+                                            @endforeach
+                                        </tbody>
+                                        
                                     </table>
-		              			</div>
-		              		</div>
-		             	@endif
-	              	</div>
-	            </div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
 	        </div>
 	     </div>
 	</div>

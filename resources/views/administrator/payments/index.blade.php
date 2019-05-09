@@ -7,10 +7,13 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('payment.index')}}">View Payments</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('payment.create')}}">Add Payment</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">List of Payment</li>
-                        
+                        @if(auth()->user()->hasRole('Administrator') OR(
+                            auth()->user()->hasRole('Admin')) OR(
+                            auth()->user()->hasRole('Accountant')))
+                            <li class="breadcrumb-item"><a href="{{route('payment.index')}}">View Payments</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('payment.create')}}">Add Payment</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">List of Payment</li>
+                        @endif
 			         </ol>
 			   	</div>
 			</div>
@@ -19,7 +22,8 @@
 		    	<div class="col-lg-12">
                     @include('partials._message')
 		          	<div class="card">
-                        @role('Administrator')
+                        @if(auth()->user()->hasRole('Administrator') OR(
+                            auth()->user()->hasRole('Admin'))){
                             @if(count($payment) ==0)
                                 <div class="card-header" align="center" style="color: red">
                                     <i class="fa fa-table"></i> The List is Empty
@@ -64,7 +68,8 @@
                                                 @foreach($payment as $orders)
                                                     <tr>
                                                         <td>{{$number}}
-                                                            @if(auth()->user()->hasRole('Administrator') OR (auth()->user()->hasRole('Admin')))
+                                                            @if(auth()->user()->hasRole('Administrator') OR 
+                                                                (auth()->user()->hasRole('Admin')))
                                                                 <a href="{{route('payment.delete', $orders->order->transaction_number)}}" 
                                                                 onclick="return(confirmToDelete());" class="btn btn-danger">
                                                                 <i class="fa fa-trash-o"></i></a>
@@ -195,7 +200,7 @@
                                 </div> 
                                     
                             @endif
-                        @endrole
+                        @endif
 	              	</div>
 	            </div>
 	        </div>

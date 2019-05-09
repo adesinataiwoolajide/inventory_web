@@ -25,7 +25,7 @@ class ProductVariantController extends Controller
     {
         $category=Categories::all();
         $variant = $this->model->all();
-        return view('administrator.variants.create')->with([
+        return view('administrator.production_material.create')->with([
             'category' => $category,
             "variant" => $variant,
         ]);
@@ -44,7 +44,7 @@ class ProductVariantController extends Controller
     public function bin()
     {
         $variant= ProductVariants::onlyTrashed()->get();
-        return view('administrator.variants.recyclebin')->with([
+        return view('administrator.production_material.recyclebin')->with([
             'variant' => $variant,
         ]);
     }
@@ -123,7 +123,7 @@ class ProductVariantController extends Controller
             
         } else{
             return redirect()->back()->with([
-                'error' => "You Dont have Access To Create variants",
+                'error' => "You Dont have Access To Create producttion_material",
             ]);
         }
     }
@@ -151,7 +151,7 @@ class ProductVariantController extends Controller
             $category=Categories::all();
             $variant = $this->model->all();
             $var = $this->model->show($variant_id);
-            return view('administrator.variants.edit')->with([
+            return view('administrator.production_material.edit')->with([
                 'category' => $category,
                 "variant" => $variant,
                 "var" => $var,
@@ -219,7 +219,7 @@ class ProductVariantController extends Controller
             
         } else{
             return redirect()->back()->with([
-                'error' => "You Dont have Access To Update variants",
+                'error' => "You Dont have Access To Update producttion_material",
             ]);
         }
     }

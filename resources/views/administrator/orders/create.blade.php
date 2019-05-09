@@ -24,7 +24,8 @@
 		    	<div class="col-lg-12">
                     @include('partials._message')
 		          	<div class="card">
-                        @if(auth()->user()->hasRole('Administrator'))
+                        @if(auth()->user()->hasRole('Administrator') OR(
+                                auth()->user()->hasRole('Admin')))
                             @if(count($inventory) ==0)
                                 <div class="card-header" align="center" style="color: red">
                                     <i class="fa fa-table"></i> The List is Empty
@@ -33,7 +34,7 @@
                             @else
                                 <div class="card-header"><i class="fa fa-table"></i> 
                                     List of Saved Inventories in All Ware House <br>
-                                    <b style="color:red">You will Have an error creating an order as Super Admin because the products are linked to a ware house and, the super admin 
+                                    <b style="color:red">You will Have an error creating an order as Super Admin Or Admin because the products are linked to a ware house and, the super admin 
                                         does not have a ware house but its working for other users</b>
                                 </div>
                                 <form action="{{route('order.save')}}" method="POST" enctype="multipart/form-data">
@@ -101,8 +102,10 @@
                                                                     <p style="color:red">Out of Stock</p><?php
                                                                 }else{ ?>
                                                                     <select class ="form-control form-control-rounded" name ="quantity<?php echo $number; ?>">
-                                                                        <option value="">Qty  </option>
 
+                                                                        <option value="">Qty  </option>
+                                                                        <option value="{{old('quantity<?php echo $number ?>')}}">
+                                                                                {{old('quantity<?php echo $number ?>')}}
                                                                         <option value=""> </option><?php
                                                                         foreach(range($early, $current) as $i){
                                                                             print'<option value=" '.$i.'"'.($i === $current ? $early : '').'>'.$i.'</option>';
@@ -169,7 +172,7 @@
                                                     </div>
                                                 @endif  
                                             </div>
-                                            @if(auth()->user()->hasRole('Admin') OR auth()->user()->hasRole('Editor') OR
+                                            @if(auth()->user()->hasRole('Editor') OR
                                                 auth()->user()->hasRole('Receptionist'))
                                                 <div class="col-sm-6" align="center">
                                                     <input type="hidden" name="show" value="<?php echo $number; ?>">

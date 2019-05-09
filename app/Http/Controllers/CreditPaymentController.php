@@ -25,7 +25,8 @@ class CreditPaymentController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->hasRole('Administrator')){
+        if(auth()->user()->hasRole('Administrator') OR(
+            auth()->user()->hasRole('Admin'))){
             $credit =CreditPayment::orderBy('pay_id', 'desc')->get();
             return view('administrator.credits.payment')->with([
                 "credit" => $credit,

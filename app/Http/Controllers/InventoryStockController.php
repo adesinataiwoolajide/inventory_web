@@ -23,9 +23,10 @@ class InventoryStockController extends Controller
         $product =  Products::all();
         $warehouse =  WareHouseManagement::all();
         $supplier =  Suppliers::all();
-        if(auth()->user()->hasRole('Administrator')){
+        if(auth()->user()->hasRole('Administrator') OR(
+            auth()->user()->hasRole('Admin'))){
             
-            $inventory =  InventoryStock::all();
+            $inventory =  InventoryStock::orderBy('stock_id', 'desc')->get();;
             return view('administrator.inventory.index')
                 ->with([
                 "category" => $category,
