@@ -23,12 +23,12 @@
                         @role('Administrator')
                             @if(count($payment) ==0)
                                 <div class="card-header" align="center" style="color: red">
-                                    <i class="fa fa-table"></i> The List is Empty
+                                    <i class="fa fa-table"></i> The List is Empty in All Ware House
                                 </div>
 
                             @else
                                 <div class="card-header"><i class="fa fa-table"></i> 
-                                    List of Sales
+                                    List of Sales n All Ware House
                                 </div>
                                 
                                 <div class="card-body">

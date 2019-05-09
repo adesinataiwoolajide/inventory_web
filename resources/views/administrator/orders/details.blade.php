@@ -8,16 +8,21 @@
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{route('order.details', $payment->transaction_number)}}"> Order Details</a></li>
-                        @if(auth()->user()->hasRole('Administrator') OR (auth()->user()->hasRole('Admin'))
-                            OR (auth()->user()->hasRole('Accountant')))
-                            
+                        @if(auth()->user()->hasRole('Administrator') 
+                            OR auth()->user()->hasRole('Admin') OR auth()->user()->hasRole('Editor')
+                            OR auth()->user()->hasRole('Receptionist'))
+                            <li class="breadcrumb-item"><a href="{{route('order.edit', $payment->transaction_number)}}">
+                                Edit Order</a>
+                            </li>
                         @endif
                         @can('order-invoice')
                             <li class="breadcrumb-item"><a href="{{route('order.invoice')}}">Order Invoice</a></li>
                         @endcan
-                        @can('order-create')
+                        @if(auth()->user()->hasRole('Administrator') 
+                            OR auth()->user()->hasRole('Admin') OR auth()->user()->hasRole('Editor')
+                            OR auth()->user()->hasRole('Receptionist'))
                             <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
-                        @endcan
+                        @endif
                         <li class="breadcrumb-item active" aria-current="page">View The Ordrer Details</li>
                         
 			         </ol>
@@ -30,7 +35,7 @@
                     @include('partials._message')
                     <div class="card">
                         <div class="card-header"><i class="fa fa-table"></i> 
-                            Product Order List for @foreach($buyers as $see) 
+                            Order Details for @foreach($buyers as $see) 
                                 {{$see->name}}
                             @endforeach
                         </div>

@@ -17,12 +17,29 @@ class SalesController extends Controller
      */
     public function index()
     {
-        $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
-        $ware_house_id = $inv->ware_house_id;
-        $pay =  Payments::where([
-            'ware_house_id'=> $inv->ware_house_id]
-        )->orderBy('payment_id', 'desc')->get();
-        $payment =Payments::orderBy('payment_id', 'desc')->get();
+        if(auth()->user()->hasRole('Administrator')){
+            $payment =  Payments::orderBy('payment_id', 'desc')->get();
+            return view('administrator.sales.index')->with([
+                "payment" => $payment,
+                // "pay" => $pay,
+                // "inv" => $inv,
+                //"invoice" => $invoice,
+            ]);
+        }else{
+            $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+            $ware_house_id = $inv->ware_house_id;
+            $pay =  Payments::where([
+                'ware_house_id'=> $inv->ware_house_id]
+            )->orderBy('payment_id', 'desc')->get();
+            return view('administrator.sales.index')->with([
+               // "payment" => $payment,
+                "pay" => $pay,
+                "inv" => $inv,
+                //"invoice" => $invoice,
+            ]);
+        }
+       
+        //$payment =Payments::orderBy('payment_id', 'desc')->get();
         return view('administrator.sales.index')->with([
             "payment" => $payment,
             "pay" => $pay,

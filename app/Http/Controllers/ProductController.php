@@ -31,33 +31,46 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $category= Categories::all();
-        $variant = ProductVariants::all();
-        // if(auth()->user()->hasRole([
-        //     'name' => 'Administrator', ]))
-        // {
-        $product =  Products::orderBy('product_id', 'desc')->get();
-        $warehouse =  WareHouseManagement::all();
-       // }else{
-        $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
-        $ware_house_id = $inv->ware_house_id;
-        $prod =  Products::where([
-            'ware_house_id'=> $inv->ware_house_id]
-        )->orderBy('product_id', 'desc')->get();
-       // }
-        
-       
-        $supplier =  Suppliers::all();
-        return view('administrator.products.create')
+        if(auth()->user()->hasRole('Administrator')){
+            $category= Categories::all();
+            $variant = ProductVariants::all();
+            $product =  Products::orderBy('product_id', 'desc')->get();
+            $warehouse =  WareHouseManagement::all();
+            $supplier =  Suppliers::all();
+            return view('administrator.products.create')
             ->with([
-            "category" => $category,
-            "variant" => $variant,
-            "product" => $product,
-            "warehouse"=> $warehouse,
-            "supplier" => $supplier,
-            "inv" => $inv,
-            "prod" => $prod,
-        ]);
+                "category" => $category,
+                "variant" => $variant,
+                "product" => $product,
+                "warehouse"=> $warehouse,
+                "supplier" => $supplier,
+                
+            ]);
+        }else{
+            $category= Categories::all();
+            $variant = ProductVariants::all();
+            $product =  Products::orderBy('product_id', 'desc')->get();
+            $warehouse =  WareHouseManagement::all();
+            $supplier =  Suppliers::all();
+            $inv = WareHouseManagement::where([
+                'user_id'=> auth()->user()->user_id,
+            ])->first();
+            $ware_house_id = $inv->ware_house_id;
+            $prod =  Products::where([
+                'ware_house_id'=> $inv->ware_house_id]
+            )->orderBy('product_id', 'desc')->get();
+            return view('administrator.products.create')
+            ->with([
+                "category" => $category,
+                "variant" => $variant,
+                "warehouse"=> $warehouse,
+                "supplier" => $supplier,
+                "inv" => $inv,
+                "prod" => $prod,
+            ]);
+        }
+       
+        
     }
 
     /**

@@ -233,7 +233,7 @@ class UserController extends Controller
             
             $details= $use->name; 
             $email = $use->email;
-            $roles = $use->role;
+            $roles = $user->roles()->first()->name;
             $log = new ActivityLog([
                 "operations" => "Deleted ". $email. " From The User List",
                 "user_id" => Auth::user()->user_id,

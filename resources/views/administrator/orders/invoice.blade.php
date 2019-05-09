@@ -10,9 +10,11 @@
                         @can('order-invoice')
                             <li class="breadcrumb-item"><a href="{{route('order.invoice')}}">Order Invoice</a></li>
                         @endcan
-                        @can('order-create')
-                        <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
-                        @endcan
+                        @if(auth()->user()->hasRole('Administrator') 
+                            OR auth()->user()->hasRole('Admin') OR auth()->user()->hasRole('Editor')
+                            OR auth()->user()->hasRole('Receptionist'))
+                            <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
+                        @endif
                         {{-- <li class="breadcrumb-item"><a href="{{route('order.index')}}">View Orders</a></li> --}}
                         <li class="breadcrumb-item active" aria-current="page">List of Order Invoice</li>
                         
@@ -24,7 +26,7 @@
 		    	<div class="col-lg-12">
                     @include('partials._message')
 		          	<div class="card">
-                        @role('Administrator')
+                        @if(auth()->user()->hasRole('Administrator'))
                             @if(count($invoice) ==0)
                                 <div class="card-header" align="center" style="color: red">
                                     <i class="fa fa-table"></i> The List is Empty
@@ -32,7 +34,7 @@
 
                             @else
                                 <div class="card-header"><i class="fa fa-table"></i> 
-                                    List of Saved Order Invoice
+                                    List of Saved Order Invoice In All Ware Houses
                                 </div>
                                 
                                 <div class="card-body">
@@ -192,7 +194,7 @@
                                 </div> 
                                     
                             @endif
-                        @endrole
+                        @endif
 	              	</div>
 	            </div>
 	        </div>

@@ -47,6 +47,18 @@ class Order extends Model
         return $this->attributes['distributor_id'] = $value;
     }
 
+    public function getCreatedAtAttribute($value){
+        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function getDeletedAtAttribute($value){
+        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function getUpdatedAtAttribute($value){
+        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
     public function distributor(){
         return $this->belongsTo('App\Distributors', 'distributor_id');
     }

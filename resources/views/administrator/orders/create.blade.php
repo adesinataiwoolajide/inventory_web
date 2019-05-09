@@ -7,7 +7,11 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
+                        @if(auth()->user()->hasRole('Administrator') 
+                            OR auth()->user()->hasRole('Admin') OR auth()->user()->hasRole('Editor')
+                            OR auth()->user()->hasRole('Receptionist'))
+                            <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
+                        @endif
                         {{-- <li class="breadcrumb-item"><a href="{{route('order.index')}}">View Orders</a></li> --}}
                         <li class="breadcrumb-item"><a href="{{route('order.invoice')}}">Invoice</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Adding Distributor Order</li>
@@ -20,7 +24,7 @@
 		    	<div class="col-lg-12">
                     @include('partials._message')
 		          	<div class="card">
-                        @role('Administrator')
+                        @if(auth()->user()->hasRole('Administrator'))
                             @if(count($inventory) ==0)
                                 <div class="card-header" align="center" style="color: red">
                                     <i class="fa fa-table"></i> The List is Empty
@@ -28,7 +32,9 @@
 
                             @else
                                 <div class="card-header"><i class="fa fa-table"></i> 
-                                    List of Saved Inventories in All Ware House
+                                    List of Saved Inventories in All Ware House <br>
+                                    <b style="color:red">You will Have an error creating an order as Super Admin because the products are linked to a ware house and, the super admin 
+                                        does not have a ware house but its working for other users</b>
                                 </div>
                                 <form action="{{route('order.save')}}" method="POST" enctype="multipart/form-data">
                                     {{ csrf_field() }}
@@ -142,7 +148,7 @@
                                     </div> 
                                     <div class="card-body">
                                         <div class="form-group row ">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-12">
                                                 <select class="form-control form-control-rounded" name="distributor_id" required>
                                                     <option value=""> -- Select The Distributor -- </option>
                                                     <option value=""> </option>
@@ -163,12 +169,15 @@
                                                     </div>
                                                 @endif  
                                             </div>
-                                            <div class="col-sm-6" align="center">
-                                                <input type="hidden" name="show" value="<?php echo $number; ?>">
-                                                <button type="submit" class="btn btn-success btn-lg btn-block">
-                                                    ADD THE ORDER 
-                                                </button>
-                                            </div>
+                                            @if(auth()->user()->hasRole('Admin') OR auth()->user()->hasRole('Editor') OR
+                                                auth()->user()->hasRole('Receptionist'))
+                                                <div class="col-sm-6" align="center">
+                                                    <input type="hidden" name="show" value="<?php echo $number; ?>">
+                                                    <button type="submit" class="btn btn-success btn-lg btn-block">
+                                                        ADD THE ORDER 
+                                                    </button>
+                                                </div>
+                                            @endif
                                         </div> 
                                     </div>  
                                 </form>
@@ -329,7 +338,7 @@
                                 </form>
                                 
                             @endif
-                        @endrole
+                        @endif
 		          		
 	              	</div>
 	            </div>

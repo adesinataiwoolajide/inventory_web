@@ -26,6 +26,7 @@ class EmployeeController extends Controller
     public function index()
     {
         $employee = Employee::orderBy("employee_id", "desc")->get();
+        
         return view('administrator.employee.create')->with([
             "employee" => $employee,
         ]);

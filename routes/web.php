@@ -139,7 +139,7 @@ Route::group(["prefix" => "administrator", "middleware" => "verified"], function
          name("print.the.invoice"); 
          Route::get("/details/{transaction_number}", "OrderController@details")->name("order.details");   
         Route::post("/save", "OrderController@store")->name("order.save");
-        Route::get("/edit/{order_id}", "OrderController@edit")->name("order.edit");   
+        Route::get("/edit/{transaction_number}", "OrderController@edit")->name("order.edit");   
         Route::get("/delete/{order_id}", "OrderController@destroy")->name("order.delete");
         Route::post("/update/{order_id}", "OrderController@update")->name("order.update");   
     });

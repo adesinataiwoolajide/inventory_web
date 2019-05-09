@@ -7,7 +7,12 @@
 		        <div class="col-sm-9">
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
+                        @if(auth()->user()->hasRole('Administrator') 
+                            OR auth()->user()->hasRole('Admin') OR auth()->user()->hasRole('Editor')
+                            OR auth()->user()->hasRole('Receptionist'))
+                            <li class="breadcrumb-item"><a href="{{route('order.edit', $inventory->transaction_number)}}">Edit Order</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
+                        @endif
                         {{-- <li class="breadcrumb-item"><a href="{{route('order.index')}}">View Orders</a></li> --}}
                         <li class="breadcrumb-item"><a href="{{route('order.invoice')}}">Invoice</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Adding Distributor Order</li>
@@ -20,7 +25,8 @@
 		    	<div class="col-lg-12">
                     @include('partials._message')
 		          	<div class="card">
-                        @role('Administrator')
+                        @if(auth()->user()->hasRole('Administrator') 
+                           )
                             @if(count($inventory) ==0)
                                 <div class="card-header" align="center" style="color: red">
                                     <i class="fa fa-table"></i> The List is Empty
@@ -328,7 +334,7 @@
                                 </form>
                                 
                             @endif
-                        @endrole
+                        @endif
 		          		
 	              	</div>
 	            </div>

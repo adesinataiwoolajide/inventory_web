@@ -25,10 +25,25 @@ class CreditPaymentController extends Controller
      */
     public function index()
     {
-        $credit =CreditPayment::orderBy('pay_id', 'desc')->get();
-        return view('administrator.credits.payment')->with([
-            "credit" => $credit,
-        ]);
+        if(auth()->user()->hasRole('Administrator')){
+            $credit =CreditPayment::orderBy('pay_id', 'desc')->get();
+            return view('administrator.credits.payment')->with([
+                "credit" => $credit,
+            ]);
+        }else{
+            $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+            $ware_house_id = $inv->ware_house_id;
+            
+            $cre =  CreditPayment::where([
+                'ware_house_id'=> $inv->ware_house_id]
+            )->orderBy('pay_id', 'desc')->get();
+            return view('administrator.credits.payment')->with([
+                "cre" => $cre,
+                "inv" => $inv,
+            ]);
+        }
+        
+        
     }
 
     /**

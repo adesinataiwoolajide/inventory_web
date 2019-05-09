@@ -8,7 +8,11 @@
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{route('order.invoice')}}">Order Invoice</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
+                        @if(auth()->user()->hasRole('Administrator') 
+                            OR auth()->user()->hasRole('Admin') OR auth()->user()->hasRole('Editor')
+                            OR auth()->user()->hasRole('Receptionist'))
+                            <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
+                        @endif
                         <li class="breadcrumb-item active" aria-current="page">List of Order Invoice</li>
                         
 			         </ol>
@@ -73,6 +77,9 @@
                                                         
                                                     </td>
                                                     <td>
+                                                        <a href="{{route('order.details',$orders->transaction_number)}}" 
+                                                        class="btn btn-primary">
+                                                        <i class="fa fa-list"></i></a>  
                                                         <a href="{{route('print.invoice', $orders->transaction_number)}}" class="btn btn-success">
                                                             <i class="fa fa-pdf"></i> See Invoice
                                                         </a>

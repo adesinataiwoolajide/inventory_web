@@ -50,14 +50,9 @@ class OrderController extends Controller
         $supplier =  Suppliers::all();
         $inventory =  InventoryStock::orderBy('quantity', 'desc')->get();
         $distributor =  Distributors::all();
-        $order= $this->model->all();
-        $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
-        $ware_house_id = $inv->ware_house_id;
-        $invent =  InventoryStock::where([
-            'ware_house_id'=> $inv->ware_house_id]
-        )->orderBy('quantity', 'desc')->get();
-        
-        return view('administrator.orders.create')
+        if(auth()->user()->hasRole('Administrator')){
+            $order= $this->model->all();
+            return view('administrator.orders.create')
             ->with([
             "category" => $category,
             "variant" => $variant,
@@ -67,9 +62,30 @@ class OrderController extends Controller
             "inventory" =>$inventory,
             "order" => $order,
             "distributor" => $distributor,
+            
+        ]);
+        }else{
+            $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+            $ware_house_id = $inv->ware_house_id;
+            $invent =  InventoryStock::where([
+                'ware_house_id'=> $inv->ware_house_id]
+            )->orderBy('quantity', 'desc')->get();
+            return view('administrator.orders.create')
+            ->with([
+            "category" => $category,
+            "variant" => $variant,
+            "product" => $product,
+            "warehouse"=> $warehouse,
+            "supplier" => $supplier,
+            "inventory" =>$inventory,
+            
+            "distributor" => $distributor,
             "invent" => $invent,
             "inv" => $inv,
         ]);
+        }
+        
+        
     }
 
     /**
@@ -152,8 +168,7 @@ class OrderController extends Controller
                     'distributor_id' => $request->input("distributor_id"),
                     'invoice_number' => $invoice_number,
                     "ware_house_id" => $dell->ware_house_id,
-                     "order_status" => 0
-                     , 
+                     "order_status" => 0, 
                 ]);
                 return redirect()->route("order.invoice")-> with([
                     "success" => "You Have Added Order Successfully, The Order Invoice Number is
@@ -243,26 +258,21 @@ class OrderController extends Controller
     public function invoice()
     {
         if(auth()->user()->hasPermissionTo('order-invoice')){
-
-            $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
-            // $invoice =  OrderDetails::where([
-            //     'ware_house_id'=> $inv->ware_house_id]
-            // )->get();
-            $invoice =  OrderDetails::orderBy('details_id', 'desc')->get();
-            $invo = OrderDetails::where('ware_house_id', $inv->ware_house_id)->orderBy('details_id', 'desc')->get();
-            return view('administrator.orders.invoice')->with([
-                
-                "invoice" => $invoice,
-                "invo" => $invo,
-                "inv" => $inv,
-            ]);
             
-            return view('administrator.orders.invoice')
-                ->with([
-                
-                "invoice" => $invoice,
-
-            ]);
+            if(auth()->user()->hasRole('Administrator')){
+                $invoice =  OrderDetails::orderBy('details_id', 'desc')->get();
+                return view('administrator.orders.invoice')->with([
+                    "invoice" => $invoice,
+                ]);
+            }else{
+                $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+                $invo = OrderDetails::where('ware_house_id', $inv->ware_house_id)->orderBy('details_id', 'desc')->get();
+                return view('administrator.orders.invoice')->with([
+                    "invo" => $invo,
+                    "inv" => $inv,
+                ]);
+            }
+           
         } else{
             return  redirect()->route("order.create")->with([
                 'error' => "You Dont have Access To Generate An Invoice",

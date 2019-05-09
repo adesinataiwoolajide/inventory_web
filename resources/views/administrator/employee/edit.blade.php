@@ -110,6 +110,7 @@
                                             <option value="Administrator">Administrator </option>
                                             <option value="Editor">Editor </option>
                                             <option value="Receptionist">Receptionist </option>
+                                            <option value="Sales Girl">Sales Girl </option>
                             
                                         </select>
                                         <span style="color: red">** This Field is Required **</span>

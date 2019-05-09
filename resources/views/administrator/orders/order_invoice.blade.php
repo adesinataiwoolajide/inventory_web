@@ -8,9 +8,14 @@
 				    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('administrator.dashboard')}}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{route('print.invoice',$orderDetails->transaction_number)}}">Print Invoice</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
-                        {{-- <li class="breadcrumb-item"><a href="{{route('order.index')}}">View Orders</a></li>
-                        --}}
+                        @if(auth()->user()->hasRole('Administrator') 
+                            OR auth()->user()->hasRole('Admin') OR auth()->user()->hasRole('Editor')
+                            OR auth()->user()->hasRole('Receptionist'))
+                            <li class="breadcrumb-item"><a href="{{route('order.create')}}">Add Order</a></li>
+                            
+                        @endif
+                        {{-- <li class="breadcrumb-item"><a href="{{route('order.index')}}">View Orders</a></li> --}}
+                           
                         <li class="breadcrumb-item active" aria-current="page">Printing Order Invoice</li>
                         
 			         </ol>

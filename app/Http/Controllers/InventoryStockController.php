@@ -23,25 +23,40 @@ class InventoryStockController extends Controller
         $product =  Products::all();
         $warehouse =  WareHouseManagement::all();
         $supplier =  Suppliers::all();
-        $inventory =  InventoryStock::all();
+        if(auth()->user()->hasRole('Administrator')){
+            
+            $inventory =  InventoryStock::all();
+            return view('administrator.inventory.index')
+                ->with([
+                "category" => $category,
+                "variant" => $variant,
+                "product" => $product,
+                "warehouse"=> $warehouse,
+                "supplier" => $supplier,
+                "inventory" =>$inventory,
+            ]);
+        }else{
+            $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
+            $ware_house_id = $inv->ware_house_id;
+            
+            $invent =  InventoryStock::where([
+                'ware_house_id'=> $inv->ware_house_id]
+            )->orderBy('stock_id', 'desc')->get();
+            
+            return view('administrator.inventory.index')
+                ->with([
+                "category" => $category,
+                "variant" => $variant,
+                "product" => $product,
+                "warehouse"=> $warehouse,
+                "supplier" => $supplier,
+               // "inventory" =>$inventory,
+                "invent" => $invent,
+                "inv" => $inv,
+            ]);
+        }
 
-        $inv = WareHouseManagement::where('user_id', auth()->user()->user_id)->first();
-        $ware_house_id = $inv->ware_house_id;
         
-        $invent =  InventoryStock::where([
-            'ware_house_id'=> $inv->ware_house_id]
-        )->orderBy('stock_id', 'desc')->get();
-        return view('administrator.inventory.index')
-            ->with([
-            "category" => $category,
-            "variant" => $variant,
-            "product" => $product,
-            "warehouse"=> $warehouse,
-            "supplier" => $supplier,
-            "inventory" =>$inventory,
-            "invent" => $invent,
-            "inv" => $inv,
-        ]);
     }
 
     public function outofstock()

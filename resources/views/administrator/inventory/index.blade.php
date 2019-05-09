@@ -27,7 +27,7 @@
 
                             @else
                                 <div class="card-header"><i class="fa fa-table"></i> 
-                                    List of All Ware House Saved Inventories
+                                    List of Inventories In All Ware House 
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -62,10 +62,10 @@
                                                         <td>{{$number}}</td>
                                                         <td><?php echo ucwords($inventories->product_name) ?></td> 
                                                         <td>
-                                                            @if($inven->quantity < 5)
-                                                                <p style="color: red"><?php echo number_format($inven->quantity) ?>
+                                                            @if($inventories->quantity < 5)
+                                                                <p style="color: red"><?php echo number_format($inventories->quantity) ?>
                                                             @else
-                                                                <p style="color: green"><?php echo number_format($inven->quantity) ?></p>
+                                                                <p style="color: green"><?php echo number_format($inventories->quantity) ?></p>
                                                             @endif
                                                         </td> 
                                                         

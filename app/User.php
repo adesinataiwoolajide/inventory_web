@@ -28,6 +28,58 @@ class User extends Authenticatable implements MustVerifyEmail
         'name', 'email', 'password', 'role', 'status',
     ];
 
+    public function getNameAttribute($value){
+        return ucwords($value);
+    }
+
+    public function setNameAttribute($value){
+        return $this->attributes['name'] = $value;
+    }
+
+    public function getEmailAttribute($value){
+        return $value;
+    }
+
+    public function setEmailAttribute($value){
+        return $this->attributes['email'] = $value;
+    }
+
+    public function getPasswordAttribute($value){
+        return $value;
+    }
+
+    public function setPasswordAttribute($value){
+        return $this->attributes['password'] = $value;
+    }
+
+    public function getRoleAttribute($value){
+        return $value;
+    }
+
+    public function setRoleAttribute($value){
+        return $this->attributes['role'] = $value;
+    }
+
+    public function getStatusAttribute($value){
+        return $value;
+    }
+
+    public function setStatusAttribute($value){
+        return $this->attributes['status'] = $value;
+    }
+
+    public function getCreatedAtAttribute($value){
+        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function getDeletedAtAttribute($value){
+        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function getUpdatedAtAttribute($value){
+        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
     public function warehouse(){
         return $this->hasMany('App\WareHouseManagement', 'user_id', 'ware_house_id');
     }
