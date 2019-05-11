@@ -106,4 +106,12 @@ class WareHouseManagement extends Model
     public function creditPaid(){
         return $this->hasMany('App\CreditPayment', 'pay_id');
     }
+
+    public function employee(){
+        return $this->hasMany('App\Employee', 'employee_id');
+    }
+
+    public function salary(){
+        return $this->hasMany('App\Salaries', 'salary_id');
+    }
 }

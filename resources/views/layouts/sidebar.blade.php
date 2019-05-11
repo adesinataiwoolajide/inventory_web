@@ -95,10 +95,10 @@
                                 <li><a href="{{route('sales.index')}}"><i class="zmdi zmdi-long-arrow-right"></i> Sales & Purchase</a></li>
                                 <li><a href="{{route('order.invoice')}}"><i class="zmdi zmdi-long-arrow-right"></i> Invoices</a></li>
                                 <li><a href="{{route('payment.index')}}"><i class="zmdi zmdi-long-arrow-right"></i> Payments</a></li>
-                                <li><a href=""><i class="zmdi zmdi-long-arrow-right"></i> Salary Mgt</a></li>
                                 
                             </ul>
                         </li>
+
                         <li>
                             <a href="javaScript:void();" class="waves-effect">
                                 <i class="zmdi zmdi-card-travel"></i>
@@ -113,6 +113,13 @@
                                 
                             </ul>
                         </li>
+                        <li>
+                            <a href="{{route('salary.index')}}" class="waves-effect">
+                                <i class="fa fa-money"></i> <span>Salary Mgt</span>
+                                <small class="badge float-right badge-light"><i class="zmdi zmdi-long-arrow-right"></i></small>
+                            </a>
+                        </li>	
+                        
                     @endif
                     @if ((auth()->user()->hasRole('Administrator')))
                         <li>
@@ -160,136 +167,7 @@
                             </a>
                         </li>
                     @endif
-                    {{-- @if ((auth()->user()->hasRole('Administrator')) OR
-                        (auth()->user()->hasRole('Admin')) OR 
-                        (auth()->user()->hasRole('Editor')) OR
-                        (auth()->user()->hasRole('Receptionist')))
-                        <li>
-                            <a href="{{route('category.create')}}" class="waves-effect">
-                                <i class="fa fa-users"></i> <span>Categories</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('variant.create')}}" class="waves-effect">
-                                <i class="zmdi zmdi-view-dashboard"></i> <span>Product Variants</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('supplier.create')}}" class="waves-effect">
-                                <i class="fa fa-cog"></i> <span>Supplier</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                        </li>
-                        
-                        <li>
-                            <a href="{{route('distributor.create')}}" class="waves-effect">
-                                <i class="fa fa-sitemap"></i> <span>Distributors</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                        </li>
-                        
                     
-                        <li>
-                            <a href="{{route('product.create')}}" class="waves-effect">
-                                <i class="zmdi zmdi-card-travel"></i>
-                                <span>Products</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                            
-                        </li>
-
-                        <li>
-                            <a href="{{route('inventory.index')}}" class="waves-effect">
-                                <i class="zmdi zmdi-card-travel"></i>
-                                <span>Inventory</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                            
-                        </li>
-                    @endif --}}
-                    {{--  --}}
-                    
-                   
-                    {{-- @if(auth()->user()->hasRole('Administrator') OR 
-                        (auth()->user()->hasRole('Accountant'))
-                        OR 
-                        (auth()->user()->hasRole('Admin')))
-                        <li>
-                            <a href="{{route('payment.index')}}" class="waves-effect">
-                                <i class="zmdi zmdi-card-travel"></i>
-                                <span>Payments</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                            
-                        </li>
-                        <li>
-                            <a href="{{route('order.invoice')}}" class="waves-effect">
-                                <i class="zmdi zmdi-card-travel"></i>
-                                <span>Orders </span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                            
-                        </li>
-                        <li>
-                            <a href="{{route('credit.index')}}" class="waves-effect">
-                                <i class="zmdi zmdi-card-travel"></i>
-                                <span>Credit Mgt</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                            
-                        </li>
-                        <li>
-                            <a href="{{route('sales.index')}}" class="waves-effect">
-                                <i class="zmdi zmdi-card-travel"></i>
-                                <span>Sales</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                            
-                        </li>
-                        <li>
-                            <a href="{{route('product.create')}}" class="waves-effect">
-                                <i class="zmdi zmdi-card-travel"></i>
-                                <span>Account</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                            
-                        </li>
-                        <li>
-                            <a href="" class="waves-effect">
-                                <i class="zmdi zmdi-card-travel"></i>
-                                <span>Salary</span>
-                                <small class="badge float-right badge-light">
-                                    <i class="zmdi zmdi-long-arrow-right"></i>
-                                </small>
-                            </a>
-                            
-                        </li>
-                        
-                    @endif --}}
                     <li>
                         <a href="{{route('log.user')}}" class="waves-effect">
                             <i class="fa fa-cloud"></i> <span>My Activity Log</span>

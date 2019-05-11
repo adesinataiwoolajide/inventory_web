@@ -10,7 +10,7 @@ class Employee extends Model
     protected $table = 'employees';
     protected $primaryKey = 'employee_id';
     protected $fillable = [
-        'full_name', 'address', 'phone_number', 'contract_type', 'email',
+        'full_name', 'address', 'phone_number', 'contract_type', 'email', 'ware_house_id',
     ];
 
     public function getFullNameAttribute($value){
@@ -19,6 +19,14 @@ class Employee extends Model
 
     public function setFullNameAttribute($value){
         return $this->attributes['full_name'] = $value;
+    }
+
+    public function getWareHouseIdAttribute($value){
+        return ucwords($value);
+    }
+
+    public function setWareHouseIdAttribute($value){
+        return $this->attributes['ware_house_id'] = $value;
     }
 
     public function getAddressAttribute($value){
@@ -63,5 +71,13 @@ class Employee extends Model
 
     public function getUpdatedAtAttribute($value){
         return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function salary(){
+        return $this->hasOne('App\Salaries', 'salary_id');
+    }
+
+    public function warehouse(){
+        return $this->belongsTo('App\WareHouseManagement', 'ware_house_id');
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Employee, User, ActivityLog};
+use App\{Employee, Salaries, User, ActivityLog, WareHouseManagement};
 use App\Repositories\EmployeeRepository;
 use DB;
 use Spatie\Permission\Models\Role;
@@ -25,11 +25,27 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employee = Employee::orderBy("employee_id", "desc")->get();
-        
-        return view('administrator.employee.create')->with([
-            "employee" => $employee,
-        ]);
+        if(auth()->user()->hasRole('Administrator') 
+        OR auth()->user()->hasRole('Admin')){
+            $employee = Employee::orderBy("employee_id", "desc")->get();
+            $warehouse = WareHouseManagement::orderBy("name", "asc")->get();
+            return view('administrator.employee.create')->with([
+                "employee" => $employee,
+                "warehouse" => $warehouse,
+            ]);
+        }else{
+            $inv = WareHouseManagement::where([
+                'user_id'=> auth()->user()->user_id,
+            ])->first();
+            $ware_house_id = $inv->ware_house_id;
+            $emp =  Employee::where([
+                'ware_house_id'=> $inv->ware_house_id]
+            )->orderBy('full_name', 'asc')->get();
+            return view('administrator.employee.create')->with([
+                "emp" => $emp,
+                "inv" => $inv,
+            ]);
+        }
     }
 
     /**
@@ -86,7 +102,8 @@ class EmployeeController extends Controller
                 'phone_number' =>'required|min:1|max:11|unique:employees',
                 'email' =>'required|min:1|max:255|unique:employees',
                 'contract_type' =>'required|min:1|max:255|',
-                'address' =>'required|min:1|max:255',  
+                'address' =>'required|min:1|max:255', 
+                'ware_house_id' => 'required|min:1|max:255', 
             ]);
 
             if(Employee::where("phone_number", $request->input("phone_number"))->exists()){
@@ -105,6 +122,7 @@ class EmployeeController extends Controller
                     "email" => $request->input("email"),
                     "contract_type" => $request->input("contract_type"),
                     "address" => $request->input("address"),
+                    "ware_house_id" => $request->input("ware_house_id"),
                 ]);
                 
                 $use = new User([
@@ -155,28 +173,63 @@ class EmployeeController extends Controller
     public function edit($employee_id)
     {
         if(auth()->user()->hasPermissionTo('employee-edit')){
-            $employee = Employee::orderBy("employee_id", "desc")->get();
-            $employ = $this->model->show($employee_id); 
-            $details = Employee::where([
-                "employee_id" => $employee_id, 
-            ])->first();
+            if(auth()->user()->hasRole('Administrator') 
+            OR auth()->user()->hasRole('Admin')){
+                $employee = Employee::orderBy("employee_id", "desc")->get();
+                $warehouse = WareHouseManagement::orderBy("name", "asc")->get();
+                $employ = $this->model->show($employee_id); 
+                $details = Employee::where([
+                    "employee_id" => $employee_id, 
+                ])->first();
+                $email = $details->email;
+                $user = User::where([
+                    "email" => $email, 
+                ])->first();
+                $user_id = $user->user_id;
+                $usd = $user = User::find($user_id);
+                $roles = Role::pluck('name','name')->all();
+                $userRole = $usd->roles->pluck('name','name')->all();
+                return view('administrator.employee.edit')->with([
+                    "employee" => $employee,
+                    "employ" =>$employ,
+                    "user" => $user,
+                    "roles"=>$roles,
+                    "userRole" => $userRole,
+                    "usd" => $usd,
+                    "warehouse" => $warehouse,
+                ]);
+            }else{
+                $inv = WareHouseManagement::where([
+                    'user_id'=> auth()->user()->user_id,
+                ])->first();
+                $ware_house_id = $inv->ware_house_id;
+                $employ = $this->model->show($employee_id); 
+                $details = Employee::where([
+                    "employee_id" => $employee_id, 
+                ])->first();
+                $emp =  Employee::where([
+                    'ware_house_id'=> $inv->ware_house_id]
+                )->orderBy('full_name', 'asc')->get();
+                $email = $details->email;
+                $user = User::where([
+                    "email" => $email, 
+                ])->first();
+                $user_id = $user->user_id;
+                $usd = $user = User::find($user_id);
+                $roles = Role::pluck('name','name')->all();
+                $userRole = $usd->roles->pluck('name','name')->all();
+                return view('administrator.employee.edit')->with([
+                    "emp" => $emp,
+                    "inv" => $inv,
+                    
+                    "employ" =>$employ,
+                    "user" => $user,
+                    "roles"=>$roles,
+                    "userRole" => $userRole,
+                    "usd" => $usd,
+                ]);
+            }
             
-            $email = $details->email;
-            $user = User::where([
-                "email" => $email, 
-            ])->first();
-            $user_id = $user->user_id;
-            $usd = $user = User::find($user_id);
-            $roles = Role::pluck('name','name')->all();
-            $userRole = $usd->roles->pluck('name','name')->all();
-            return view('administrator.employee.edit')->with([
-                "employee" => $employee,
-                "employ" =>$employ,
-                "user" => $user,
-                "roles"=>$roles,
-                "userRole" => $userRole,
-                "usd" => $usd,
-            ]);
         } else{
             return redirect()->back()->with([
                 'error' => "You Dont have Access To Edit An Employee",
@@ -200,6 +253,7 @@ class EmployeeController extends Controller
                 'email' =>'required|min:1|max:255',
                 'contract_type' =>'required|min:1|max:255',
                 'address' =>'required|min:1|max:255',  
+                'ware_house_id' =>'required|min:1|max:255',  
             ]);
 
             $data = ([
@@ -209,6 +263,7 @@ class EmployeeController extends Controller
                 "email" => $request->input("email"),
                 "contract_type" => $request->input("contract_type"),
                 "address" => $request->input("address"),
+                "ware_house_id" => $request->input("ware_house_id"),
             ]);
             
             $sup = Employee::where([
@@ -275,7 +330,7 @@ class EmployeeController extends Controller
                 "user_id" => Auth::user()->user_id,
             ]);
             if (($employee->delete($employee_id)) AND ($employee->trashed())AND($user->delete()) 
-                AND ($user->trashed())) {
+                AND ($user->trashed()) AND ($log->save())) {
                 $user->removeRole($roles);
                 return redirect()->back()->with([
                     'success' => "You Have Deleted ". " ". $details->name. " ". 

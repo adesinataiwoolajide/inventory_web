@@ -205,5 +205,17 @@ Route::group(["prefix" => "administrator", "middleware" => "verified"], function
         Route::get("/recyclebin", "EmployeeController@bin")->name("employee.restore"); 
         Route::get("/restore/{employee_id}", "EmployeeController@restore")->name("employee.undelete");  
     });
+
+    Route::group(["prefix" => "salaries"], function(){
+        Route::get("/index", "SalaryController@index")->name("salary.index");
+        Route::get("/create", "SalaryController@create")->name("salary.create");
+        Route::post("/save", "SalaryController@store")->name("salary.save");
+        Route::get("/edit/{salary_id}", "SalaryController@edit")->name("salary.edit");   
+        Route::get("/delete/{salary_id}", "SalaryController@destroy")->name("salary.delete");
+        Route::post("/update/{salary_id}", "SalaryController@update")->name("salary.update"); 
+        
+        Route::get("/recyclebin", "SalaryController@bin")->name("salary.restore"); 
+        Route::get("/restore/{salary_id}", "SalaryController@restore")->name("salary.undelete");  
+    });
 });
 

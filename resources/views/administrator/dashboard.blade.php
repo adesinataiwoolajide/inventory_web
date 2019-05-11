@@ -291,7 +291,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6 col-xl-4" onclick="location.href=''" style="">
+                        <div class="col-12 col-lg-6 col-xl-4" onclick="location.href='{{route('salary.index')}}'" style="">
                             <div class="card gradient-army">
                                 <div class="card-body">
                                     <div class="media d-flex">

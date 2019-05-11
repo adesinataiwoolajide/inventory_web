@@ -29,7 +29,7 @@
 	            			<form action="{{route('employee.save')}}" method="POST" enctype="multipart/form-data">
 	            				{{ csrf_field() }}
 		            			<div class="form-group row ">
-		            				<div class="col-sm-4">
+		            				<div class="col-sm-3">
                                         <label>Full Name</label>
                                         <input type="text" name="full_name" class="form-control form-control-rounded" 
                                         value="{{ old('full_name') }}" required placeholder="Enter The employee Name">
@@ -46,7 +46,7 @@
 										    </div>
                                         @endif  
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <label>E-Mail</label>
                                         <input type="email" name="email" class="form-control 
                                         form-control-rounded" required value="{{ old('email') }}" placeholder="Enter The Employee Email">
@@ -63,7 +63,7 @@
                                             </div>
                                         @endif  
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <label>Phone Number</label>
                                         <input type="number" name="phone_number" class="form-control 
                                         form-control-rounded" required placeholder="Enter The Phone Number" value="{{ old('phone_number') }}">
@@ -80,7 +80,7 @@
                                             </div>
                                         @endif  
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <label>Contract Type</label>
                                         <select name="contract_type" required class="form-control form-control-rounded">
                                             <option value="">-- Contract Type --</option>
@@ -104,17 +104,50 @@
                                     </div>
 
                                     <div class="col-sm-4">
+                                        <label>Ware House</label>
+                                        <select name="ware_house_id" required class="form-control form-control-rounded">
+                                            <option value="">-- Select Ware House --</option>
+                                            <option value=""> </option>
+                                            @if(auth()->user()->hasRole('Administrator') 
+                                                OR auth()->user()->hasRole('Admin')){
+                                                @foreach ($warehouse as $warehouses)
+                                                    <option value="{{$warehouses->ware_house_id}}">{{$warehouses->name}} </option>
+                                                @endforeach
+                                                
+                                            @else
+                                                <option value="{{$inv->ware_house_id}}">{{$inv->name}} </option>
+                                            @endif
+                                            
+                                            
+                                        </select>
+                                        <span style="color: red">** This Field is Required **</span>
+                                            @if ($errors->has('ware_house_id'))
+                                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                                <div class="alert-icon contrast-alert">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                                <div class="alert-message">
+                                                    <span><strong>Error!</strong> {{ $errors->first('ware_house_id') }} !</span>
+                                                </div>
+                                            </div>
+                                        @endif  
+                                        
+                                    </div>
+
+                                    <div class="col-sm-4">
                                         <label>Category</label>
                                         <select name="role" required class="form-control form-control-rounded">
                                             
-                                            <option value="{{old('role') }}">{{old('role')}} </option>
+                                            
                                             <option value="">-- Role --</option>
+                                            <option value="{{old('role') }}">{{old('role')}} </option>
                                             <option value="Accountant">Accountant </option>
                                             <option value="Admin">Admin </option>
                                             <option value="Administrator">Administrator </option>
                                             <option value="Editor">Editor </option>
                                             <option value="Receptionist">Receptionist </option>
-                                            <option value="Sales Girl">Sales Girl </option>
+                                            <option value="Staff">Staff </option>
                                             
                                         </select>
                                         <span style="color: red">** This Field is Required **</span>
@@ -167,71 +200,144 @@
 			 <div class="row">
 		    	<div class="col-lg-12">
 		          	<div class="card">
-		          		@if(count($employee) ==0)
-                            <div class="card-header" align="center" style="color: red">
-                                <i class="fa fa-table"></i> The List is Empty
-			            	</div>
+                        @if(auth()->user()->hasRole('Administrator') 
+                            OR auth()->user()->hasRole('Admin')){
+                            @if(count($employee) ==0)
+                                <div class="card-header" align="center" style="color: red">
+                                    <i class="fa fa-table"></i> The List is Empty In All Ware House
+                                </div> 
 
-			            @else
-			            	<div class="card-header"><i class="fa fa-table"></i> List of Saved Employees</div>
-		            		<div class="card-body">
-		              			<div class="table-responsive">
-                                    <table id="default-datatable" class="table table-bordered">
-		              					<thead>
-						                    <tr>
-                                                
-                                                <th> Name</th>
-                                                <th>Phone</th>
-                                                <th> Email </th>
-                                                <th>Type </th>
-                                                <th>Action</th>
-						                    </tr>
-						                </thead>
-
-						                <tfoot>
-						                    <tr>
-                                                
-                                                <th> Name</th>
-                                                <th>Phone</th>
-                                                <th> Email </th>
-                                                <th>Type </th>
-                                                <th>Action</th>
-						                    </tr>
-						                </tfoot>
-						                <tbody>
-						                	<?php $number =1; ?>
-						                	@foreach($employee as $employees)
-							                    <tr>
+                            @else
+                                <div class="card-header"><i class="fa fa-table"></i> List of All Employees In All Ware House</div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="default-datatable" class="table table-bordered">
+                                            <thead>
+                                                <tr>
                                                     
-							                        <td>{{$employees->full_name}}</td> 
-                                                    <td>{{$employees->phone_number}}</td> 
-                                                    <td>{{$employees->email}}</td> 
-                                                    <td>{{$employees->contract_type}}</td> 
-                                                    <td>
-                                                        @if(auth()->user()->hasRole('Administrator') OR(
-															auth()->user()->hasRole('Admin')))
-                                                        {{-- @can('employee-delete') --}}
-                                                            <a href="{{route('employee.delete', $employees->employee_id)}}" 
-                                                                onclick="return(confirmToDelete());" class="btn btn-danger">
-                                                                <i class="fa fa-trash-o"></i>
-                                                            </a>
-                                                        @endif
-                                                        @can('employee-edit')
-                                                            <a href="{{route('employee.edit', $employees->employee_id)}}" 
-                                                                onclick="return(confirmToEdit());" class="btn btn-success">
-                                                                <i class="fa fa-pencil"></i>
-                                                            </a>
-                                                        @endcan
-							                        </td>
-							                    </tr><?php
-							                    $number++; ?>
-							                @endforeach
-						                </tbody>
-						               
-		              				</table>
-		              			</div>
-		              		</div>
-		             	@endif
+                                                    <th> Name</th>
+                                                    <th>Phone</th>
+                                                    <th> Email </th>
+                                                    <th>Type </th>
+                                                    <th>Ware House </th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tfoot>
+                                                <tr>
+                                                    
+                                                    <th> Name</th>
+                                                    <th>Phone</th>
+                                                    <th> Email </th>
+                                                    <th>Type </th>
+                                                    <th>Ware House </th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <?php $number =1; ?>
+                                                @foreach($employee as $employees)
+                                                    <tr>
+                                                        
+                                                        <td>{{$employees->full_name}}</td> 
+                                                        <td>{{$employees->phone_number}}</td> 
+                                                        <td>{{$employees->email}}</td> 
+                                                        <td>{{$employees->contract_type}}</td> 
+                                                        <td>{{$employees->warehouse->name}}</td> 
+                                                        <td>
+                                                            @if(auth()->user()->hasRole('Administrator') OR(
+                                                                auth()->user()->hasRole('Admin')))
+                                                            {{-- @can('employee-delete') --}}
+                                                                <a href="{{route('employee.delete', $employees->employee_id)}}" 
+                                                                    onclick="return(confirmToDelete());" class="btn btn-danger">
+                                                                    <i class="fa fa-trash-o"></i>
+                                                                </a>
+                                                            @endif
+                                                            @can('employee-edit')
+                                                                <a href="{{route('employee.edit', $employees->employee_id)}}" 
+                                                                    onclick="return(confirmToEdit());" class="btn btn-success">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                            @endcan
+                                                        </td>
+                                                    </tr><?php
+                                                    $number++; ?>
+                                                @endforeach
+                                            </tbody>
+                                        
+                                        </table>
+                                    </div>
+                                </div>
+                            @endif
+                        @else
+                            @if(count($emp) ==0)
+                                <div class="card-header" align="center" style="color: red">
+                                    <i class="fa fa-table"></i> The List is Empty in {{$inv->name}} Ware House
+                                </div>
+
+                            @else
+                            <div class="card-header"><i class="fa fa-table"></i> List of Saved Employees in {{$inv->name}}</div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="default-datatable" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    
+                                                    <th> Name</th>
+                                                    <th>Phone</th>
+                                                    <th> Email </th>
+                                                    <th>Type </th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tfoot>
+                                                <tr>
+                                                    
+                                                    <th> Name</th>
+                                                    <th>Phone</th>
+                                                    <th> Email </th>
+                                                    <th>Type </th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <?php $number =1; ?>
+                                                @foreach($emp as $employees)
+                                                    <tr>
+                                                        
+                                                        <td>{{$employees->full_name}}</td> 
+                                                        <td>{{$employees->phone_number}}</td> 
+                                                        <td>{{$employees->email}}</td> 
+                                                        <td>{{$employees->contract_type}}</td> 
+                                                        <td>{{$employees->warehouse->name}}</td> 
+                                                        <td>
+                                                            @if(auth()->user()->hasRole('Administrator') OR(
+                                                                auth()->user()->hasRole('Admin')))
+                                                            {{-- @can('employee-delete') --}}
+                                                                <a href="{{route('employee.delete', $employees->employee_id)}}" 
+                                                                    onclick="return(confirmToDelete());" class="btn btn-danger">
+                                                                    <i class="fa fa-trash-o"></i>
+                                                                </a>
+                                                            @endif
+                                                            @can('employee-edit')
+                                                                <a href="{{route('employee.edit', $employees->employee_id)}}" 
+                                                                    onclick="return(confirmToEdit());" class="btn btn-success">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                            @endcan
+                                                        </td>
+                                                    </tr><?php
+                                                    $number++; ?>
+                                                @endforeach
+                                            </tbody>
+                                        
+                                        </table>
+                                    </div>
+                                </div>
+                            @endif
+                        @endif
 	              	</div>
 	            </div>
 	        </div>
