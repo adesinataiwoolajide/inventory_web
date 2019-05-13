@@ -114,9 +114,13 @@
                                         <label>Category & Variant</label>
                                         <select name="variant_id" class="form-control 
                                         form-control-rounded" required>
-                                        <option value="{{$pro->variant->variant_id}}">
-                                                {{$pro->variant->variant_name}}
-                                        </option>
+                                        @foreach(ProductCategory($pro->category_id) as $ca)
+                                            <option value="{{$pro->variant->variant_id}}">
+                                                {{
+                                                $ca->category_name. " ". $pro->variant->variant_name. " ". $pro->variant->variant_size
+                                                }}
+                                            </option>
+                                        @endforeach
                                             <option value=""> </option>
                                             @foreach($variant as $variants)
                                                 @foreach(ProductCategory($variants->category_id) as $cat)
