@@ -95,7 +95,7 @@ class Distributors extends Model
     }
 
     public function outlet(){
-        return $this->belongsTo('App\Outlet', 'outlet_id');
+        return $this->hasMany('App\Outlet', 'outlet_id');
     }
 
     public function creditPaid(){

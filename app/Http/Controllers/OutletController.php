@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\{Outlets, User, ActivityLog};
+use App\{Outlets, User, ActivityLog, Distributors};
 use App\Repositories\OutletRepository;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -23,9 +23,11 @@ class OutletController extends Controller
      */
     public function index()
     {
-        $outlet= $this->model->all();
+        $outlet= Outlets::orderBy('outlet_name', 'asc')->get();
+        $distributor = Distributors::orderBy('name', 'asc')->get();
         return view('administrator.outlets.create')->with([
             'outlet' => $outlet,
+            'distributor' =>$distributor,
         ]);
     }
 
@@ -41,7 +43,7 @@ class OutletController extends Controller
 
     public function bin()
     {
-        $outlet= Outlets::onlyTrashed()->get();
+        $outlet= Outlets::onlyTrashed()->orderBy('deleted_at', 'desc')->get();
         return view('administrator.outlets.recyclebin')->with([
             'outlet' => $outlet,
         ]);
@@ -76,20 +78,27 @@ class OutletController extends Controller
         if(auth()->user()->hasPermissionTo('outlet-create')){
             $this->validate($request, [
                 'outlet_name' =>'required|min:1|max:255|unique:outlets',
+                'distributor_id' => 'required|min:1|',
             ]);
+
+            $distributor= Distributors::where([
+                "distributor_id" => $request->input("distributor_id")
+            ])->first();
+            $name = $distributor->name;
             $data = ([
                 "outlet" => new Outlets,
                 "outlet_name" => $request->input("outlet_name"),
+                "distributor_id" => $request->input("distributor_id"),
             ]);
 
             $log = new ActivityLog([
-                "operations" => "Added ".$request->input("outlet_name"). " To The Outlet List",
+                "operations" => "Added". " ". $request->input('outlet_name'). " ". "Outlet For Distributor $name",
                 "user_id" => Auth::user()->user_id,
             ]);
 
             if($log->save() AND ($this->model->create($data))){
-                return redirect()->route("outlet.create")->with("success", "You Have Added " 
-                .$request->input("outlet_name"). " To The Outlet List Successfully");
+                return redirect()->route("outlet.create")->with("success", "You Have Added". " ". 
+                $request->input('outlet_name'). " ". "Outlet For Distributor $name Successfully");
             }
         } else{
             return redirect()->back()->with([
@@ -120,9 +129,11 @@ class OutletController extends Controller
         if(auth()->user()->hasPermissionTo('outlet-update')){
             $outlet= $this->model->all();
             $out = $this->model->show($outlet_id);
+            $distributor = Distributors::orderBy('name', 'asc')->get();
             return view('administrator.outlets.edit')->with([
                 'outlet' => $outlet,
                 'out' => $out,
+                'distributor' => $distributor,
             ]);
         } else{
             return redirect()->back()->with([
@@ -143,25 +154,30 @@ class OutletController extends Controller
         if(auth()->user()->hasPermissionTo('outlet-update')){
             $this->validate($request, [
                 'outlet_name' =>'required|min:1|max:255',
+                'distributor_id' => 'required|min:1|',
             ]);
+    
+            $distributor= Distributors::where([
+                "distributor_id" => $request->input("distributor_id")
+            ])->first();
+            $name = $distributor->name;
             $data = ([
                 "outlet" => $this->model->show($outlet_id),
                 "outlet_name" => $request->input("outlet_name"),
+                "distributor_id"=> $request->input("distributor_id"),
             ]);
 
             $log = new ActivityLog([
-                "operations" => "Changed The Outlet Name From ". " ". $request->input("prev_name"). " ". " 
-                To". " ". $request->input("outlet_name"),
+                "operations" => "Updated The Outlet Details ",
                 "user_id" => Auth::user()->user_id,
             ]);
 
             if($log->save() AND ($this->model->update($data, $outlet_id))){
-                return redirect()->route("outlet.create")->with("success", "Changed The Outlet Name From ". " ". $request->input("prev_name"). " ". " 
-                To". " ". $request->input("outlet_name"). " ". "Successfully");
+                return redirect()->route("outlet.create")->with("success", "You Have Updated The Outlet Details Successfully");
             }
         } else{
             return redirect()->back()->with([
-                'error' => "You Dont have Access To Create Outlets",
+                'error' => "You Dont have Access To Create An Outlets",
             ]);
         }
     }

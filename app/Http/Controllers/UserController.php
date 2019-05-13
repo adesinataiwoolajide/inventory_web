@@ -68,12 +68,86 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function profile()
     {
-        $roles = Role::pluck('name','name')->all();
-        return view('users.create',compact('roles'));
+        $use = User::where('email', auth()->user()->email)->first();
+        return view('administrator.users.my_profile')->with([
+            "use" => $use,
+            
+        ]);
     }
 
+    public function resetpassword()
+    {
+        $use = User::where('email', auth()->user()->email)->first();
+        return view('administrator.users.change_password')->with([
+            "use" => $use,
+            
+        ]);
+    }
+
+    public function updateprofile(Request $request, $user_id)
+    {
+        $this->validate($request, [
+            'name' => 'required|min:1|max:255|',
+            'role' => 'required|min:1|max:255'
+        ]);
+        $user = $this->model->show($user_id);
+    
+        $data =([
+            "user" => $this->model->show($user_id),
+            "email" => $request->input("email"),
+            "name" => $request->input("name"),
+            "role" => $request->input("role"),
+            "status" => 1,
+        ]);
+
+        $log = new ActivityLog([
+            "operations" => "Updated His/Her Profile",
+            "user_id" => Auth::user()->user_id,
+        ]);
+        DB::table('model_has_roles')->where('model_id',$user_id)->delete();
+
+        if(($log->save()) AND ($this->model->update($data, $user_id))){
+            $addRoles = $user->assignRole($request->input('role'));
+            
+            return redirect()->route("administrator.dashboard")->with("success", "You Have Updated Your
+            Details Successfully");
+        }else{
+            return redirect()->back()->with("error", "Network Failure");
+        } 
+    }
+
+    public function updatepassword(Request $request)
+    {
+        
+        $validate = $this->validate($request, [
+            'name' => 'required|min:1|max:255|',
+            'password' => 'required|confirmed|min:1|max:255',
+        ]);
+        $user_id = auth()->user()->user_id;
+
+        $data =([
+            "user" => $this->model->show($user_id),
+            "email" => $request->input("email"),
+            "name" => $request->input("name"),
+            "password" => Hash::make($request->input("password")),
+            "role" => $request->input("role"),
+            "status" => 1,
+        ]);
+        $log = new ActivityLog([
+            "operations" => "Changed Password",
+            "user_id" => Auth::user()->user_id,
+        ]);
+        if(($log->save()) AND ($this->model->update($data, $user_id))){
+           
+            return redirect()->route("administrator.dashboard")->with("success", "You Have Changed Your Password Successfully");
+        }else{
+            return redirect()->back()->with("error", "Network Failure");
+        } 
+
+        
+    }
 
     /**
      * Store a newly created resource in storage.

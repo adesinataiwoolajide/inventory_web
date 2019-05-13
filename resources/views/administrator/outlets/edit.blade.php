@@ -31,7 +31,9 @@
 	            				{{ csrf_field() }}
 		            			<div class="form-group row ">
 		            				<div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-rounded" value="{{$out->outlet_name}}" name="outlet_name" required placeholder="Enter The Outlet Name">
+										<label>Outlet Name</label>
+										<input type="text" class="form-control form-control-rounded" value="{{$out->outlet_name}}" 
+										name="outlet_name" required placeholder="Enter The Outlet Name">
 					                    <span style="color: red">** This Field is Required **</span>
 					                     @if ($errors->has('outlet_name'))
                                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -44,10 +46,33 @@
 										        </div>
 										    </div>
                                         @endif  
-                                    </div>
+									</div>
+									<div class="col-sm-6">
+										<label>Distributor Name</label>
+										<select name="distributor_id" class="form-control form-control-rounded" required>
+											<option value="{{$out->distributor_id}}">{{$out->distributor->name}}</option>
+											<option value="{{ old('distributor_id') }}"> {{ old('distributor_id') }}</option>
+											<option value=""> </option>
+											@foreach($distributor as $distributors)
+												<option value="{{$distributors->distributor_id}}">{{$distributors->name}} </option>
+											@endforeach
+										</select>
+										<span style="color: red">** This Field is Required **</span>
+										@if ($errors->has('distributor_id'))
+											<div class="alert alert-danger alert-dismissible" role="alert">
+												<button type="button" class="close" data-dismiss="alert">&times;</button>
+												<div class="alert-icon contrast-alert">
+													<i class="fa fa-check"></i>
+												</div>
+												<div class="alert-message">
+													<span><strong>Error!</strong> {{ $errors->first('distributor_id') }} !</span>
+												</div>
+											</div>
+										@endif  
+									</div>
                                     <input type="hidden" value="{{$out->outlet_name}}" name="prev_name">
 
-					                <div class="col-sm-6" align="center">
+					                <div class="col-sm-12" align="center">
 					                    <button type="submit" class="btn btn-success btn-lg btn-block">UPDATE THE OUTLET </button>
 					                </div>
 						            
@@ -74,6 +99,7 @@
 											<tr>
 												
 												<th>Outlet Name</th>
+												<th>Distributor Name</th>
 												<th>Time Added</th>
 												<th>Operations</th>
 											</tr>
@@ -83,6 +109,7 @@
 											<tr>
 												
 												<th>Outlet Name</th>
+												<th>Distributor Name</th>
 												<th>Time Added</th>
 												<th>Operations</th>
 											</tr>
@@ -93,7 +120,7 @@
 												<tr>
 													
 													<td>{{$outlets->outlet_name}}</td>
-													
+													<td>{{$outlets->distributor->name}} </td>
 													<td>{{$outlets->created_at}}</td>
 													<td>
 														@if(auth()->user()->hasRole('Administrator') OR(

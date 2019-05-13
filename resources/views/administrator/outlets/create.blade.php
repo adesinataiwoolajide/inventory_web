@@ -34,6 +34,7 @@
 									{{ csrf_field() }}
 									<div class="form-group row ">
 										<div class="col-sm-6">
+											<label>Outlet Name</label>
 											<input type="text" class="form-control form-control-rounded" value="{{ old('outlet_name') }}" name="outlet_name" required placeholder="Enter The Outlet Name">
 											<span style="color: red">** This Field is Required **</span>
 											@if ($errors->has('outlet_name'))
@@ -48,8 +49,31 @@
 												</div>
 											@endif  
 										</div>
+										<div class="col-sm-6">
+											<label>Distributor Name</label>
+											<select name="distributor_id" class="form-control form-control-rounded" required>
+												<option value="">-- Select The Distributor -- </option>
+												<option value="{{ old('outlet_name') }}"> {{ old('outlet_name') }}</option>
+												<option value=""> </option>
+												@foreach($distributor as $distributors)
+													<option value="{{$distributors->distributor_id}}">{{$distributors->name}} </option>
+												@endforeach
+											</select>
+											<span style="color: red">** This Field is Required **</span>
+											@if ($errors->has('distributor_id'))
+												<div class="alert alert-danger alert-dismissible" role="alert">
+													<button type="button" class="close" data-dismiss="alert">&times;</button>
+													<div class="alert-icon contrast-alert">
+														<i class="fa fa-check"></i>
+													</div>
+													<div class="alert-message">
+														<span><strong>Error!</strong> {{ $errors->first('distributor_id') }} !</span>
+													</div>
+												</div>
+											@endif  
+										</div>
 
-										<div class="col-sm-6" align="center">
+										<div class="col-sm-12" align="center">
 											<button type="submit" class="btn btn-success btn-lg btn-block">ADD THE OUTLET </button>
 										</div>
 										
@@ -76,9 +100,9 @@
 		              					<thead>
 						                    <tr>
 						                        
-						                        <th>Outlet Name</th>
+												<th>Outlet Name</th>
+												<th>Distributor Name</th>
 												<th>Time Added</th>
-
 												<th>Operations</th>
 						                    </tr>
 						                </thead>
@@ -87,6 +111,7 @@
 						                    <tr>
 												
 												<th>Outlet Name</th>
+												<th>Distributor Name</th>
 												<th>Time Added</th>
 												<th>Operations</th>
 						                    </tr>
@@ -96,8 +121,8 @@
 						                	@foreach($outlet as $outlets)
 							                    <tr>
 													
-							                        <td>{{$outlets->outlet_name}}</td>
-							                        
+													<td>{{$outlets->outlet_name}}</td>
+													<td>{{$outlets->distributor->name}} </td>
 													<td>{{$outlets->created_at}}</td>
 													<td>
 														@if(auth()->user()->hasRole('Administrator') OR(

@@ -156,9 +156,14 @@ Route::group(["prefix" => "administrator", "middleware" => "verified"], function
     Route::group(["prefix" => "users"], function(){
         Route::get("/create", "UserController@index")->name("user.create");
         Route::post("/save", "UserController@store")->name("user.save");
+        Route::get("/profile", "UserController@profile")->name("user.profile");
         Route::get("/edit/{user_id}", "UserController@edit")->name("user.edit");   
         Route::get("/delete/{user_id}", "UserController@destroy")->name("user.delete");
         Route::post("/update/{user_id}", "UserController@update")->name("user.update"); 
+        Route::post("/update_profile/{user_id}", "UserController@updateprofile")->name("profile.update"); 
+
+        Route::get("/change_password", "UserController@resetpassword")->name("change.pasword");
+        Route::post("/update_password/{user_id}", "UserController@updatepassword")->name("update.password");
         
         Route::get("/recyclebin", "UserController@bin")->name("user.restore"); 
         Route::get("/restore/{user_id}", "UserController@restore")->name("user.undelete");  

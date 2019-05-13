@@ -13,11 +13,11 @@
 						@can('outlet-create')
 							<li class="breadcrumb-item"><a href="{{route('outlet.create')}}">Add  outlet</a></li>
 						@endcan	
-						@can('assign-create')
+						{{-- @can('assign-create')
 							<li class="breadcrumb-item"><a href="{{route('assign.outlet.create')}}">
 								Assign An Outlet</a></li>
-						@endcan
-							<li class="breadcrumb-item active" aria-current="page">Saved Outlets</li>
+						@endcan --}}
+						<li class="breadcrumb-item active" aria-current="page">Saved Outlets</li>
 			         </ol>
 			   	</div>
 			</div>
@@ -39,7 +39,8 @@
 		              					<thead>
 						                    <tr>
 						                        <th>S/N</th>
-						                        <th>Outlet Name</th>
+												<th>Outlet Name</th>
+												<th>Distributor Name</th>
 												<th>Time Deleted</th>
 						                    </tr>
 						                </thead>
@@ -48,6 +49,7 @@
 						                    <tr>
 												<th>S/N</th>
 												<th>Outlet Name</th>
+												<th>Distributor Name</th>
 												<th>Time Deleted</th>
 						                    </tr>
 						                </tfoot>
@@ -66,7 +68,7 @@
 														@endif
 							                        </td>
 							                        <td>{{$outlets->outlet_name}}</td>
-							                        
+							                        <td>{{$outlets->distributor->name}} </td>
 													<td>{{$outlets->deleted_at}}</td>
 							                    </tr><?php
 							                    $number++; ?>
